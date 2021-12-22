@@ -19,13 +19,13 @@ from os.path import exists
 #DEFINE CONSTANTS--------------------------------------------------------------
 META_COL_N = 12
 IDX_NAME = 'SKN'
-MASTER_DIR = r'/home/kodamak8/share/air_temp/'
+MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/air_temp/'
 WORKING_MASTER_DIR = MASTER_DIR + r'working_data/'
-RUN_MASTER_DIR = MASTER_DIR + r'preliminary_output/'
+RUN_MASTER_DIR = MASTER_DIR + r'data_outputs/'
 PROC_DATA_DIR = WORKING_MASTER_DIR + r'processed_data/'
 META_MASTER_DIR = WORKING_MASTER_DIR + r'static_master_meta/'
-AGG_OUTPUT_DIR = RUN_MASTER_DIR + r'tables/station_data/daily/raw/'
-META_MASTER_FILE = META_MASTER_DIR + r'Master_Sta_List_Meta_2021_07_19.csv'
+AGG_OUTPUT_DIR = RUN_MASTER_DIR + r'tables/station_data/daily/raw/statewide/'
+META_MASTER_FILE = r'https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv'
 #END CONSTANTS-----------------------------------------------------------------
 
 #DEFINE FUNCTIONS--------------------------------------------------------------
@@ -105,7 +105,7 @@ def aggregate_input(varname,filename,datadir,outdir,master_file=META_MASTER_FILE
         year = st_date.year
         mon = st_date.month
         outfile_name = outdir + '_'.join(('daily',varname,str(year),'{:02d}'.format(mon))) + '.csv'
-        date_keys_str = [dt.strftime('%Y-%m-%d') for dt in date_keys]
+        date_keys_str = [dt.strftime('X%Y.%m.%d') for dt in date_keys]
         temp_df.columns = date_keys_str
         if exists(outfile_name):
             month_meta = update_input_file(temp_df,outfile_name,master_file)
@@ -130,7 +130,7 @@ def aggregate_input(varname,filename,datadir,outdir,master_file=META_MASTER_FILE
             yr = my.year
             month_keys = [dt for dt in date_keys if ((dt.month == mon) & (dt.year == yr))]
             month_df = temp_df[month_keys]
-            month_keys_str = [str(mk.date()) for mk in month_keys]
+            month_keys_str = [mk.date().strftime('X%Y.%m.%d') for mk in month_keys]
             month_df.columns = month_keys_str
             outfile_name = outdir + '_'.join(('daily',varname,str(yr),'{:02d}'.format(mon))) + '.csv'
             #check to see if file exists

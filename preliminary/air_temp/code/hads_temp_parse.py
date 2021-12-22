@@ -12,9 +12,10 @@ Description:
 -ified by date_str argument.
 
 Process output in standard file name format:
-YYYY_MM_[source]_processed_[varname].csv
+[varname]_[source]_YYYY_MM_processed_.csv
 --[source] is 'hads' for HADS processed input stream.
 
+/home/mplucas/precip_pipeline_container/final_scripts/workflows/dailyDataGet/HADS/outFiles/parse
 """
 import sys
 import numpy as np
@@ -30,13 +31,13 @@ HADS_TIMEKEY = 'obs_time'
 TMIN_VARNAME = 'Tmin'
 TMAX_VARNAME = 'Tmax'
 FINAL_STNKEY = 'NESDIS.id'
-MASTER_DIR = r'/home/kodamak8/share/air_temp/'
-SOURCE_DIR = r'/home/mplucas/data/raw/' + SOURCE_NAME + r'/parsed_data/'
+MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/air_temp/'
+SOURCE_DIR = r'/home/mplucas/precip_pipeline_container/final_scripts/workflows/dailyDataGet/' + SOURCE_NAME.upper() + r'/outFiles/parse/'
 CODE_MASTER_DIR = MASTER_DIR + r'code/'
 WORKING_MASTER_DIR = MASTER_DIR + r'working_data/'
 PROC_OUTPUT_DIR = WORKING_MASTER_DIR + r'processed_data/' + SOURCE_NAME + r'/'
 META_MASTER_DIR = WORKING_MASTER_DIR + r'static_master_meta/'
-META_MASTER_FILE = META_MASTER_DIR + r'Master_Sta_List_Meta_2021_07_19.csv'
+META_MASTER_FILE = r'https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv'
 #END CONSTANTS-----------------------------------------------------------------
 
 #DEFINE FUNCTIONS--------------------------------------------------------------
@@ -111,7 +112,7 @@ def get_station_sorted_temp(datadir,date_str,outdir,master_file=META_MASTER_FILE
     date_dt = pd.to_datetime(date_str)
     date_year = date_dt.year
     date_month = date_dt.month
-    fname = datadir + '_'.join((str(date_year),"{:02d}".format(date_month),SOURCE_NAME,'native_data')) + '.csv'
+    fname = datadir + '_'.join((str(date_year),"{:02d}".format(date_month),SOURCE_NAME,'1am_all_data')) + '.csv'
     hads_df = pd.read_csv(fname,on_bad_lines='skip',engine='python')
 
     hads_ta = hads_df[hads_df[HADS_VARKEY] == HADS_VARNAME]
