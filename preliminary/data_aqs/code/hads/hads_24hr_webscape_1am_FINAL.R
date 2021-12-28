@@ -2,6 +2,10 @@
 
 rm(list = ls())#remove all objects in R
 
+#set MAIN DIR
+mainDir <- "/home/hawaii_climate_products_container/preliminary"
+
+#set options
 options(warn=-1)#supress warnings for session
 print(paste("hads_24hr webscape run:",Sys.time()))#for cron log
 
@@ -40,11 +44,10 @@ apply.hourly <- function(x, FUN, roundtime = "round", na.rm = TRUE){
   }
  }#end apply.hrly function
 
-#set up dirs:server
-raw_page_wd<-"/home/mplucas/precip_pipeline_container/final_scripts/workflows/dailyDataGet/HADS/outFiles/raw"
-parse_wd<-"/home/mplucas/precip_pipeline_container/final_scripts/workflows/dailyDataGet/HADS/outFiles/parse"
-agg_daily_wd<-"/home/mplucas/precip_pipeline_container/final_scripts/workflows/dailyDataGet/HADS/outFiles/agg"
- 
+#output dirs
+raw_page_wd<-paste0(mainDir,"/data_aqs/data_outputs/hads/raw")
+parse_wd<-paste0(mainDir,"/data_aqs/data_outputs/hads/parse")
+agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/hads")
  
 #get data from HADS url
 url<-"https://hads.ncep.noaa.gov/nexhads2/servlet/DecodedData?sinceday=3&hsa=nil&state=HI&nesdis_ids=nil&of=1" #this is the URL for all data in website in the last 24
@@ -76,7 +79,7 @@ if(max(as.numeric(files==unagg_hads_monthly_filename))>0){
 	}
 print("pased all data table saved...")
 
-#subset vars and cols and convert to mm
+#subset precip var, convert inch to mm and convert UTC to HST
 all_hads_pc<-subset(all_hads,var=="PC")# subset precip only
 all_hads_pc$random<-trimws(as.character(all_hads_pc$random))
 all_hads_pc<-subset(all_hads_pc, random == "")[,-c(6)] #remove random samples and random col

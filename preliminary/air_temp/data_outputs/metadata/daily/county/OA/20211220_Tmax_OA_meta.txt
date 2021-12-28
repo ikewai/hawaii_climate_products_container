@@ -1,0 +1,29 @@
+attribute           value                                                       
+dataStatement       This Dec. 20, 2021 daily temperature maximum map of Honolulu County (Oahu) is a high spatial resolution gridded prediction of maximum temperature in degrees Celsius for the date Dec. 20, 2021. This was produced using a piece-wise linear regression model regressed on elevation with the junction point at 2150 meters. The model was trained on 12 unique station location(s) within Honolulu County (Oahu). A leave one out cross validation (LOOCV) of the station data used in this map produced an R-squared of: 0.6893. All maps are subject to change as new data becomes available or unknown errors are corrected in reoccurring versions. Errors in temperature estimates do vary over space meaning any gridded temperature value, even on higher quality maps, could still produce incorrect estimates. Check standard error (SE) maps to better understand spatial estimates of prediction error
+keywords            Honolulu County (Oahu), Hawaii, maximum temperature prediction, daily temperature, temperature, climate, linear regression
+county              oa                                                          
+dataDate            Dec. 20, 2021                                               
+dataVersionType     preliminary                                                 
+tempStationFile     daily_Tmax_2021_12.csv                                      
+tempGridFile        Tmax_map_OA_20211220.tif                                    
+tempSEGridFile      Tmax_map_OA_20211220_se.tif                                 
+crossValidationFile 20211220_Tmax_OA_loocv.csv                                  
+GeoCoordUnits       Decimal Degrees                                             
+GeoCoordRefSystem   +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+XResolution         0.00225                                                     
+YResolution         0.00225                                                     
+ExtentXmin          -158.320875                                                 
+ExtentXmax          -157.603125                                                 
+ExtentYmin          21.181124999999998                                          
+ExtentYmax          21.741374999999998                                          
+stationCount        12                                                          
+outerStationCount   0                                                           
+regressionConst     26.7611                                                     
+regressionSlope1    -0.0098                                                     
+regressionSlope2    0.0                                                         
+biasTemp            0.06577                                                     
+rsqTemp             0.68925                                                     
+rmseTemp            0.88615                                                     
+maeTemp             0.79676                                                     
+credits             All data produced by University of Hawaii at Manoa Dept. of Geography and the Enviroment, Ecohydology Lab in collaboration with the Water Resource Research Center (WRRC). Support for the Hawai‘i EPSCoR Program is provided by the Hawaii Emergency Management Agency.
+contacts            Keri Kodama (kodamak8@hawaii.edu), Matthew Lucas (mplucas@hawaii.edu), Ryan Longman (rlongman@hawaii.edu), Sayed Bateni (smbateni@hawaii.edu), Thomas Giambelluca (thomas@hawaii.edu)

@@ -1,0 +1,29 @@
+attribute           value                                                       
+dataStatement       This Dec. 20, 2021 daily temperature maximum map of Maui County (Maui, Lanai, Molokai, Kahoolawe) is a high spatial resolution gridded prediction of maximum temperature in degrees Celsius for the date Dec. 20, 2021. This was produced using a piece-wise linear regression model regressed on elevation with the junction point at 2150 meters. The model was trained on 8 unique station location(s) within Maui County (Maui, Lanai, Molokai, Kahoolawe). Due to limited station availability, the model training was supplemented by 1 station(s) from Big Island. A leave one out cross validation (LOOCV) of the station data used in this map produced an R-squared of: 0.923. All maps are subject to change as new data becomes available or unknown errors are corrected in reoccurring versions. Errors in temperature estimates do vary over space meaning any gridded temperature value, even on higher quality maps, could still produce incorrect estimates. Check standard error (SE) maps to better understand spatial estimates of prediction error
+keywords            Maui County (Maui, Lanai, Molokai, Kahoolawe), Hawaii, maximum temperature prediction, daily temperature, temperature, climate, linear regression
+county              mn                                                          
+dataDate            Dec. 20, 2021                                               
+dataVersionType     preliminary                                                 
+tempStationFile     daily_Tmax_2021_12.csv                                      
+tempGridFile        Tmax_map_MN_20211220.tif                                    
+tempSEGridFile      Tmax_map_MN_20211220_se.tif                                 
+crossValidationFile 20211220_Tmax_MN_loocv.csv                                  
+GeoCoordUnits       Decimal Degrees                                             
+GeoCoordRefSystem   +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+XResolution         0.00225                                                     
+YResolution         0.00225                                                     
+ExtentXmin          -157.348875                                                 
+ExtentXmax          -155.926875                                                 
+ExtentYmin          20.344125000000002                                          
+ExtentYmax          21.320625000000003                                          
+stationCount        8                                                           
+outerStationCount   1                                                           
+regressionConst     25.5537                                                     
+regressionSlope1    -0.0053                                                     
+regressionSlope2    0.0                                                         
+biasTemp            -0.14192                                                    
+rsqTemp             0.92301                                                     
+rmseTemp            1.13041                                                     
+maeTemp             0.86852                                                     
+credits             All data produced by University of Hawaii at Manoa Dept. of Geography and the Enviroment, Ecohydology Lab in collaboration with the Water Resource Research Center (WRRC). Support for the Hawai‘i EPSCoR Program is provided by the Hawaii Emergency Management Agency.
+contacts            Keri Kodama (kodamak8@hawaii.edu), Matthew Lucas (mplucas@hawaii.edu), Ryan Longman (rlongman@hawaii.edu), Sayed Bateni (smbateni@hawaii.edu), Thomas Giambelluca (thomas@hawaii.edu)
