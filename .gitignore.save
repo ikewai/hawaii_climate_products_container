@@ -1,6 +1,4 @@
-*.zip
 *.csv
 *.tif
 *.DS_Store
 *.rds
-*_1am.txt

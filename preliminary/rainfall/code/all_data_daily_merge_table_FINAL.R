@@ -3,6 +3,7 @@ rm(list = ls())#remove all objects in R
 
 #set MAIN DIR
 mainDir <- "/home/hawaii_climate_products_container/preliminary"
+#mainDir <- "C:/Users/Matt Lucas/Documents/jetsream_backup/" #dev dir
 
 options(warn=-1)#suppress warnings for session
 print(paste("all data daily merge run:",Sys.time()))#for cron log
@@ -32,7 +33,6 @@ rf_day_data_wd <- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/dai
 #add master metadata with SKN and lat long
 meta_url <- "https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv"
 geog_meta<-read.csv(meta_url, colClasses=c("NESDIS.id"="character"))
-geog_mini_meta<-geog_meta[,c("SKN","Station.Name","Observer","Network","Island","ELEV.m.","LAT","LON")] #make mini meta data of desired station name fields
 
 #names(geog_meta)
 #str(geog_meta)
@@ -250,18 +250,18 @@ print(count_log_all)
 #write or append daily source data
 setwd(rf_day_source_wd)#set rainfall output wd
 source_files<-list.files()
-source_month_filename<-paste0("daily_rf_source_",file_date,".csv") #dynamic file name that includes month year so when month is done new file is written
+source_month_filename<-paste0("Statewide_Daily_source_",file_date,".csv") #dynamic file name that includes month year so when month is done new file is written
 
 #conditional statement that adds new obs
 if(max(as.numeric(source_files==source_month_filename))>0){
   source_month_df<-read.csv(source_month_filename)
   sub_cols<-c("SKN",names(source_month_df)[grep("X",names(source_month_df))])
   final_source_data<-merge(source_month_df[,sub_cols],hads_nws_scan_wide_no_dup_source,by="SKN",all=T)
-  final_source_data<-merge(geog_mini_meta,final_source_data,by="SKN")
+  final_source_data<-merge(geog_meta,final_source_data,by="SKN")
   write.csv(final_source_data,source_month_filename, row.names=F)
   print(paste(source_month_filename,"daily souce table appended!"))
 }else{ #if month year file does not exist make a new month year file
-  final_source_data<-merge(geog_mini_meta,hads_nws_scan_wide_no_dup_source,by="SKN")
+  final_source_data<-merge(geog_meta,hads_nws_scan_wide_no_dup_source,by="SKN")
   write.csv(final_source_data,source_month_filename, row.names=F)
   print(paste(source_month_filename,"daily souce table written!"))
 }
@@ -274,20 +274,21 @@ tail(final_source_data)
 #write or append daily rf data
 setwd(rf_day_data_wd) #set rainfall output wd
 rf_files<-list.files()
-rf_month_filename<-paste0("daily_rf_",file_date,".csv") #dynamic file name that includes month year so when month is done new file is writen
+rf_month_filename<-paste0("Statewide_Raw_Daily_RF_mm_",file_date,".csv") #dynamic file name that includes month year so when month is done new file is writen
+
 #conditional statement that adds new obs
 if(max(as.numeric(rf_files==rf_month_filename))>0){
 	rf_month_df<-read.csv(rf_month_filename)
 	sub_cols<-c("SKN",names(rf_month_df)[grep("X",names(rf_month_df))])
 	add_rf_data_sub<-merge(rf_month_df[,sub_cols],hads_nws_scan_wide_no_dup_rf,by="SKN",all=T)
-	final_rf_data<-merge(geog_mini_meta,add_rf_data_sub,by="SKN")
+	final_rf_data<-merge(geog_meta,add_rf_data_sub,by="SKN")
 	write.csv(final_rf_data,rf_month_filename, row.names=F)
 	print(paste(rf_month_filename,"daily rainfall table appended!"))
     }else{ #if month year file does not exist make a new month year file
-	final_rf_data<-merge(geog_mini_meta,hads_nws_scan_wide_no_dup_rf,by="SKN")
+	final_rf_data<-merge(geog_meta,hads_nws_scan_wide_no_dup_rf,by="SKN")
 	write.csv(final_rf_data,rf_month_filename, row.names=F)
 	print(paste(rf_month_filename,"daily rainfall table written!"))
-    }
+}
 
 print("final data table below...")
 head(final_rf_data)
