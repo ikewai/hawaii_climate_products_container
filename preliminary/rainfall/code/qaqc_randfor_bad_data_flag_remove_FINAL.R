@@ -168,7 +168,7 @@ print(e-s)
 
 #make qaqc removed station long df 
 rf_qaqc_fail_stations<-data.frame(SKN=daily_rf_qaqc_fail$SKN,
-                              date=rep(as.Date(gsub("X","",rfcol),format="%Y.%m.%d"),ncol=daily_rf_qaqc_fail),
+                              date=as.Character(rep(as.Date(gsub("X","",rfcol),format="%Y.%m.%d"),ncol=daily_rf_qaqc_fail)),
                               rfmm=daily_rf_qaqc_fail[,rfcol],
                               statusPred=daily_rf_qaqc_fail$statusPred,
                               probBad=daily_rf_qaqc_fail$probBad)

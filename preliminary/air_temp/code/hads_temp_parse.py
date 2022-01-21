@@ -20,7 +20,7 @@ Process output in standard file name format:
 import sys
 import numpy as np
 import pandas as pd
-from datetime import date
+from datetime import date, timedelta
 
 #DEFINE CONSTANTS--------------------------------------------------------------
 SOURCE_NAME = 'hads'
@@ -57,10 +57,17 @@ def get_station_interval(var_df):
     return station_ints
 
 def get_tminmax_day(var_df,date_str,station_ints):
+    #HADS_TIMEKEY is in UTC
+    #Get HST times for date_str and convert to UTC to query
     obs_time = pd.to_datetime(var_df[HADS_TIMEKEY])
     current_dt = pd.to_datetime(date_str)
-    obs_dates = obs_time.dt.date
-    var_date = var_df.where(obs_dates==current_dt).dropna().drop_duplicates(subset=[HADS_STNKEY,HADS_TIMEKEY])
+    st_dt = pd.to_datetime(date_str)
+    en_dt = st_dt + timedelta(days=1)
+    st_dt_utc = st_dt + timedelta(hours=10)
+    en_dt_utc = en_dt + timedelta(hours=10)
+    obs_times_in_date = obs_time[((obs_time>=st_dt_utc)&(obs_time<en_dt_utc))]
+    hst_inds = obs_times_in_date.index.values
+    var_date = var_df.loc[hst_inds].drop_duplicates(subset=[HADS_STNKEY,HADS_TIMEKEY])
     uni_stn = var_date[HADS_STNKEY].unique()
     temp_data = []
     for stnID in uni_stn:
