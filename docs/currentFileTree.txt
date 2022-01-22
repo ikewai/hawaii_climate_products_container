@@ -1,86 +1,20 @@
 hawaii_climate_products_container/
-├── LICENSE
-├── README.md
 ├── archival
 ├── docs
-│   ├── currentDirs.txt
-│   └── currentFileTree.txt
 ├── operational
 ├── preliminary
 │   ├── air_temp
 │   │   ├── code
-│   │   │   ├── Temp_linear.py
-│   │   │   ├── __pycache__
-│   │   │   │   ├── Temp_linear.cpython-37.pyc
-│   │   │   │   ├── cross_validate_temp.cpython-37.pyc
-│   │   │   │   ├── daily_temp_map_batch.cpython-37.pyc
-│   │   │   │   ├── daily_temp_mean_batch.cpython-37.pyc
-│   │   │   │   ├── temp_aggregate_input.cpython-37.pyc
-│   │   │   │   └── temp_state_aggregate.cpython-37.pyc
-│   │   │   ├── air_temp_aggregate_wrapper.py
-│   │   │   ├── county_map_wrapper.py
-│   │   │   ├── cross_validate_temp.py
-│   │   │   ├── daily_temp_map_batch.py
-│   │   │   ├── daily_temp_mean_batch.py
-│   │   │   ├── hads_temp_parse.py
-│   │   │   ├── meta_data_wrapper.py
-│   │   │   ├── state_wrapper.py
-│   │   │   ├── temp_aggregate_input.py
-│   │   │   └── temp_state_aggregate.py
+│   │   │   └── __pycache__
 │   │   ├── data_outputs
 │   │   │   ├── metadata
 │   │   │   │   ├── daily
 │   │   │   │   │   ├── county
 │   │   │   │   │   │   ├── BI
-│   │   │   │   │   │   │   ├── 20211212_Tmax_BI_meta.txt
-│   │   │   │   │   │   │   ├── 20211212_Tmean_BI_meta.txt
-│   │   │   │   │   │   │   ├── 20211212_Tmin_BI_meta.txt
-│   │   │   │   │   │   │   ├── 20211219_Tmax_BI_meta.txt
-│   │   │   │   │   │   │   ├── 20211219_Tmean_BI_meta.txt
-│   │   │   │   │   │   │   ├── 20211219_Tmin_BI_meta.txt
-│   │   │   │   │   │   │   ├── 20211220_Tmax_BI_meta.txt
-│   │   │   │   │   │   │   ├── 20211220_Tmean_BI_meta.txt
-│   │   │   │   │   │   │   └── 20211220_Tmin_BI_meta.txt
 │   │   │   │   │   │   ├── KA
-│   │   │   │   │   │   │   ├── 20211212_Tmax_KA_meta.txt
-│   │   │   │   │   │   │   ├── 20211212_Tmean_KA_meta.txt
-│   │   │   │   │   │   │   ├── 20211212_Tmin_KA_meta.txt
-│   │   │   │   │   │   │   ├── 20211219_Tmax_KA_meta.txt
-│   │   │   │   │   │   │   ├── 20211219_Tmean_KA_meta.txt
-│   │   │   │   │   │   │   ├── 20211219_Tmin_KA_meta.txt
-│   │   │   │   │   │   │   ├── 20211220_Tmax_KA_meta.txt
-│   │   │   │   │   │   │   ├── 20211220_Tmean_KA_meta.txt
-│   │   │   │   │   │   │   └── 20211220_Tmin_KA_meta.txt
 │   │   │   │   │   │   ├── MN
-│   │   │   │   │   │   │   ├── 20211212_Tmax_MN_meta.txt
-│   │   │   │   │   │   │   ├── 20211212_Tmean_MN_meta.txt
-│   │   │   │   │   │   │   ├── 20211212_Tmin_MN_meta.txt
-│   │   │   │   │   │   │   ├── 20211219_Tmax_MN_meta.txt
-│   │   │   │   │   │   │   ├── 20211219_Tmean_MN_meta.txt
-│   │   │   │   │   │   │   ├── 20211219_Tmin_MN_meta.txt
-│   │   │   │   │   │   │   ├── 20211220_Tmax_MN_meta.txt
-│   │   │   │   │   │   │   ├── 20211220_Tmean_MN_meta.txt
-│   │   │   │   │   │   │   └── 20211220_Tmin_MN_meta.txt
 │   │   │   │   │   │   └── OA
-│   │   │   │   │   │       ├── 20211212_Tmax_OA_meta.txt
-│   │   │   │   │   │       ├── 20211212_Tmean_OA_meta.txt
-│   │   │   │   │   │       ├── 20211212_Tmin_OA_meta.txt
-│   │   │   │   │   │       ├── 20211219_Tmax_OA_meta.txt
-│   │   │   │   │   │       ├── 20211219_Tmean_OA_meta.txt
-│   │   │   │   │   │       ├── 20211219_Tmin_OA_meta.txt
-│   │   │   │   │   │       ├── 20211220_Tmax_OA_meta.txt
-│   │   │   │   │   │       ├── 20211220_Tmean_OA_meta.txt
-│   │   │   │   │   │       └── 20211220_Tmin_OA_meta.txt
 │   │   │   │   │   └── statewide
-│   │   │   │   │       ├── 20211212_Tmax_state_meta.txt
-│   │   │   │   │       ├── 20211212_Tmean_state_meta.txt
-│   │   │   │   │       ├── 20211212_Tmin_state_meta.txt
-│   │   │   │   │       ├── 20211219_Tmax_state_meta.txt
-│   │   │   │   │       ├── 20211219_Tmean_state_meta.txt
-│   │   │   │   │       ├── 20211219_Tmin_state_meta.txt
-│   │   │   │   │       ├── 20211220_Tmax_state_meta.txt
-│   │   │   │   │       ├── 20211220_Tmean_state_meta.txt
-│   │   │   │   │       └── 20211220_Tmin_state_meta.txt
 │   │   │   │   └── monthly
 │   │   │   │       ├── county
 │   │   │   │       │   ├── BI
@@ -94,55 +28,10 @@ hawaii_climate_products_container/
 │   │   │   │   │   ├── daily
 │   │   │   │   │   │   ├── county
 │   │   │   │   │   │   │   ├── BI
-│   │   │   │   │   │   │   │   ├── 20211212_Tmax_BI_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211212_Tmean_BI_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211212_Tmin_BI_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211219_Tmax_BI_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211219_Tmean_BI_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211219_Tmin_BI_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211220_Tmax_BI_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211220_Tmean_BI_loocv.csv
-│   │   │   │   │   │   │   │   └── 20211220_Tmin_BI_loocv.csv
 │   │   │   │   │   │   │   ├── KA
-│   │   │   │   │   │   │   │   ├── 20211212_Tmax_KA_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211212_Tmean_KA_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211212_Tmin_KA_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211219_Tmax_KA_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211219_Tmean_KA_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211219_Tmin_KA_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211220_Tmax_KA_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211220_Tmean_KA_loocv.csv
-│   │   │   │   │   │   │   │   └── 20211220_Tmin_KA_loocv.csv
 │   │   │   │   │   │   │   ├── MN
-│   │   │   │   │   │   │   │   ├── 20211212_Tmax_MN_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211212_Tmean_MN_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211212_Tmin_MN_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211219_Tmax_MN_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211219_Tmean_MN_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211219_Tmin_MN_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211220_Tmax_MN_loocv.csv
-│   │   │   │   │   │   │   │   ├── 20211220_Tmean_MN_loocv.csv
-│   │   │   │   │   │   │   │   └── 20211220_Tmin_MN_loocv.csv
 │   │   │   │   │   │   │   └── OA
-│   │   │   │   │   │   │       ├── 20211212_Tmax_OA_loocv.csv
-│   │   │   │   │   │   │       ├── 20211212_Tmean_OA_loocv.csv
-│   │   │   │   │   │   │       ├── 20211212_Tmin_OA_loocv.csv
-│   │   │   │   │   │   │       ├── 20211219_Tmax_OA_loocv.csv
-│   │   │   │   │   │   │       ├── 20211219_Tmean_OA_loocv.csv
-│   │   │   │   │   │   │       ├── 20211219_Tmin_OA_loocv.csv
-│   │   │   │   │   │   │       ├── 20211220_Tmax_OA_loocv.csv
-│   │   │   │   │   │   │       ├── 20211220_Tmean_OA_loocv.csv
-│   │   │   │   │   │   │       └── 20211220_Tmin_OA_loocv.csv
 │   │   │   │   │   │   └── statewide
-│   │   │   │   │   │       ├── 20211212_Tmax_state_loocv.csv
-│   │   │   │   │   │       ├── 20211212_Tmean_state_loocv.csv
-│   │   │   │   │   │       ├── 20211212_Tmin_state_loocv.csv
-│   │   │   │   │   │       ├── 20211219_Tmax_state_loocv.csv
-│   │   │   │   │   │       ├── 20211219_Tmean_state_loocv.csv
-│   │   │   │   │   │       ├── 20211219_Tmin_state_loocv.csv
-│   │   │   │   │   │       ├── 20211220_Tmax_state_loocv.csv
-│   │   │   │   │   │       ├── 20211220_Tmean_state_loocv.csv
-│   │   │   │   │   │       └── 20211220_Tmin_state_loocv.csv
 │   │   │   │   │   └── monthly
 │   │   │   │   │       ├── county
 │   │   │   │   │       │   ├── BI
@@ -158,23 +47,9 @@ hawaii_climate_products_container/
 │   │   │   │       │   ├── raw
 │   │   │   │       │   │   ├── county
 │   │   │   │       │   │   └── statewide
-│   │   │   │       │   │       ├── daily_Tmax_2021_11.csv
-│   │   │   │       │   │       ├── daily_Tmax_2021_12.csv
-│   │   │   │       │   │       ├── daily_Tmin_2021_11.csv
-│   │   │   │       │   │       └── daily_Tmin_2021_12.csv
 │   │   │   │       │   └── raw_qc
 │   │   │   │       │       ├── county
-│   │   │   │       │       │   ├── daily_Tmax_BI_2021_12_qc.csv
-│   │   │   │       │       │   ├── daily_Tmax_KA_2021_12_qc.csv
-│   │   │   │       │       │   ├── daily_Tmax_MN_2021_12_qc.csv
-│   │   │   │       │       │   ├── daily_Tmax_OA_2021_12_qc.csv
-│   │   │   │       │       │   ├── daily_Tmin_BI_2021_12_qc.csv
-│   │   │   │       │       │   ├── daily_Tmin_KA_2021_12_qc.csv
-│   │   │   │       │       │   ├── daily_Tmin_MN_2021_12_qc.csv
-│   │   │   │       │       │   └── daily_Tmin_OA_2021_12_qc.csv
 │   │   │   │       │       └── statewide
-│   │   │   │       │           ├── daily_Tmax_2021_12_qc.csv
-│   │   │   │       │           └── daily_Tmin_2021_12_qc.csv
 │   │   │   │       └── monthly
 │   │   │   │           └── partial_filled
 │   │   │   │               ├── county
@@ -184,71 +59,41 @@ hawaii_climate_products_container/
 │   │   │       │   ├── county
 │   │   │       │   │   ├── Tmax
 │   │   │       │   │   │   ├── BI
-│   │   │       │   │   │   │   └── Tmax_map_BI_20211220.tif
 │   │   │       │   │   │   ├── KA
-│   │   │       │   │   │   │   └── Tmax_map_KA_20211220.tif
 │   │   │       │   │   │   ├── MN
-│   │   │       │   │   │   │   └── Tmax_map_MN_20211220.tif
 │   │   │       │   │   │   └── OA
-│   │   │       │   │   │       └── Tmax_map_OA_20211220.tif
 │   │   │       │   │   ├── Tmax_se
 │   │   │       │   │   │   ├── BI
-│   │   │       │   │   │   │   └── Tmax_map_BI_20211220_se.tif
 │   │   │       │   │   │   ├── KA
-│   │   │       │   │   │   │   └── Tmax_map_KA_20211220_se.tif
 │   │   │       │   │   │   ├── MN
-│   │   │       │   │   │   │   └── Tmax_map_MN_20211220_se.tif
 │   │   │       │   │   │   └── OA
-│   │   │       │   │   │       └── Tmax_map_OA_20211220_se.tif
 │   │   │       │   │   ├── Tmean
 │   │   │       │   │   │   ├── BI
-│   │   │       │   │   │   │   └── Tmean_map_BI_20211220.tif
 │   │   │       │   │   │   ├── KA
-│   │   │       │   │   │   │   └── Tmean_map_KA_20211220.tif
 │   │   │       │   │   │   ├── MN
-│   │   │       │   │   │   │   └── Tmean_map_MN_20211220.tif
 │   │   │       │   │   │   └── OA
-│   │   │       │   │   │       └── Tmean_map_OA_20211220.tif
 │   │   │       │   │   ├── Tmean_se
 │   │   │       │   │   │   ├── BI
-│   │   │       │   │   │   │   └── Tmean_map_BI_20211220_se.tif
 │   │   │       │   │   │   ├── KA
-│   │   │       │   │   │   │   └── Tmean_map_KA_20211220_se.tif
 │   │   │       │   │   │   ├── MN
-│   │   │       │   │   │   │   └── Tmean_map_MN_20211220_se.tif
 │   │   │       │   │   │   └── OA
-│   │   │       │   │   │       └── Tmean_map_OA_20211220_se.tif
 │   │   │       │   │   ├── Tmin
 │   │   │       │   │   │   ├── BI
-│   │   │       │   │   │   │   └── Tmin_map_BI_20211220.tif
 │   │   │       │   │   │   ├── KA
-│   │   │       │   │   │   │   └── Tmin_map_KA_20211220.tif
 │   │   │       │   │   │   ├── MN
-│   │   │       │   │   │   │   └── Tmin_map_MN_20211220.tif
 │   │   │       │   │   │   └── OA
-│   │   │       │   │   │       └── Tmin_map_OA_20211220.tif
 │   │   │       │   │   └── Tmin_se
 │   │   │       │   │       ├── BI
-│   │   │       │   │       │   └── Tmin_map_BI_20211220_se.tif
 │   │   │       │   │       ├── KA
-│   │   │       │   │       │   └── Tmin_map_KA_20211220_se.tif
 │   │   │       │   │       ├── MN
-│   │   │       │   │       │   └── Tmin_map_MN_20211220_se.tif
 │   │   │       │   │       └── OA
-│   │   │       │   │           └── Tmin_map_OA_20211220_se.tif
 │   │   │       │   └── statewide
 │   │   │       │       ├── Tmax
-│   │   │       │       │   └── Tmax_map_state_20211220.tif
 │   │   │       │       ├── Tmax_se
-│   │   │       │       │   └── Tmax_map_state_20211220_se.tif
 │   │   │       │       ├── Tmean
-│   │   │       │       │   └── Tmean_map_state_20211220.tif
 │   │   │       │       ├── Tmean_se
-│   │   │       │       │   └── Tmean_map_state_20211220_se.tif
 │   │   │       │       ├── Tmin
-│   │   │       │       │   └── Tmin_map_state_20211220.tif
 │   │   │       │       └── Tmin_se
-│   │   │       │           └── Tmin_map_state_20211220_se.tif
 │   │   │       └── monthly
 │   │   │           ├── county
 │   │   │           │   ├── Tmax
@@ -291,194 +136,45 @@ hawaii_climate_products_container/
 │   │   ├── docs
 │   │   └── working_data
 │   │       ├── clim
-│   │       │   ├── Tmax_stn_clim.csv
-│   │       │   └── Tmin_stn_clim.csv
 │   │       ├── gapfill_models
-│   │       │   ├── Tmax_targetSKN1075.0_20140101-20181231.csv
-│   │       │   ├── Tmax_targetSKN337.0_20140101-20181231.csv
-│   │       │   ├── Tmax_targetSKN337.1_20140101-20181231.csv
-│   │       │   ├── Tmax_targetSKN339.6_20140101-20181231.csv
-│   │       │   ├── Tmax_targetSKN39.0_20140101-20181231.csv
-│   │       │   ├── Tmax_targetSKN39.1_20140101-20181231.csv
-│   │       │   ├── Tmax_targetSKN39.2_20140101-20181231.csv
-│   │       │   ├── Tmax_targetSKN728.2_20140101-20181231.csv
-│   │       │   ├── Tmax_targetSKN885.7_20140101-20181231.csv
-│   │       │   ├── Tmin_targetSKN1075.0_20140101-20181231.csv
-│   │       │   ├── Tmin_targetSKN337.0_20140101-20181231.csv
-│   │       │   ├── Tmin_targetSKN337.1_20140101-20181231.csv
-│   │       │   ├── Tmin_targetSKN339.6_20140101-20181231.csv
-│   │       │   ├── Tmin_targetSKN39.0_20140101-20181231.csv
-│   │       │   ├── Tmin_targetSKN39.1_20140101-20181231.csv
-│   │       │   ├── Tmin_targetSKN39.2_20140101-20181231.csv
-│   │       │   ├── Tmin_targetSKN728.2_20140101-20181231.csv
-│   │       │   └── Tmin_targetSKN885.7_20140101-20181231.csv
 │   │       ├── geoTiffs_250m
 │   │       │   ├── dem
-│   │       │   │   ├── bi_dem_250m.tif
-│   │       │   │   ├── ka_dem_250m.tif
-│   │       │   │   ├── mn_dem_250m.tif
-│   │       │   │   ├── oa_dem_250m.tif
-│   │       │   │   └── oa_dem_250m_orig.tif
 │   │       │   └── masks
-│   │       │       ├── bi_mask.tif
-│   │       │       ├── ka_mask.tif
-│   │       │       ├── mn_mask.tif
-│   │       │       ├── oa_mask.tif
-│   │       │       ├── oa_mask_orig.tif
-│   │       │       └── statewide_mask_master.tif
 │   │       ├── predictors
-│   │       │   ├── tmax_predictors.csv
-│   │       │   └── tmin_predictors.csv
 │   │       ├── processed_data
 │   │       │   └── hads
-│   │       │       ├── Tmax_hads_2021_12_processed.csv
-│   │       │       └── Tmin_hads_2021_12_processed.csv
 │   │       └── static_master_meta
-│   │           ├── Master_Sta_List_Meta_2020_11_09.csv
-│   │           ├── Master_Sta_List_Meta_2021_07_19.csv
-│   │           └── Master_Sta_Temp_Only_Meta.csv
 │   ├── data_aqs
 │   │   ├── code
 │   │   │   ├── hads
-│   │   │   │   └── hads_24hr_webscape.R
 │   │   │   ├── hi_mesonet
 │   │   │   ├── madis
-│   │   │   │   ├── hfmetar_24hr_fetch_dev.py
-│   │   │   │   ├── madis_fetch.err
-│   │   │   │   ├── madis_fetch.out
-│   │   │   │   ├── madis_fetch_cron.sh
-│   │   │   │   └── mesonet_24hr_fetch_dev.py
 │   │   │   ├── nws_rr5
-│   │   │   │   └── nws_rr5_hrly_24hr_webscape.R
 │   │   │   └── scan
-│   │   │       └── scan_daily_hourly_data_agg_FINAL.R
 │   │   ├── data_outputs
 │   │   │   ├── hads
 │   │   │   │   ├── parse
-│   │   │   │   │   ├── 2021_12_hads_1am_all_data.csv
-│   │   │   │   │   ├── 20220111_HADS_parse.csv
-│   │   │   │   │   ├── 20220112_HADS_parse.csv
-│   │   │   │   │   ├── 20220113_HADS_parse.csv
-│   │   │   │   │   ├── 20220114_HADS_parse.csv
-│   │   │   │   │   ├── 20220115_HADS_parse.csv
-│   │   │   │   │   ├── 20220116_HADS_parse.csv
-│   │   │   │   │   ├── 20220117_HADS_parse.csv
-│   │   │   │   │   ├── 20220118_HADS_parse.csv
-│   │   │   │   │   ├── 20220119_HADS_parse.csv
-│   │   │   │   │   ├── 20220120_hads_parse.csv
-│   │   │   │   │   └── 2022_01_hads_1am_all_data.csv
 │   │   │   │   └── raw
-│   │   │   │       ├── hads_hi_page_ending_2022_01_20_HST.txt
-│   │   │   │       ├── hads_hi_page_start2021_12_25_end2021_12_27_1am.txt
-│   │   │   │       ├── hads_hi_page_start2021_12_26_end2021_12_28_1am.txt
-│   │   │   │       ├── hads_hi_page_start2021_12_27_end2021_12_29_1am.txt
-│   │   │   │       ├── hads_hi_page_start2021_12_28_end2021_12_30_1am.txt
-│   │   │   │       ├── hads_hi_page_start2021_12_29_end2021_12_31_1am.txt
-│   │   │   │       ├── hads_hi_page_start2021_12_30_end2022_01_01_1am.txt
-│   │   │   │       ├── hads_hi_page_start2021_12_31_end2022_01_02_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_01_end2022_01_03_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_02_end2022_01_04_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_03_end2022_01_05_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_04_end2022_01_06_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_05_end2022_01_07_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_06_end2022_01_08_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_07_end2022_01_09_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_08_end2022_01_10_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_09_end2022_01_11_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_10_end2022_01_11_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_10_end2022_01_12_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_11_end2022_01_12_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_11_end2022_01_13_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_12_end2022_01_13_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_12_end2022_01_14_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_13_end2022_01_14_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_13_end2022_01_15_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_14_end2022_01_15_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_14_end2022_01_16_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_15_end2022_01_16_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_15_end2022_01_17_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_16_end2022_01_17_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_16_end2022_01_18_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_17_end2022_01_18_1am.txt
-│   │   │   │       ├── hads_hi_page_start2022_01_17_end2022_01_19_1am.txt
-│   │   │   │       └── hads_hi_page_start2022_01_18_end2022_01_19_1am.txt
 │   │   │   ├── hi_mesonet
 │   │   │   │   ├── parse
 │   │   │   │   └── raw
 │   │   │   ├── madis
 │   │   │   │   ├── parse
-│   │   │   │   │   ├── 20220114_madis_parsed.csv
-│   │   │   │   │   ├── 20220115_madis_parsed.csv
-│   │   │   │   │   ├── 20220116_madis_parsed.csv
-│   │   │   │   │   ├── 20220117_madis_parsed.csv
-│   │   │   │   │   ├── 20220118_madis_parsed.csv
-│   │   │   │   │   ├── 20220119_madis_parsed.csv
-│   │   │   │   │   ├── 20220120_madis_parsed.csv
-│   │   │   │   │   ├── 2022_01_10_madis_parsed.csv
-│   │   │   │   │   ├── 2022_01_11_madis_parsed.csv
-│   │   │   │   │   ├── 2022_01_12_madis_parsed.csv
-│   │   │   │   │   └── 2022_01_13_madis_parsed.csv
 │   │   │   │   └── raw
 │   │   │   ├── nws_rr5
 │   │   │   │   ├── parse
-│   │   │   │   │   ├── 20220111_NWSrr5_parse.csv
-│   │   │   │   │   ├── 20220112_NWSrr5_parse.csv
-│   │   │   │   │   ├── 20220113_NWSrr5_parse.csv
-│   │   │   │   │   ├── 20220114_NWSrr5_parse.csv
-│   │   │   │   │   ├── 20220115_NWSrr5_parse.csv
-│   │   │   │   │   ├── 20220116_NWSrr5_parse.csv
-│   │   │   │   │   ├── 20220117_NWSrr5_parse.csv
-│   │   │   │   │   ├── 20220119_NWSrr5_parse.csv
-│   │   │   │   │   ├── 20220120_nwsrr5_parse.csv
-│   │   │   │   │   ├── nws_hrly_24hr_2021_12.csv
-│   │   │   │   │   └── nws_hrly_24hr_2022_01.csv
 │   │   │   │   └── raw
-│   │   │   │       ├── nws_hrly_rf_html_2021_12_27.zip
-│   │   │   │       ├── nws_hrly_rf_html_2021_12_28.zip
-│   │   │   │       ├── nws_hrly_rf_html_2021_12_29.zip
-│   │   │   │       ├── nws_hrly_rf_html_2021_12_30.zip
-│   │   │   │       ├── nws_hrly_rf_html_2021_12_31.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_01.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_02.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_03.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_04.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_05.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_06.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_07.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_08.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_09.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_10.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_11.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_12.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_13.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_14.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_15.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_16.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_17.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_18.zip
-│   │   │   │       ├── nws_hrly_rf_html_2022_01_19.zip
-│   │   │   │       └── nws_hrly_rf_html_2022_01_20.zip
 │   │   │   └── scan
 │   │   │       └── parse
 │   │   └── docs
 │   └── rainfall
 │       ├── code
-│       │   ├── all_data_daily_merge_table_FINAL.R
-│       │   ├── hads_daily_rf_TEST.R
-│       │   ├── nws_rr5_daily_rf_TEST.R
-│       │   └── qaqc_randfor_bad_data_flag_remove_FINAL.R
 │       ├── data_outputs
 │       │   ├── tables
 │       │   │   ├── rf_station_tracking
 │       │   │   │   ├── count
-│       │   │   │   │   ├── count_log_daily_rf_2021_12.csv
-│       │   │   │   │   └── count_log_daily_rf_2022_01.csv
 │       │   │   │   ├── missing
-│       │   │   │   │   ├── unknown_rf_sta_2021_12.csv
-│       │   │   │   │   └── unknown_rf_sta_2022_01.csv
 │       │   │   │   └── qaqc_fail
-│       │   │   │       ├── qaqc_fail_stations_2021_12.csv
-│       │   │   │       └── qaqc_fail_stations_2022_01.csv
 │       │   │   ├── station_data
 │       │   │   │   ├── daily
 │       │   │   │   │   ├── partial_filled
@@ -487,18 +183,12 @@ hawaii_climate_products_container/
 │       │   │   │   │   ├── raw
 │       │   │   │   │   │   ├── county
 │       │   │   │   │   │   └── statewide
-│       │   │   │   │   │       ├── Statewide_Raw_Daily_RF_mm_2021_12.csv
-│       │   │   │   │   │       └── Statewide_Raw_Daily_RF_mm_2022_01.csv
 │       │   │   │   │   ├── raw_qc
 │       │   │   │   │   │   ├── county
 │       │   │   │   │   │   └── statewide
-│       │   │   │   │   │       ├── Statewide_QAQC_Raw_Daily_RF_mm_2021_12.csv
-│       │   │   │   │   │       └── Statewide_QAQC_Raw_Daily_RF_mm_2022_01.csv
 │       │   │   │   │   └── source
 │       │   │   │   │       ├── county
 │       │   │   │   │       └── statewide
-│       │   │   │   │           ├── Statewide_Daily_source_2021_12.csv
-│       │   │   │   │           └── Statewide_Daily_source_2022_01.csv
 │       │   │   │   └── monthly
 │       │   │   │       └── partial_filled
 │       │   │   │           ├── county
@@ -507,13 +197,9 @@ hawaii_climate_products_container/
 │       │   │       ├── qc_flag
 │       │   │       │   ├── county
 │       │   │       │   └── statewide
-│       │   │       │       ├── Statewide_RF_QAQC_Daily_Bad_Flag_2021_12.csv
-│       │   │       │       └── Statewide_RF_QAQC_Daily_Bad_Flag_2022_01.csv
 │       │   │       └── qc_prob
 │       │   │           ├── county
 │       │   │           └── statewide
-│       │   │               ├── Statewide_RF_QAQC_Daily_Bad_Prob_2021_12.csv
-│       │   │               └── Statewide_RF_QAQC_Daily_Bad_Prob_2022_01.csv
 │       │   └── tiffs
 │       │       ├── daily
 │       │       │   ├── county
@@ -571,46 +257,16 @@ hawaii_climate_products_container/
 │       │               └── rf_mm_se
 │       ├── dependencies
 │       │   ├── models
-│       │   │   ├── BI_no_human_rf_nonzero_randfor.rds
-│       │   │   ├── BI_no_human_rf_zero_randfor.rds
-│       │   │   ├── KA_no_human_rf_nonzero_randfor.rds
-│       │   │   ├── KA_no_human_rf_zero_randfor.rds
-│       │   │   ├── MN_no_human_rf_nonzero_randfor.rds
-│       │   │   ├── MN_no_human_rf_zero_randfor.rds
-│       │   │   ├── OA_no_human_rf_nonzero_randfor.rds
-│       │   │   └── OA_no_human_rf_zero_randfor.rds
 │       │   └── probRasters
 │       │       ├── 6mo
-│       │       │   ├── hi_statewide_meanlog_6mo_mjjaso.tif
-│       │       │   ├── hi_statewide_meanlog_6mo_ndjfma.tif
-│       │       │   ├── hi_statewide_pop_6mo_mjjaso.tif
-│       │       │   ├── hi_statewide_pop_6mo_ndjfma.tif
-│       │       │   ├── hi_statewide_sdlog_6mo_mjjaso.tif
-│       │       │   ├── hi_statewide_sdlog_6mo_ndjfma.tif
-│       │       │   ├── mn_meanlog_6mo_mjjaso.tif
-│       │       │   ├── mn_meanlog_6mo_ndjfma.tif
-│       │       │   ├── mn_pop_6mo_mjjaso.tif
-│       │       │   ├── mn_pop_6mo_ndjfma.tif
-│       │       │   ├── mn_sdlog_6mo_mjjaso.tif
-│       │       │   └── mn_sdlog_6mo_ndjfma.tif
 │       │       └── ann
-│       │           ├── hi_statewide_meanlog_annual_all.tif
-│       │           ├── hi_statewide_pop_annual_all.tif
-│       │           └── hi_statewide_sdlog_annual_all.tif
 │       ├── docs
 │       └── working_data
 │           ├── hads
-│           │   ├── hads_daily_rf_1am_2021_12.csv
-│           │   ├── hads_daily_rf_1am_2022_01.csv
-│           │   └── hads_daily_rf_TEST_2022_01.csv
 │           ├── hi_mesonet
 │           ├── madis
 │           ├── nws_rr5
-│           │   ├── nws_daily_rf_2021_12.csv
-│           │   ├── nws_daily_rf_2022_01.csv
-│           │   └── nws_daily_rf_TEST_2022_01.csv
 │           └── scan
-├── provisional
-└── textDirs.txt
+└── provisional
 
-269 directories, 344 files
+269 directories

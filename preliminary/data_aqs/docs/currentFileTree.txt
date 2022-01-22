@@ -1,127 +1,25 @@
 hawaii_climate_products_container/preliminary/data_aqs/
 ├── code
 │   ├── hads
-│   │   └── hads_24hr_webscape.R
 │   ├── hi_mesonet
 │   ├── madis
-│   │   ├── hfmetar_24hr_fetch_dev.py
-│   │   ├── madis_fetch.err
-│   │   ├── madis_fetch.out
-│   │   ├── madis_fetch_cron.sh
-│   │   └── mesonet_24hr_fetch_dev.py
 │   ├── nws_rr5
-│   │   └── nws_rr5_hrly_24hr_webscape.R
 │   └── scan
-│       └── scan_daily_hourly_data_agg_FINAL.R
 ├── data_outputs
 │   ├── hads
 │   │   ├── parse
-│   │   │   ├── 2021_12_hads_1am_all_data.csv
-│   │   │   ├── 20220111_HADS_parse.csv
-│   │   │   ├── 20220112_HADS_parse.csv
-│   │   │   ├── 20220113_HADS_parse.csv
-│   │   │   ├── 20220114_HADS_parse.csv
-│   │   │   ├── 20220115_HADS_parse.csv
-│   │   │   ├── 20220116_HADS_parse.csv
-│   │   │   ├── 20220117_HADS_parse.csv
-│   │   │   ├── 20220118_HADS_parse.csv
-│   │   │   ├── 20220119_HADS_parse.csv
-│   │   │   ├── 20220120_hads_parse.csv
-│   │   │   └── 2022_01_hads_1am_all_data.csv
 │   │   └── raw
-│   │       ├── hads_hi_page_ending_2022_01_20_HST.txt
-│   │       ├── hads_hi_page_start2021_12_25_end2021_12_27_1am.txt
-│   │       ├── hads_hi_page_start2021_12_26_end2021_12_28_1am.txt
-│   │       ├── hads_hi_page_start2021_12_27_end2021_12_29_1am.txt
-│   │       ├── hads_hi_page_start2021_12_28_end2021_12_30_1am.txt
-│   │       ├── hads_hi_page_start2021_12_29_end2021_12_31_1am.txt
-│   │       ├── hads_hi_page_start2021_12_30_end2022_01_01_1am.txt
-│   │       ├── hads_hi_page_start2021_12_31_end2022_01_02_1am.txt
-│   │       ├── hads_hi_page_start2022_01_01_end2022_01_03_1am.txt
-│   │       ├── hads_hi_page_start2022_01_02_end2022_01_04_1am.txt
-│   │       ├── hads_hi_page_start2022_01_03_end2022_01_05_1am.txt
-│   │       ├── hads_hi_page_start2022_01_04_end2022_01_06_1am.txt
-│   │       ├── hads_hi_page_start2022_01_05_end2022_01_07_1am.txt
-│   │       ├── hads_hi_page_start2022_01_06_end2022_01_08_1am.txt
-│   │       ├── hads_hi_page_start2022_01_07_end2022_01_09_1am.txt
-│   │       ├── hads_hi_page_start2022_01_08_end2022_01_10_1am.txt
-│   │       ├── hads_hi_page_start2022_01_09_end2022_01_11_1am.txt
-│   │       ├── hads_hi_page_start2022_01_10_end2022_01_11_1am.txt
-│   │       ├── hads_hi_page_start2022_01_10_end2022_01_12_1am.txt
-│   │       ├── hads_hi_page_start2022_01_11_end2022_01_12_1am.txt
-│   │       ├── hads_hi_page_start2022_01_11_end2022_01_13_1am.txt
-│   │       ├── hads_hi_page_start2022_01_12_end2022_01_13_1am.txt
-│   │       ├── hads_hi_page_start2022_01_12_end2022_01_14_1am.txt
-│   │       ├── hads_hi_page_start2022_01_13_end2022_01_14_1am.txt
-│   │       ├── hads_hi_page_start2022_01_13_end2022_01_15_1am.txt
-│   │       ├── hads_hi_page_start2022_01_14_end2022_01_15_1am.txt
-│   │       ├── hads_hi_page_start2022_01_14_end2022_01_16_1am.txt
-│   │       ├── hads_hi_page_start2022_01_15_end2022_01_16_1am.txt
-│   │       ├── hads_hi_page_start2022_01_15_end2022_01_17_1am.txt
-│   │       ├── hads_hi_page_start2022_01_16_end2022_01_17_1am.txt
-│   │       ├── hads_hi_page_start2022_01_16_end2022_01_18_1am.txt
-│   │       ├── hads_hi_page_start2022_01_17_end2022_01_18_1am.txt
-│   │       ├── hads_hi_page_start2022_01_17_end2022_01_19_1am.txt
-│   │       └── hads_hi_page_start2022_01_18_end2022_01_19_1am.txt
 │   ├── hi_mesonet
 │   │   ├── parse
 │   │   └── raw
 │   ├── madis
 │   │   ├── parse
-│   │   │   ├── 20220114_madis_parsed.csv
-│   │   │   ├── 20220115_madis_parsed.csv
-│   │   │   ├── 20220116_madis_parsed.csv
-│   │   │   ├── 20220117_madis_parsed.csv
-│   │   │   ├── 20220118_madis_parsed.csv
-│   │   │   ├── 20220119_madis_parsed.csv
-│   │   │   ├── 20220120_madis_parsed.csv
-│   │   │   ├── 2022_01_10_madis_parsed.csv
-│   │   │   ├── 2022_01_11_madis_parsed.csv
-│   │   │   ├── 2022_01_12_madis_parsed.csv
-│   │   │   └── 2022_01_13_madis_parsed.csv
 │   │   └── raw
 │   ├── nws_rr5
 │   │   ├── parse
-│   │   │   ├── 20220111_NWSrr5_parse.csv
-│   │   │   ├── 20220112_NWSrr5_parse.csv
-│   │   │   ├── 20220113_NWSrr5_parse.csv
-│   │   │   ├── 20220114_NWSrr5_parse.csv
-│   │   │   ├── 20220115_NWSrr5_parse.csv
-│   │   │   ├── 20220116_NWSrr5_parse.csv
-│   │   │   ├── 20220117_NWSrr5_parse.csv
-│   │   │   ├── 20220119_NWSrr5_parse.csv
-│   │   │   ├── 20220120_nwsrr5_parse.csv
-│   │   │   ├── nws_hrly_24hr_2021_12.csv
-│   │   │   └── nws_hrly_24hr_2022_01.csv
 │   │   └── raw
-│   │       ├── nws_hrly_rf_html_2021_12_27.zip
-│   │       ├── nws_hrly_rf_html_2021_12_28.zip
-│   │       ├── nws_hrly_rf_html_2021_12_29.zip
-│   │       ├── nws_hrly_rf_html_2021_12_30.zip
-│   │       ├── nws_hrly_rf_html_2021_12_31.zip
-│   │       ├── nws_hrly_rf_html_2022_01_01.zip
-│   │       ├── nws_hrly_rf_html_2022_01_02.zip
-│   │       ├── nws_hrly_rf_html_2022_01_03.zip
-│   │       ├── nws_hrly_rf_html_2022_01_04.zip
-│   │       ├── nws_hrly_rf_html_2022_01_05.zip
-│   │       ├── nws_hrly_rf_html_2022_01_06.zip
-│   │       ├── nws_hrly_rf_html_2022_01_07.zip
-│   │       ├── nws_hrly_rf_html_2022_01_08.zip
-│   │       ├── nws_hrly_rf_html_2022_01_09.zip
-│   │       ├── nws_hrly_rf_html_2022_01_10.zip
-│   │       ├── nws_hrly_rf_html_2022_01_11.zip
-│   │       ├── nws_hrly_rf_html_2022_01_12.zip
-│   │       ├── nws_hrly_rf_html_2022_01_13.zip
-│   │       ├── nws_hrly_rf_html_2022_01_14.zip
-│   │       ├── nws_hrly_rf_html_2022_01_15.zip
-│   │       ├── nws_hrly_rf_html_2022_01_16.zip
-│   │       ├── nws_hrly_rf_html_2022_01_17.zip
-│   │       ├── nws_hrly_rf_html_2022_01_18.zip
-│   │       ├── nws_hrly_rf_html_2022_01_19.zip
-│   │       └── nws_hrly_rf_html_2022_01_20.zip
 │   └── scan
 │       └── parse
 └── docs
-    └── currentFileTree.txt
 
-22 directories, 102 files
+22 directories
