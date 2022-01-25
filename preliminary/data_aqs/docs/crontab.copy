@@ -34,4 +34,5 @@
 35 1 * * * Rscript  /home/hawaii_climate_products_container/preliminary/data_aqs/code/hads/hads_24hr_webscape.R
    #HADS daily data grab - 1:35am daily
 
-#MADIS daily data grab - KERI
+0 1 * * * bash -c /home/hawaii_climate_products_container/preliminary/data_aqs/code/madis/madis_fetch_cron.sh > /home/hawaii_climate_products_container/preliminary/data_aqs/code/madis/madis_fetch.out 2> /home/hawaii_climate_products_container/preliminary/data_aqs/code/madis/madis_fetch.err
+   #MADIS daily data grab - 1:00am daily

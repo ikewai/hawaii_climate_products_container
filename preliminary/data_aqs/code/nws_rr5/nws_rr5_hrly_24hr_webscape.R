@@ -121,7 +121,7 @@ print("hrly data parsed!!!")
 
 #write or append files
 setwd(parse_hrly_wd)
-nws_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_nwsrr5_parse.csv") #dynamic file name that includes date
+nws_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_nwsrr5_parsed.csv") #dynamic file name that includes date
 write.csv(nws_hrly_data_final,nws_filename, row.names=F)
 print("24hr of hourly data saved!!!!")
 

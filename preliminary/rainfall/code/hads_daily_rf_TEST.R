@@ -49,7 +49,7 @@ agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/hads")
 
 #read HADS parsed table
 setwd(parse_wd)#sever path for parsed hads files
-hads_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_HADS_parse.csv") #dynamic file name that includes date
+hads_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_hads_parsed.csv") #dynamic file name that includes date
 all_hads<-read.csv(hads_filename)
 
 #subset precip var, convert inch to mm and convert UTC to HST

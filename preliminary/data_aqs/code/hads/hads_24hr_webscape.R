@@ -1,4 +1,4 @@
-#this code grabs all HADS data for HI, saves multiple copies, converts to MM and calcs daily RF total from precip acculations
+#this code grabs all HADS data for HI, saves multiple copies
 
 rm(list = ls())#remove all objects in R
 
@@ -34,7 +34,7 @@ all_hads$null<-NULL
 
 #write data to parsed table
 setwd(parse_wd)#sever path for parsed hads files
-hads_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_hads_parse.csv") #dynamic file name that includes date
+hads_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_hads_parsed.csv") #dynamic file name that includes date
 write.csv(all_hads,hads_filename, row.names=F)
 print("pased all data table saved...")
 

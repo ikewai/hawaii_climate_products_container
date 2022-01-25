@@ -16,7 +16,7 @@ agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/nws_rr5")
 
 #read parse file
 setwd(parse_hrly_wd)
-nws_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_NWSrr5_parse.csv") #dynamic file name that includes date
+nws_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_nwsrr5_parsed.csv") #dynamic file name that includes date
 nws_hrly_data_final<-read.csv(nws_filename)
 
 #agg to daily and removal partial daily obs
