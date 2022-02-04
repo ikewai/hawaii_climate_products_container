@@ -9,14 +9,13 @@ from affine import Affine
 from pyproj import Transformer
 
 #DEFINE CONSTANTS--------------------------------------------------------------
-MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/air_temp/'
-RUN_MASTER_DIR = MASTER_DIR + r'data_outputs/'
-WORKING_MASTER_DIR = MASTER_DIR + r'working_data/'
-PRED_DIR = WORKING_MASTER_DIR + r'predictors/'
-MASK_TIFF_DIR = WORKING_MASTER_DIR + r'geoTiffs_250m/masks/'
+MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
+RUN_MASTER_DIR = MASTER_DIR + r'air_temp/data_outputs/'
+DEP_MASTER_DIR = MASTER_DIR + r'air_temp/dependencies/'
+PRED_DIR = DEP_MASTER_DIR + r'predictors/'
+MASK_TIFF_DIR = DEP_MASTER_DIR + r'geoTiffs_250m/masks/'
 CV_OUTPUT_DIR = RUN_MASTER_DIR + r'tables/loocv/daily/county/'
 META_OUTPUT_DIR = RUN_MASTER_DIR + r'metadata/daily/county/'
-META_MASTER_DIR = WORKING_MASTER_DIR + r'static_master_meta/'
 META_MASTER_FILE = r'https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv'
 #END CONSTANTS-----------------------------------------------------------------
 
@@ -438,7 +437,7 @@ if __name__ == '__main__':
         year_str = date_str.split('-')[0]
         mon_str = date_str.split('-')[1]
 
-        temp_file = temp_input_dir + '_'.join(('daily','Tmin',year_str,mon_str)) + '.csv'
+        temp_file = temp_input_dir + '_'.join(('daily',varname,year_str,mon_str)) + '.csv'
         temp_df,temp_meta,temp_data = tmpl.extract_temp_input(temp_file)
         pred_df,pr_series = tmpl.extract_predictors(pred_file,params)
 

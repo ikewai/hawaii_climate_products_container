@@ -1,0 +1,144 @@
+hawaii_climate_products_container/preliminary/air_temp/
+├── code
+│   └── __pycache__
+├── data_outputs
+│   ├── metadata
+│   │   ├── daily
+│   │   │   ├── county
+│   │   │   │   ├── BI
+│   │   │   │   ├── KA
+│   │   │   │   ├── MN
+│   │   │   │   └── OA
+│   │   │   └── statewide
+│   │   └── monthly
+│   │       ├── county
+│   │       │   ├── BI
+│   │       │   ├── KA
+│   │       │   ├── MN
+│   │       │   └── OA
+│   │       └── statewide
+│   ├── tables
+│   │   ├── air_temp_station_tracking
+│   │   ├── loocv
+│   │   │   ├── daily
+│   │   │   │   ├── county
+│   │   │   │   │   ├── BI
+│   │   │   │   │   ├── KA
+│   │   │   │   │   ├── MN
+│   │   │   │   │   └── OA
+│   │   │   │   └── statewide
+│   │   │   └── monthly
+│   │   │       ├── county
+│   │   │       │   ├── BI
+│   │   │       │   ├── KA
+│   │   │       │   ├── MN
+│   │   │       │   └── OA
+│   │   │       └── statewide
+│   │   └── station_data
+│   │       ├── daily
+│   │       │   ├── partial_filled
+│   │       │   │   ├── county
+│   │       │   │   └── statewide
+│   │       │   ├── raw
+│   │       │   │   ├── county
+│   │       │   │   └── statewide
+│   │       │   └── raw_qc
+│   │       │       ├── county
+│   │       │       └── statewide
+│   │       └── monthly
+│   │           └── partial_filled
+│   │               ├── county
+│   │               └── statewide
+│   └── tiffs
+│       ├── daily
+│       │   ├── county
+│       │   │   ├── Tmax
+│       │   │   │   ├── BI
+│       │   │   │   ├── KA
+│       │   │   │   ├── MN
+│       │   │   │   └── OA
+│       │   │   ├── Tmax_se
+│       │   │   │   ├── BI
+│       │   │   │   ├── KA
+│       │   │   │   ├── MN
+│       │   │   │   └── OA
+│       │   │   ├── Tmean
+│       │   │   │   ├── BI
+│       │   │   │   ├── KA
+│       │   │   │   ├── MN
+│       │   │   │   └── OA
+│       │   │   ├── Tmean_se
+│       │   │   │   ├── BI
+│       │   │   │   ├── KA
+│       │   │   │   ├── MN
+│       │   │   │   └── OA
+│       │   │   ├── Tmin
+│       │   │   │   ├── BI
+│       │   │   │   ├── KA
+│       │   │   │   ├── MN
+│       │   │   │   └── OA
+│       │   │   └── Tmin_se
+│       │   │       ├── BI
+│       │   │       ├── KA
+│       │   │       ├── MN
+│       │   │       └── OA
+│       │   └── statewide
+│       │       ├── Tmax
+│       │       ├── Tmax_se
+│       │       ├── Tmean
+│       │       ├── Tmean_se
+│       │       ├── Tmin
+│       │       └── Tmin_se
+│       └── monthly
+│           ├── county
+│           │   ├── Tmax
+│           │   │   ├── BI
+│           │   │   ├── KA
+│           │   │   ├── MN
+│           │   │   └── OA
+│           │   ├── Tmax_se
+│           │   │   ├── BI
+│           │   │   ├── KA
+│           │   │   ├── MN
+│           │   │   └── OA
+│           │   ├── Tmean
+│           │   │   ├── BI
+│           │   │   ├── KA
+│           │   │   ├── MN
+│           │   │   └── OA
+│           │   ├── Tmean_se
+│           │   │   ├── BI
+│           │   │   ├── KA
+│           │   │   ├── MN
+│           │   │   └── OA
+│           │   ├── Tmin
+│           │   │   ├── BI
+│           │   │   ├── KA
+│           │   │   ├── MN
+│           │   │   └── OA
+│           │   └── Tmin_se
+│           │       ├── BI
+│           │       ├── KA
+│           │       ├── MN
+│           │       └── OA
+│           └── statewide
+│               ├── Tmax
+│               ├── Tmax_se
+│               ├── Tmean
+│               ├── Tmean_se
+│               ├── Tmin
+│               └── Tmin_se
+├── dependencies
+│   ├── clim
+│   ├── gapfill_models
+│   ├── geoTiffs_250m
+│   │   ├── dem
+│   │   └── masks
+│   └── predictors
+├── docs
+└── working_data
+    └── processed_data
+        ├── hads
+        └── madis
+
+141 directories

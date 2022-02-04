@@ -38,18 +38,20 @@ from pyproj import Transformer
 import Temp_linear as tmpl
 
 #DEFINE CONSTANTS-------------------------------------------------------------
-MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/air_temp/'
-CODE_MASTER_DIR = MASTER_DIR + r'code/'
-WORKING_MASTER_DIR = MASTER_DIR + r'working_data/'
-RUN_MASTER_DIR = MASTER_DIR + r'data_outputs/'
-PARAM_TIFF_DIR = WORKING_MASTER_DIR + r'geoTiffs_250m/' #Fixed dir for location of parameter geotiffs
-CLIM_FILL_DIR = WORKING_MASTER_DIR + r'clim/'
-PRED_DIR = WORKING_MASTER_DIR + r'predictors/'
+MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
+CODE_MASTER_DIR = MASTER_DIR + r'air_temp/code/'
+DEP_MASTER_DIR = MASTER_DIR + r'air_temp/dependencies/'
+RUN_MASTER_DIR = MASTER_DIR + r'air_temp/data_outputs/'
+PARAM_TIFF_DIR = DEP_MASTER_DIR + r'geoTiffs_250m/' #Fixed dir for location of parameter geotiffs
+CLIM_FILL_DIR = DEP_MASTER_DIR + r'clim/'
+PRED_DIR = DEP_MASTER_DIR + r'predictors/'
 QC_DATA_DIR = RUN_MASTER_DIR + r'tables/station_data/daily/raw_qc/county/'
 RAW_DATA_DIR = RUN_MASTER_DIR + r'tables/station_data/daily/raw/statewide/' #Location of station and predictor data for model fit
 MAP_OUTPUT_DIR = RUN_MASTER_DIR + r'tiffs/daily/county/' #Location of geotiff/png output
 SE_OUTPUT_DIR = RUN_MASTER_DIR + r'tiffs/daily/county/'
 PNG_OUTPUT_DIR = RUN_MASTER_DIR + r'plots/county/maps/'
+TRACK_DIR = RUN_MASTER_DIR + r'tables/air_temp_station_tracking/'
+MASTER_LINK = r'https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv'
 
 TEMP_TIFF_ON = True #Set True to output temperature gridded geotiff
 SE_TIFF_ON = True   #Set True to output standard error gridded geotiff
@@ -183,7 +185,7 @@ def output_tiff(df_data,tiff_filename,iCode,shape):
     outdata = None
     ds = None
 
-def output_png(tiff_file,png_file,iCode):
+def output_png(tiff_file,png_file,iCode,date_str):
     fig = plt.figure(figsize=(9, 9), dpi=80)
     ax = fig.add_subplot(1, 1, 1)
 
@@ -225,6 +227,17 @@ def output_png(tiff_file,png_file,iCode):
 
     fig.savefig(png_file, dpi=200)
     plt.close("all")    
+
+def update_fail(fail_name,fail_temps,date_str):
+    if exists(fail_name):
+        prev_fail_df = pd.read_csv(fail_name)
+        prev_fail_df = prev_fail_df.set_index('SKN')
+        master_df = pd.read_csv(MASTER_LINK)
+        master_df = master_df.set_index('SKN')
+        new_fail_meta = master_df.loc[fail_temps.index]
+        new_fail_meta.loc[new_fail_meta.index,'date'] = date_str
+        new_fail_meta.loc[new_fail_meta.index,'air_temp'] = fail_temps
+
 
 def generate_county_map(iCode, varname, params, date_str, output_dir=None):
 
@@ -288,8 +301,11 @@ def generate_county_map(iCode, varname, params, date_str, output_dir=None):
     indx = tmpl.removeOutlier(pr_series.values,temp_series.values,threshold=3)
     #Index of temp_series values (mixed-islands) that are not flagged
     df_indx = temp_series.index.values[indx]
-    #Get temp_date non-flagged values 
+    #Get temp_date non-flagged values
+    flagged_stns = np.setdiff1d(temp_series.index.values,df_indx)
     unflagged_temp = temp_date.loc[df_indx]
+    flagged_temp = temp_date.loc[flagged_stns]
+    
     #Get only target island flagged
     target_isl_qc = unflagged_temp[unflagged_temp['Island'].isin(isl_list)]
 

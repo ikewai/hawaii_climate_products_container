@@ -4,10 +4,10 @@ from datetime import date, timedelta
 from temp_state_aggregate import statewide_mosaic, create_tables, qc_state_aggregate
 
 #DEFINE CONSTANTS-------------------------------------------------------------
-MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/air_temp/'
-CODE_MASTER_DIR = MASTER_DIR + r'code/'
-WORKING_MASTER_DIR = MASTER_DIR + r'working_data/'
-RUN_MASTER_DIR = MASTER_DIR + r'data_outputs/'
+MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
+CODE_MASTER_DIR = MASTER_DIR + r'air_temp/code/'
+DEP_MASTER_DIR = MASTER_DIR + r'air_temp/dependencies/'
+RUN_MASTER_DIR = MASTER_DIR + r'air_temp/data_outputs/'
 COUNTY_MAP_DIR = RUN_MASTER_DIR + r'tiffs/daily/county/' #Set subdirectories based on varname and iCode
 STATE_MAP_DIR = RUN_MASTER_DIR + r'tiffs/daily/statewide/'
 SE_OUTPUT_DIR = RUN_MASTER_DIR + r'tiffs/daily/county/'

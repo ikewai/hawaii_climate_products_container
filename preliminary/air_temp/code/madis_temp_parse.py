@@ -1,23 +1,9 @@
 """
-____README____
-VERSION 2.0
-BEFORE IMPLEMENT: Please set default system directories/filepaths in CONSTANTS section
+This builds a script to convert raw madis sourced csv into min and max temperature.
 
-Description:
--Command line function: processes HADS data for specified date given as command argument
-    -if no argument, default is previous day from today(HST)
--Takes parsed HADS input data and converts to Tmin/max station-sorted time series with meta data
--Should be used in tandem with data aggregator. This is the min/max processing script for HADS.
-    -data aggregator combines with other source files into single aggregated file.
--Command line functionality defaults to processing data corresponding to mon-year of current date
--get_station_sorted_temp can be imported as module function and process data for any mon-year spec-
--ified by date_str argument.
-
-Process output in standard file name format:
-[varname]_[source]_YYYY_MM_processed.csv
---[source] is 'hads' for HADS processed input stream.
-
+Version 1.0
 """
+
 import sys
 import pytz
 import numpy as np
@@ -26,23 +12,18 @@ from datetime import datetime, timedelta
 from os.path import exists
 
 #DEFINE CONSTANTS--------------------------------------------------------------
-SOURCE_NAME = 'hads'
-HADS_VARNAME = 'TA'
-HADS_VARKEY = 'var'
-SRC_KEY = 'staID'
-SRC_TIME = 'obs_time'
-TMIN_VARNAME = 'Tmin'
-TMAX_VARNAME = 'Tmax'
-MASTER_KEY = 'NESDIS.id'
-MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
-SOURCE_DIR = MASTER_DIR + r'data_aqs/data_outputs/' + SOURCE_NAME + r'/parse/'
-CODE_MASTER_DIR = MASTER_DIR + r'air_temp/code/'
-WORKING_MASTER_DIR = MASTER_DIR + r'air_temp/working_data/'
-RUN_MASTER_DIR = MASTER_DIR + r'air_temp/data_outputs/'
-PROC_OUTPUT_DIR = WORKING_MASTER_DIR + r'processed_data/' + SOURCE_NAME + r'/'
-TRACK_DIR = RUN_MASTER_DIR + r'tables/air_temp_station_tracking/'
+SOURCE = 'madis'
+SRC_VARNAME = 'temperature'
+SRC_KEY = 'stationId'
+SRC_TIME = 'time'
+SRC_VARKEY = 'varname'
+MASTER_KEY = 'NWS.id'
+INT_EXCEPT = {'E3941':144.,'F4600':96.}
 MASTER_LINK = r'https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv'
-INT_EXCEPT = {}
+MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
+SOURCE_DIR = MASTER_DIR + r'data_aqs/data_outputs/madis/parse/'
+PROC_OUTPUT_DIR = MASTER_DIR + r'air_temp/working_data/processed_data/' + SOURCE + r'/'
+TRACK_DIR = MASTER_DIR + r'air_temp/data_outputs/tables/air_temp_station_tracking/'
 #END CONSTANTS-----------------------------------------------------------------
 
 #DEFINE FUNCTIONS--------------------------------------------------------------
@@ -64,38 +45,25 @@ def get_max_counts(temp_df,uni_stns):
         max_counts[stn] = max_count
     return max_counts
 
-def get_tmin_tmax(temp_df,date_str):
+def get_tmin_tmax(temp_df):
     uni_stns = temp_df[SRC_KEY].unique()
     max_counts = get_max_counts(temp_df,uni_stns)
     temp_data = []
-    obs_time = pd.to_datetime(temp_df[SRC_TIME])
-    st_dt = pd.to_datetime(date_str)
-    en_dt = st_dt + timedelta(days=1)
-    st_dt_utc = st_dt + timedelta(hours=10)
-    en_dt_utc = en_dt + timedelta(hours=10)
-    obs_times_in_date = obs_time[((obs_time>=st_dt_utc)&(obs_time<en_dt_utc))]
-    hst_inds = obs_times_in_date.index.values
-    #Hads temperature for date_str date (HST)
-    #Duplicate station and time keys dropped
-    temp_date = temp_df.loc[hst_inds].drop_duplicates(subset=[SRC_KEY,SRC_TIME])
-    date_str = pd.to_datetime(date_str).strftime('X%Y.%m.%d')
     for stn in uni_stns:
-        #Temperature data for one specified station, save tmin and tmax
-        stn_df = temp_date[temp_date[SRC_KEY]==stn].sort_values(by=SRC_TIME)
-        if stn in list(max_counts.keys()):
+        stn_df = temp_df[temp_df[SRC_KEY]==stn].sort_values(by=SRC_TIME)
+        st_date = stn_df[SRC_TIME].values[0]
+        date_str = pd.to_datetime(st_date).strftime('X%Y.%m.%d')
+        if stn in max_counts.keys():
             stn_max = max_counts[stn]
-            stn_counts = stn_df[~stn_df['value'].isna()].shape[0]
+            stn_counts = stn_df[~stn_df['value'].isna()].drop_duplicates(subset=[SRC_TIME]).shape[0]
             valid_pct = stn_counts/stn_max
             tmin = stn_df[~stn_df['value'].isna()]['value'].min()
             tmax = stn_df[~stn_df['value'].isna()]['value'].max()
-            #Convert to deg C
-            tmin = (tmin - 32) / 1.8
-            tmax = (tmax - 32) / 1.8
             if tmin<tmax:
                 temp_data.append([stn,'Tmin',date_str,tmin,valid_pct])
                 temp_data.append([stn,'Tmax',date_str,tmax,valid_pct])
-
     min_max_df = pd.DataFrame(temp_data,columns=[MASTER_KEY,'var','date','value','percent_valid'])
+    
     return min_max_df
 
 def convert_dataframe(long_df,varname):
@@ -110,6 +78,23 @@ def convert_dataframe(long_df,varname):
     wide_df.index.name = MASTER_KEY
     wide_df = wide_df.reset_index()
     return wide_df
+
+""" def update_csv(csv_name,new_data_df):
+    master_df = pd.read_csv(MASTER_LINK)
+    merged_new_df = master_df.merge(new_data_df,on=MASTER_KEY,how='inner')
+    merged_new_df = merged_new_df.set_index('SKN')
+    meta_cols = list(master_df.columns)
+    if exists(csv_name):
+        old_df = pd.read_csv(csv_name)
+        old_df = old_df.set_index('SKN')
+        updated_df = old_df.merge(merged_new_df,on=meta_cols,how='outer')
+        updated_df = updated_df.fillna('NA')
+        updated_df = updated_df.reset_index()
+        updated_df.to_csv(csv_name,index=False)
+    else:
+        merged_new_df = merged_new_df.fillna('NA')
+        merged_new_df = merged_new_df.reset_index()
+        merged_new_df.to_csv(csv_name,index=False) """
 
 def update_csv(csv_name,new_data_df):
     master_df = pd.read_csv(MASTER_LINK)
@@ -147,44 +132,53 @@ def update_unknown(unknown_file,unknown_ids,date_str):
         prev_df = prev_df.set_index('sourceID')
         prev_df.loc[preex_ids,'lastDate'] = date_str
         prev_df = prev_df.reset_index()
-        data_table = [[new_ids[i],SOURCE_NAME,date_str] for i in range(len(new_ids))]
+        data_table = [[new_ids[i],SOURCE,date_str] for i in range(len(new_ids))]
         unknown_df = pd.DataFrame(data_table,columns=['sourceID','datastream','lastDate'])
         prev_df = pd.concat([prev_df,unknown_df],axis=0,ignore_index=True)
         prev_df.to_csv(unknown_file,index=False)
     else:
-        data_table = [[unknown_ids[i],SOURCE_NAME,date_str] for i in range(len(unknown_ids))]
+        data_table = [[unknown_ids[i],SOURCE,date_str] for i in range(len(unknown_ids))]
         unknown_df = pd.DataFrame(data_table,columns=['sourceID','datastream','lastDate'])
         unknown_df.to_csv(unknown_file,index=False)
-
 
 def get_station_sorted_temp(datadir,date_str,output_dir):
     date_dt = pd.to_datetime(date_str)
     date_year = date_dt.strftime('%Y')
     date_month = date_dt.strftime('%m')
-    date_day = date_dt.strftime('%d')
-    fname = datadir + '_'.join((''.join(date_str.split('-')),SOURCE_NAME,'parsed')) + '.csv'
-    hads_df = pd.read_csv(fname,on_bad_lines='skip',engine='python')
+    src_file = datadir + '_'.join((date_dt.strftime('%Y%m%d'),SOURCE,'parsed.csv'))
+    src_df = pd.read_csv(src_file)
+    
 
-    hads_ta = hads_df[hads_df[HADS_VARKEY] == HADS_VARNAME]
-    hads_ta = hads_ta[hads_ta['random']!='R ']
+    full_temp_df = src_df[src_df[SRC_VARKEY]==SRC_VARNAME]
+    hfmet_temp = full_temp_df[full_temp_df['source']=='hfmetar']
+    meso_temp = full_temp_df[full_temp_df['source']=='mesonet']
 
-    min_max_df = get_tmin_tmax(hads_ta,date_str)
-    wide_tmin = convert_dataframe(min_max_df,'Tmin')
-    wide_tmax = convert_dataframe(min_max_df,'Tmax')
+    #Get minmax dataframe long format
+    hfmet_minmax = get_tmin_tmax(hfmet_temp)
+    meso_minmax = get_tmin_tmax(meso_temp)
+    all_minmax = pd.concat([hfmet_minmax,meso_minmax],axis=0,ignore_index=True)
 
-    tmin_process_file = output_dir + '_'.join(('Tmin',SOURCE_NAME,date_year,date_month,'processed.csv'))
-    tmax_process_file = output_dir + '_'.join(('Tmax',SOURCE_NAME,date_year,date_month,'processed.csv'))
+    wide_tmin = convert_dataframe(all_minmax,'Tmin')
+    wide_tmax = convert_dataframe(all_minmax,'Tmax')
 
+    #Create new processed table if none exists
+    #Update previous with new daily data otherwise
+    tmin_process_file = output_dir + '_'.join(('Tmin',SOURCE,date_year,date_month,'processed.csv'))
+    tmax_process_file = output_dir + '_'.join(('Tmax',SOURCE,date_year,date_month,'processed.csv'))
+    
     tmin_unkn = update_csv(tmin_process_file,wide_tmin)
     tmax_unkn = update_csv(tmax_process_file,wide_tmax)
-    
+
     tmin_unknown_file = TRACK_DIR + '_'.join(('unknown_Tmin_sta',date_year,date_month)) + '.csv'
     tmax_unknown_file = TRACK_DIR + '_'.join(('unknown_Tmax_sta',date_year,date_month)) + '.csv'
 
     update_unknown(tmin_unknown_file,tmin_unkn,date_str)
     update_unknown(tmax_unknown_file,tmax_unkn,date_str)
-    
+
+
+        
 #END FUNCTIONS-----------------------------------------------------------------
+
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         date_str = sys.argv[1]
@@ -195,3 +189,4 @@ if __name__ == '__main__':
         date_str = prev_day.strftime('%Y-%m-%d')
 
     get_station_sorted_temp(SOURCE_DIR,date_str,PROC_OUTPUT_DIR)
+    

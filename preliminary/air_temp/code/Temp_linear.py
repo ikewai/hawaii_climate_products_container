@@ -40,11 +40,10 @@ from sklearn.metrics import r2_score
 #Consolidate file names, index names, and directory names here to avoid hardcoding
 STN_IDX_NAME = 'SKN'
 ELEV_IDX_NAME = 'ELEV.m.'
-MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/air_temp/'
-WORKING_MASTER_DIR = MASTER_DIR + r'working_data/'
-GP_DATA_DIR = WORKING_MASTER_DIR + r'gapfill_models/'
-CLIM_DATA_DIR = WORKING_MASTER_DIR + r'clim/'
-META_MASTER_DIR = WORKING_MASTER_DIR + r'static_master_meta/'
+MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
+DEP_MASTER_DIR = MASTER_DIR + r'air_temp/dependencies/'
+GP_DATA_DIR = DEP_MASTER_DIR + r'gapfill_models/'
+CLIM_DATA_DIR = DEP_MASTER_DIR + r'clim/'
 META_MASTER_FILE = r'https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv'
 TARG_STN_LIST = ['39.0','339.6','885.7','1075.0']
 #GAPFILL_PREF = ''
@@ -62,7 +61,7 @@ PRED_STNS_MAX = {'39.0':['39.2','107.4','1069.0','855.3','311.2','48.0','95.6','
     '885.7':['869.0','828.0','499.12','909.0','742.4','752.6','858.0','541.2','911.1','842.7'],
     '1075.0':['499.6','3.9','266.0','43.3','63.0','499.8','1036.0','147.2','499.9','101.1']}
 TMIN_STN_EXCLUDE = [728.2] #[728.2] Put this back
-TMAX_STN_EXCLUDE = []
+TMAX_STN_EXCLUDE = [728.2]
 
 #END MODULE CONSTANTS--------------------------------------------------------------
 

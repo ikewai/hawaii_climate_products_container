@@ -10,15 +10,14 @@ from datetime import date
 from Temp_linear import sigma_Clip, metrics
 
 #SET CONSTANTS AND SETTINGS-----------------------------------------#
-MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/air_temp/'
-WORKING_MASTER_DIR = MASTER_DIR + r'working_data/'
-RUN_MASTER_DIR = MASTER_DIR + r'data_outputs/'
+MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
+DEP_MASTER_DIR = MASTER_DIR + r'air_temp/dependencies/'
+RUN_MASTER_DIR = MASTER_DIR + r'air_temp/data_outputs/'
 COUNTY_MAP_DIR = RUN_MASTER_DIR + r'tiffs/daily/county/'
 STATE_MAP_DIR = RUN_MASTER_DIR + r'tiffs/daily/statewide/'
 COUNTY_CV_DIR = RUN_MASTER_DIR + r'tables/loocv/daily/county/'
 STATE_CV_DIR = RUN_MASTER_DIR + r'tables/loocv/daily/statewide/'
 STATE_META_DIR = RUN_MASTER_DIR + r'metadata/daily/statewide/'
-META_MASTER_DIR = WORKING_MASTER_DIR + r'static_master_meta/'
 META_MASTER_FILE = r'https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv'
 QC_DATA_DIR = RUN_MASTER_DIR + r'tables/station_data/daily/raw_qc/county/'
 QC_OUTPUT_DIR = RUN_MASTER_DIR + r'tables/station_data/daily/raw_qc/statewide/'
@@ -316,8 +315,7 @@ if __name__ == '__main__':
     
     output_temp = '/mnt/scratch/lustre_01/scratch/kodamak8/air_temp/daily/finalRunOutputs01/archival/tiffs/statewide/temp/'
     output_se = '/mnt/scratch/lustre_01/scratch/kodamak8/air_temp/daily/finalRunOutputs01/archival/tiffs/statewide/temp_SE/'
-    master_dir = META_MASTER_DIR
-
+    
     error_on = True
     temp_dir = '/Users/kerikodama/Documents/WRRC-Wildfire/python-scripts/scratch/maps/'
     #Error check
@@ -337,7 +335,7 @@ if __name__ == '__main__':
                 print('Statewide',variable, mode, date_str)
                 statewide_mosaic(varname,date_str,temp_dir,TEMP_SUFF,output_temp)
                 statewide_mosaic(varname,date_str,se_dir,SE_SUFF,output_se)
-                create_tables(variable,mode,date_str,master_dir)
+                create_tables(variable,mode,date_str)
                 print('Done -------------^ ')
             except BaseException:
                 print('Error -------------^ ')

@@ -1,6 +1,5 @@
-import pandas as pd
-
-from datetime import date, timedelta
+import pytz
+from datetime import datetime, timedelta
 from daily_temp_map_batch import generate_county_map
 from daily_temp_mean_batch import generate_county_mean, generate_se_mean
 
@@ -11,7 +10,9 @@ PARAM_LIST = ['dem_250']
 #END CONSTANTS----------------------------------------------------------------
 
 #Set date to previous 24 hours
-prev_day = date.today() - timedelta(days=1)
+hst = pytz.timezone('HST')
+today = datetime.today().astimezone(hst)
+prev_day = today - timedelta(days=1)
 date_str = prev_day.strftime('%Y-%m-%d')
 print(date_str)
 #Tmin county maps

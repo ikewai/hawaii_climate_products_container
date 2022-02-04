@@ -9,10 +9,9 @@ from pyproj import Transformer
 
 
 #NAMING SETTINGS & OUTPUT FLAGS----------------------------------------------#
-MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/air_temp/'
-CODE_MASTER_DIR = MASTER_DIR + r'code/'
-WORKING_MASTER_DIR = MASTER_DIR + r'working_data/'
-RUN_MASTER_DIR = MASTER_DIR + r'data_outputs/'
+MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
+CODE_MASTER_DIR = MASTER_DIR + r'air_temp/code/'
+RUN_MASTER_DIR = MASTER_DIR + r'air_temp/data_outputs/'
 MAP_OUTPUT_DIR = RUN_MASTER_DIR + r'tiffs/daily/county/' #Set subdirectories based on varname and iCode
 SE_OUTPUT_DIR = RUN_MASTER_DIR + r'tiffs/daily/county/'
 CV_OUTPUT_DIR = RUN_MASTER_DIR + r'tables/loocv/daily/county/'

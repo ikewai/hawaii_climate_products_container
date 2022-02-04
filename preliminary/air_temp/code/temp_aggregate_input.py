@@ -19,11 +19,10 @@ from os.path import exists
 #DEFINE CONSTANTS--------------------------------------------------------------
 META_COL_N = 12
 IDX_NAME = 'SKN'
-MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/air_temp/'
-WORKING_MASTER_DIR = MASTER_DIR + r'working_data/'
-RUN_MASTER_DIR = MASTER_DIR + r'data_outputs/'
+MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
+WORKING_MASTER_DIR = MASTER_DIR + r'air_temp/working_data/'
+RUN_MASTER_DIR = MASTER_DIR + r'air_temp/data_outputs/'
 PROC_DATA_DIR = WORKING_MASTER_DIR + r'processed_data/'
-META_MASTER_DIR = WORKING_MASTER_DIR + r'static_master_meta/'
 AGG_OUTPUT_DIR = RUN_MASTER_DIR + r'tables/station_data/daily/raw/statewide/'
 META_MASTER_FILE = r'https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv'
 #END CONSTANTS-----------------------------------------------------------------
@@ -88,6 +87,7 @@ def aggregate_input(varname,filename,datadir,outdir,master_file=META_MASTER_FILE
     meta_df = df[list(meta_cols)]
     temp_df = df[list(temp_cols)]
     
+    stn_list = df.index.values
     #Adjust this for Tmin/Tmax_QC.csv. After standardized date format from processing,
     #reset conversion to datetime
     date_keys = pd.to_datetime([x.split('X')[1] for x in list(temp_cols)])
@@ -153,7 +153,7 @@ def aggregate_input(varname,filename,datadir,outdir,master_file=META_MASTER_FILE
                 month_meta = month_meta.reset_index()
                 month_meta.to_csv(outfile_name,index=False)
     
-    return month_meta
+    return month_meta,stn_list
             
 
 def main(varname,filename,datadir,**kwargs):
@@ -197,4 +197,4 @@ if __name__ == '__main__':
     master_file = META_MASTER_FILE
     
     print('Outputting',varname,'data from',filename,'to',outdir)
-    aggregate_input(varname,filename,datadir,outdir,master_file)
+    month_df, stn_list = aggregate_input(varname,filename,datadir,outdir,master_file)

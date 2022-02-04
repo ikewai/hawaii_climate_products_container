@@ -4,10 +4,11 @@ import Temp_linear as tmpl
 import cross_validate_temp as cv
 
 #DEFINE CONSTANTS-------------------------------------------------------------
-MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/air_temp/'
-WORKING_MASTER_DIR = MASTER_DIR + r'working_data/'
-RUN_MASTER_DIR = MASTER_DIR + r'data_outputs/'
-PRED_DIR = WORKING_MASTER_DIR + r'predictors/'
+MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
+WORKING_MASTER_DIR = MASTER_DIR + r'air_temp/working_data/'
+DEP_MASTER_DIR = MASTER_DIR + r'air_temp/dependencies/'
+RUN_MASTER_DIR = MASTER_DIR + r'air_temp/data_outputs/'
+PRED_DIR = DEP_MASTER_DIR + r'predictors/'
 RAW_DATA_DIR = RUN_MASTER_DIR + r'tables/station_data/daily/raw/statewide/' #Location of station and predictor data for model fit
 CV_OUTPUT_DIR = RUN_MASTER_DIR + r'tables/loocv/daily/county/'
 ICODE_LIST = ['BI','KA','MN','OA']
