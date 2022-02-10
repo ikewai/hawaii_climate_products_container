@@ -1,0 +1,29 @@
+attribute           value                                                       
+dataStatement       This Feb. 08, 2022 daily temperature minimum map of Maui County (Maui, Lanai, Molokai, Kahoolawe) is a high spatial resolution gridded prediction of minimum temperature in degrees Celsius for the date Feb. 08, 2022. This was produced using a piece-wise linear regression model regressed on elevation with the junction point at 2150 meters. The model was trained on 7 unique station location(s) within Maui County (Maui, Lanai, Molokai, Kahoolawe). Due to limited station availability, the model training was supplemented by 1 station(s) from Big Island. Insufficient validation stations were available for the target island. Leave-one-out cross-validation (LOOCV) could not be performed and R-squared value is nan. All maps are subject to change as new data becomes available or unknown errors are corrected in reoccurring versions. Errors in temperature estimates do vary over space meaning any gridded temperature value, even on higher quality maps, could still produce incorrect estimates. Check standard error (SE) maps to better understand spatial estimates of prediction error
+keywords            Maui County (Maui, Lanai, Molokai, Kahoolawe), Hawaii, minimum temperature prediction, daily temperature, temperature, climate, linear regression
+county              mn                                                          
+dataDate            Feb. 08, 2022                                               
+dataVersionType     preliminary                                                 
+tempStationFile     daily_Tmin_2022_02.csv                                      
+tempGridFile        Tmin_map_MN_20220208.tif                                    
+tempSEGridFile      Tmin_map_MN_20220208_se.tif                                 
+crossValidationFile 20220208_Tmin_MN_loocv.csv                                  
+GeoCoordUnits       Decimal Degrees                                             
+GeoCoordRefSystem   +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+XResolution         0.00225                                                     
+YResolution         0.00225                                                     
+ExtentXmin          -157.348875                                                 
+ExtentXmax          -155.926875                                                 
+ExtentYmin          20.344125000000002                                          
+ExtentYmax          21.320625000000003                                          
+stationCount        7                                                           
+outerStationCount   1                                                           
+regressionConst     18.3698                                                     
+regressionSlope1    -0.0064                                                     
+regressionSlope2    0.0                                                         
+biasTemp            nan                                                         
+rsqTemp             nan                                                         
+rmseTemp            nan                                                         
+maeTemp             nan                                                         
+credits             All data produced by University of Hawaii at Manoa Dept. of Geography and the Enviroment, Ecohydology Lab in collaboration with the Water Resource Research Center (WRRC). Support for the Hawai‘i EPSCoR Program is provided by the Hawaii Emergency Management Agency.
+contacts            Keri Kodama (kodamak8@hawaii.edu), Matthew Lucas (mplucas@hawaii.edu), Ryan Longman (rlongman@hawaii.edu), Sayed Bateni (smbateni@hawaii.edu), Thomas Giambelluca (thomas@hawaii.edu)

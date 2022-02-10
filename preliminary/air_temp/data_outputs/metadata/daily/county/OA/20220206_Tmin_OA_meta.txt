@@ -1,0 +1,29 @@
+attribute           value                                                       
+dataStatement       This Feb. 06, 2022 daily temperature minimum map of Honolulu County (Oahu) is a high spatial resolution gridded prediction of minimum temperature in degrees Celsius for the date Feb. 06, 2022. This was produced using a piece-wise linear regression model regressed on elevation with the junction point at 2150 meters. The model was trained on 12 unique station location(s) within Honolulu County (Oahu). A leave-one-out cross-validation (LOOCV) was performed based on the station data available for the target island. However, the R-squared value is negative. If outer island data were used to supplement the model training, R-squared may not accurately represent goodness of fit. Please consult the cross-validation table or the standard error maps for more information on model error. All maps are subject to change as new data becomes available or unknown errors are corrected in reoccurring versions. Errors in temperature estimates do vary over space meaning any gridded temperature value, even on higher quality maps, could still produce incorrect estimates. Check standard error (SE) maps to better understand spatial estimates of prediction error
+keywords            Honolulu County (Oahu), Hawaii, minimum temperature prediction, daily temperature, temperature, climate, linear regression
+county              oa                                                          
+dataDate            Feb. 06, 2022                                               
+dataVersionType     preliminary                                                 
+tempStationFile     daily_Tmin_2022_02.csv                                      
+tempGridFile        Tmin_map_OA_20220206.tif                                    
+tempSEGridFile      Tmin_map_OA_20220206_se.tif                                 
+crossValidationFile 20220206_Tmin_OA_loocv.csv                                  
+GeoCoordUnits       Decimal Degrees                                             
+GeoCoordRefSystem   +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+XResolution         0.00225                                                     
+YResolution         0.00225                                                     
+ExtentXmin          -158.320875                                                 
+ExtentXmax          -157.603125                                                 
+ExtentYmin          21.181124999999998                                          
+ExtentYmax          21.741374999999998                                          
+stationCount        12                                                          
+outerStationCount   0                                                           
+regressionConst     19.2425                                                     
+regressionSlope1    -0.0031                                                     
+regressionSlope2    0.0                                                         
+biasTemp            -0.02313                                                    
+rsqTemp             -0.39745                                                    
+rmseTemp            1.13751                                                     
+maeTemp             0.96703                                                     
+credits             All data produced by University of Hawaii at Manoa Dept. of Geography and the Enviroment, Ecohydology Lab in collaboration with the Water Resource Research Center (WRRC). Support for the Hawai‘i EPSCoR Program is provided by the Hawaii Emergency Management Agency.
+contacts            Keri Kodama (kodamak8@hawaii.edu), Matthew Lucas (mplucas@hawaii.edu), Ryan Longman (rlongman@hawaii.edu), Sayed Bateni (smbateni@hawaii.edu), Thomas Giambelluca (thomas@hawaii.edu)
