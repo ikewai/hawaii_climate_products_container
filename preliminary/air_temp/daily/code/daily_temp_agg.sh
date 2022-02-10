@@ -3,9 +3,10 @@ PATH=/home/kodamak8/miniconda3/bin:/home/kodamak8/miniconda3/condabin:/usr/local
 export PATH
 
 source /home/kodamak8/miniconda3/bin/activate && conda activate /home/kodamak8/miniconda3/envs/grid_temp
+python -W ignore /home/hawaii_climate_products_container/preliminary/air_temp/daily/code/temp_agg_wget.py
 
-python -W ignore /home/hawaii_climate_products_container/preliminary/air_temp/code/hads_temp_parse.py
+python -W ignore /home/hawaii_climate_products_container/preliminary/air_temp/daily/code/hads_temp_parse.py
 
-python -W ignore /home/hawaii_climate_products_container/preliminary/air_temp/code/madis_temp_parse.py
+python -W ignore /home/hawaii_climate_products_container/preliminary/air_temp/daily/code/madis_temp_parse.py
 
-python -W ignore /home/hawaii_climate_products_container/preliminary/air_temp/code/air_temp_aggregate_wrapper.py
+python -W ignore /home/hawaii_climate_products_container/preliminary/air_temp/daily/code/air_temp_aggregate_wrapper.py

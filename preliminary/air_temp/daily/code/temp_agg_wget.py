@@ -14,7 +14,7 @@ PARENT_DIR = r'https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ik
 LOCAL_PARENT = r'/home/hawaii_climate_products_container/preliminary/'
 LOCAL_DATA_AQS = LOCAL_PARENT + r'data_aqs/data_outputs/'
 LOCAL_TEMP = LOCAL_PARENT + r'air_temp/data_outputs/tables/station_data/daily/raw/statewide/'
-SRC_LIST = ['hads','madis']
+SRC_LIST = ['madis']
 
 hst = pytz.timezone('HST')
 today = datetime.today().astimezone(hst)

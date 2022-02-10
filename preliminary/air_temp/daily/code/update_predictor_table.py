@@ -34,38 +34,40 @@ for varname in VAR_LIST:
     all_stn_inds = new_station_data.index.values
 
     new_stns = np.setdiff1d(all_stn_inds,old_inds)
-    
-    updated_inds = np.union1d(new_stns,old_inds)
-    updated_preds = pd.DataFrame(index=updated_inds,columns=pred_cols)
-    updated_preds.index.name = 'SKN'
-    #Backfill older predictor data
-    updated_preds.loc[old_inds,pred_cols] = old_pred_df
+    if new_stns.shape[0] < 1:
+        continue
+    else:
+        updated_inds = np.union1d(new_stns,old_inds)
+        updated_preds = pd.DataFrame(index=updated_inds,columns=pred_cols)
+        updated_preds.index.name = 'SKN'
+        #Backfill older predictor data
+        updated_preds.loc[old_inds,pred_cols] = old_pred_df
 
-    #For each latlon in new stations list, get dem from raster based on islands
-    #for each island, get skns related and get the lat lons at that skn
-    #determine which new stations are on specific island
-    for isl in list(ISL_DICT.keys()):
-        isl_raster_file = DEM_DIR + '_'.join((isl.lower(),'dem','250m')) + '.tif'
-        isl_raster = rasterio.open(isl_raster_file)
-        isl_raster_dem = isl_raster.read(1)
-        isl_list = ISL_DICT[isl]
-        new_stns_meta = master_df.loc[new_stns]
-        #Df of metadata corresponding to new stations sorted by island
-        isl_new_stns = new_stns_meta[new_stns_meta['Island'].isin(isl_list)]
-        isl_new_latlons = [(skn,isl_new_stns.at[skn,'LON'],isl_new_stns.at[skn,'LAT']) for skn in isl_new_stns.index.values]
-        isl_raster_coords = [(skn,)+isl_raster.index(i,j) for (skn,i,j) in isl_new_latlons]
-        #wait need to make sure they're still associated with skn
-        #So have skn, and raster index. Need actual dem value 
-        isl_new_dems = [(skn,isl_raster_dem[i,j]) for (skn,i,j) in isl_raster_coords]
-        idx,values = zip(*isl_new_dems)
-        updated_preds.loc[idx,'dem_250'] = values
-    
-    #match other metadata
-    match_cols = [col for col in list(updated_preds.columns) if col in meta_cols]
-    updated_preds.loc[new_stns,match_cols] = master_df.loc[new_stns,match_cols]
-    #After all dems have been updated in file, rewrite the file
-    updated_preds = updated_preds.reset_index()
-    updated_preds.to_csv(old_pred,index=False)
+        #For each latlon in new stations list, get dem from raster based on islands
+        #for each island, get skns related and get the lat lons at that skn
+        #determine which new stations are on specific island
+        for isl in list(ISL_DICT.keys()):
+            isl_raster_file = DEM_DIR + '_'.join((isl.lower(),'dem','250m')) + '.tif'
+            isl_raster = rasterio.open(isl_raster_file)
+            isl_raster_dem = isl_raster.read(1)
+            isl_list = ISL_DICT[isl]
+            new_stns_meta = master_df.loc[new_stns]
+            #Df of metadata corresponding to new stations sorted by island
+            isl_new_stns = new_stns_meta[new_stns_meta['Island'].isin(isl_list)]
+            isl_new_latlons = [(skn,isl_new_stns.at[skn,'LON'],isl_new_stns.at[skn,'LAT']) for skn in isl_new_stns.index.values]
+            isl_raster_coords = [(skn,)+isl_raster.index(i,j) for (skn,i,j) in isl_new_latlons]
+            #wait need to make sure they're still associated with skn
+            #So have skn, and raster index. Need actual dem value 
+            isl_new_dems = [(skn,isl_raster_dem[i,j]) for (skn,i,j) in isl_raster_coords]
+            idx,values = zip(*isl_new_dems)
+            updated_preds.loc[idx,'dem_250'] = values
+        
+        #match other metadata
+        match_cols = [col for col in list(updated_preds.columns) if col in meta_cols]
+        updated_preds.loc[new_stns,match_cols] = master_df.loc[new_stns,match_cols]
+        #After all dems have been updated in file, rewrite the file
+        updated_preds = updated_preds.reset_index()
+        updated_preds.to_csv(old_pred,index=False)
 
 
 
