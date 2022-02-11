@@ -1,0 +1,127 @@
+{"upload":
+	[
+        {
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/Tmax/Tmax_map_state_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/statewide/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/Tmin/Tmin_map_state_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/statewide/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/Tmean/Tmean_map_state_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/statewide/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/Tmax_se/Tmax_map_state_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/statewide/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/Tmin_se/Tmin_map_state_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/statewide/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/Tmean_se/Tmean_map_state_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/statewide/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax/BI/Tmax_map_BI_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax/KA/Tmax_map_KA_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax/MN/Tmax_map_MN_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax/OA/Tmax_map_OA_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin/BI/Tmin_map_BI_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin/KA/Tmin_map_KA_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin/MN/Tmin_map_MN_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin/OA/Tmin_map_OA_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean/BI/Tmean_map_BI_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean/KA/Tmean_map_KA_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean/MN/Tmean_map_MN_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean/OA/Tmean_map_OA_yyyymmdd.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax_se/BI/Tmax_map_BI_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax_se/KA/Tmax_map_KA_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax_se/MN/Tmax_map_MN_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax_se/OA/Tmax_map_OA_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin_se/BI/Tmin_map_BI_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin_se/KA/Tmin_map_KA_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin_se/MN/Tmin_map_MN_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin_se/OA/Tmin_map_OA_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean_se/BI/Tmean_map_BI_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean_se/KA/Tmean_map_KA_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean_se/MN/Tmean_map_MN_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean_se/OA/Tmean_map_OA_yyyymmdd_se.tif",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tiffs/county/temp_SE/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/statewide/",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tables/metadata/statewide/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/BI/",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tables/metadata/county/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/KA/",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tables/metadata/county/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/MN/",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tables/metadata/county/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/OA/",
+            "remote-path-absolute": "HCDP/temperature/daily/finalRunOutputs01/preliminary/tables/metadata/county/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/station_data/daily/raw/statewide/",
+            "remote-path-absolute": "HCDP/temperature/daily/input/stations/aggregated/unfilled/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/station_data/daily/raw_qc/statewide/",
+            "remote-path-absolute": "HCDP/temperature/daily/input/stations/aggregated/unfilled/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/working_data/",
+            "remote-path-absolute": "HCDP/preliminary/air_temp/working_data/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/air_temp_station_tracking/",
+            "remote-path-absolute": "HCDP/preliminary/air_temp/data_outputs/tables/air_temp_station_tracking/"
+        },{
+            "local-path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/loocv/",
+            "remote-path-absolute": "HCDP/preliminary/air_temp/data_outputs/tables/loocv/"
+        },
+
+
+    ]
+}

@@ -1,1 +1,0 @@
-date > testtime.txt
