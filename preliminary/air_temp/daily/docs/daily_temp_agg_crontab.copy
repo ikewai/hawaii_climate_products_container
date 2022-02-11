@@ -23,5 +23,5 @@
 # m h  dom mon dow   command
 
 #Temperature aggregation
-55 1 * * * bash -c /home/hawaii_climate_products_container/preliminary/air_temp/code/daily_temp_agg.sh > /home/hawaii_climate_products_container/preliminary/air_temp/code/temp_agg.out 2> /home/hawaii_climate_products_container/preliminary/air_temp/code/temp_agg.err
+0 2 * * * bash -c /home/hawaii_climate_products_container/preliminary/air_temp/daily/code/daily_temp_agg.sh > /home/hawaii_climate_products_container/preliminary/air_temp/daily/code/temp_agg.out 2> /home/hawaii_climate_products_container/preliminary/air_temp/daily/code/temp_agg.err
 

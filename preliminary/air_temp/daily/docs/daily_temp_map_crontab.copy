@@ -23,4 +23,4 @@
 # m h  dom mon dow   command
 
 #Temperature mapping
-5 2 * * * bash -c /home/hawaii_climate_products_container/preliminary/air_temp/code/daily_temp_map.sh > /home/hawaii_climate_products_container/preliminary/air_temp/code/temp_map.out 2> /home/hawaii_climate_products_container/preliminary/air_temp/code/temp_map.err
+5 2 * * * bash -c /home/hawaii_climate_products_container/preliminary/air_temp/daily/code/daily_temp_map.sh > /home/hawaii_climate_products_container/preliminary/air_temp/daily/code/temp_map.out 2> /home/hawaii_climate_products_container/preliminary/air_temp/daily/code/temp_map.err
