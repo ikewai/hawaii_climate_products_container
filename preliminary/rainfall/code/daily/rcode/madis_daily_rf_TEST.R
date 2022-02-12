@@ -82,24 +82,24 @@ for(j in stations){
   sta_data_xts<-xts(sta_data$value,order.by=sta_data$time,unique = TRUE) #make xtended timeseries object
   sta_data_xts_sub<- sta_data_xts[!duplicated(index(sta_data_xts)),] #remove duplicate time obs
   if(nrow(sta_data_xts_sub)>=23){ #only stations with at least hourly intervals
-    # sta_data_xts_sub_lag<-diff(sta_data_xts_sub,lag=1)
-    # sta_data_xts_sub_lag[sta_data_xts_sub_lag<0]<-NA #NA to neg values when lag 1 dif
-    # sta_data_hrly_xts<-apply.hourly(sta_data_xts_sub_lag,FUN=sum,roundtime = "trunc")#agg to hourly and truncate hour
-    sta_data_hrly_xts<-apply.hourly(sta_data_xts_sub,FUN=sum,roundtime = "trunc")#agg to hourly and truncate hour
+    sta_data_xts_sub_lag<-diff(sta_data_xts_sub,lag=1)
+    sta_data_xts_sub_lag[sta_data_xts_sub_lag<0]<-NA #NA to neg values when lag 1 dif
+    sta_data_hrly_xts<-apply.hourly(sta_data_xts_sub_lag,FUN=sum,roundtime = "trunc")#agg to hourly and truncate hour
+    # sta_data_hrly_xts<-apply.hourly(sta_data_xts_sub,FUN=sum,roundtime = "trunc")#agg to hourly and truncate hour
     sta_data_daily_xts<-apply.daily(sta_data_hrly_xts,FUN=sum,na.rm = F)#daily sum of all hrly observations
     obs_ints<-diff(index(sta_data_xts_sub),lag=1) #calculate vector of obs intervals
     obs_int_hr<-getmode(as.numeric(obs_ints, units="hours"))
     obs_int_minutes<-obs_int_hr*60
     obs_per_day<-((1/obs_int_hr)*24)#calculate numbers of obs per day based on obs interval
-    # sta_per_obs_daily_xts<-as.numeric(apply.daily(sta_data_xts_sub_lag,FUN=length)/obs_per_day)#vec of % percentage of obs per day
-    sta_per_obs_daily_xts<-as.numeric(apply.daily(sta_data_xts_sub,FUN=length)/obs_per_day)#vec of % percentage of obs per day
+    sta_per_obs_daily_xts<-as.numeric(apply.daily(sta_data_xts_sub_lag,FUN=length)/obs_per_day)#vec of % percentage of obs per day
+    # sta_per_obs_daily_xts<-as.numeric(apply.daily(sta_data_xts_sub,FUN=length)/obs_per_day)#vec of % percentage of obs per day
     sta_daily_df<-data.frame(staID=rep(as.character(j),length(sta_data_daily_xts)),date=as.Date(strptime(index(sta_data_daily_xts),format="%Y-%m-%d %H:%M"),format="%Y-%m-%d"),obs_int_mins=rep(obs_int_minutes,length(sta_data_daily_xts)),data_per=sta_per_obs_daily_xts,rf=sta_data_daily_xts)#make df row
     madis_daily_rf<-rbind(madis_daily_rf,sta_daily_df)
   }
 }
 print("loop complete!")
 row.names(madis_daily_rf)<-NULL #rename rows
-# head(madis_daily_rf)
+# head(head(madis_daily_rf))
 # tail(madis_daily_rf)
 
 #subsets: yesterday with 95% data
