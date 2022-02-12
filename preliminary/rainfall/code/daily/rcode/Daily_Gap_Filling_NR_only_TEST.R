@@ -10,7 +10,7 @@ mainDir <- "/home/hawaii_climate_products_container/preliminary"
 
 #in dirs
 inDir <- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/raw_qc/statewide") #Path to the QAQC daily data
-gapFilesDir <- paste0(mainDir,"/rainfall/daily/dependencies/gapFilling") #gap relationship files dir
+gapFilesDir <- paste0(mainDir,"/rainfall/dependencies/daily/gapFilling") #gap relationship files dir
 
 #out dirs
 rfFilledDir<-paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/partial_filled/statewide") #partial gap filled rf data dir

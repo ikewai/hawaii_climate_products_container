@@ -15,8 +15,10 @@ library(randomForest)
 
 #input dirs
 rf_day_data_wd <- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/raw/statewide") #input final combine daily rainfall data
-lognorm_ras_wd<- paste0(mainDir,"/rainfall/daily/dependencies/probRasters") #input depen
-qaqc_models_wd<- paste0(mainDir,"/rainfall/daily/dependencies/models") #input depen
+lognorm_ras_wd<- paste0(mainDir,"/rainfall/dependencies/daily/probRasters") #input lognorm ras depend
+qaqc_models_wd<- paste0(mainDir,"/rainfall/dependencies/daily/models") #input mod depend
+
+#output dirs
 qaqc_fail_stations_wd<- paste0(mainDir,"/rainfall/data_outputs/tables/rf_station_tracking/qaqc_fail")
 rf_qaqc_flag_data_wd<- paste0(mainDir,"/rainfall/data_outputs/tables/station_qaqc/qc_flag/statewide")
 rf_qaqc_prob_data_wd<- paste0(mainDir,"/rainfall/data_outputs/tables/station_qaqc/qc_prob/statewide")
