@@ -47,14 +47,17 @@ apply.hourly <- function(x, FUN, roundtime = "round", na.rm = TRUE){
 parse_wd<-paste0(mainDir,"/data_aqs/data_outputs/madis/parse")
 agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/madis")
 
+#urls
+ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test"
+
 #read HADS parsed table
 setwd(parse_wd)#sever path for parsed hads files
 madis_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_madis_parsed.csv") #dynamic file name that includes date
-all_madis<-read.csv(madis_filename)
+all_madis<-read.csv(paste0(ikeUrl,"/data_aqs/data_outputs/madis/parse/",madis_filename))
+#head(all_madis)
 
 #subset precip var, convert inch to mm and convert UTC to HST
 all_madis_pc<-subset(all_madis,varname=="precipAccum" | varname=="rawPrecip")# subset precip only
-#all_madis_pc$value<-if(all_madis_pc$value*25.4 #convert to MM
 all_madis_pc<-all_madis_pc[complete.cases(all_madis_pc),] #remove NA rows
 all_madis_pc$time<-strptime(all_madis_pc$time, format="%Y-%m-%d %H:%M", tz="UTC")
 attr(all_madis_pc$time,"tzone") <- "Pacific/Honolulu" #convert TZ attribute to HST
@@ -63,10 +66,11 @@ all_madis_pc$time<-(all_madis_pc$time)-1 #minus 1 second to put midnight obs in 
 tail(all_madis_pc)
 head(all_madis_pc)
 
+#separate accum precip and raw precip
 all_madis_pr<-subset(all_madis_pc,varname=="rawPrecip")# subset raw precip only
 all_madis_pa<-subset(all_madis_pc,varname=="precipAccum")#subset accum precip only
 pr_only_sta<-unique(all_madis_pr$stationId)[!unique(all_madis_pr$stationId) %in% unique(all_madis_pa$stationId)]
-sub_madis_pr<-all_madis_pr[all_madis_pr$stationId  %in% pr_only_sta,]
+sub_madis_pr<-all_madis_pr[all_madis_pr$stationId  %in% pr_only_sta,] #precip raw might be daily values?
 unq_madis_pc<-rbind(sub_madis_pr,all_madis_pa)
 
 #blank DF to store daily data
@@ -85,14 +89,12 @@ for(j in stations){
     sta_data_xts_sub_lag<-diff(sta_data_xts_sub,lag=1)
     sta_data_xts_sub_lag[sta_data_xts_sub_lag<0]<-NA #NA to neg values when lag 1 dif
     sta_data_hrly_xts<-apply.hourly(sta_data_xts_sub_lag,FUN=sum,roundtime = "trunc")#agg to hourly and truncate hour
-    # sta_data_hrly_xts<-apply.hourly(sta_data_xts_sub,FUN=sum,roundtime = "trunc")#agg to hourly and truncate hour
     sta_data_daily_xts<-apply.daily(sta_data_hrly_xts,FUN=sum,na.rm = F)#daily sum of all hrly observations
     obs_ints<-diff(index(sta_data_xts_sub),lag=1) #calculate vector of obs intervals
     obs_int_hr<-getmode(as.numeric(obs_ints, units="hours"))
     obs_int_minutes<-obs_int_hr*60
     obs_per_day<-((1/obs_int_hr)*24)#calculate numbers of obs per day based on obs interval
     sta_per_obs_daily_xts<-as.numeric(apply.daily(sta_data_xts_sub_lag,FUN=length)/obs_per_day)#vec of % percentage of obs per day
-    # sta_per_obs_daily_xts<-as.numeric(apply.daily(sta_data_xts_sub,FUN=length)/obs_per_day)#vec of % percentage of obs per day
     sta_daily_df<-data.frame(staID=rep(as.character(j),length(sta_data_daily_xts)),date=as.Date(strptime(index(sta_data_daily_xts),format="%Y-%m-%d %H:%M"),format="%Y-%m-%d"),obs_int_mins=rep(obs_int_minutes,length(sta_data_daily_xts)),data_per=sta_per_obs_daily_xts,rf=sta_data_daily_xts)#make df row
     madis_daily_rf<-rbind(madis_daily_rf,sta_daily_df)
   }
@@ -105,8 +107,8 @@ row.names(madis_daily_rf)<-NULL #rename rows
 #subsets: yesterday with 95% data
 madis_daily_rf_today<-madis_daily_rf[madis_daily_rf$date==(Sys.Date()-1),]#subset yesterday
 row.names(madis_daily_rf_today)<-NULL #rename rows
-head(madis_daily_rf_today)
-tail(madis_daily_rf_today)
+# head(madis_daily_rf_today)
+# tail(madis_daily_rf_today)
 
 madis_daily_rf_today_final<-madis_daily_rf_today[madis_daily_rf_today$data_per>=0.95,]#subset days with at least 95% data
 row.names(madis_daily_rf_today_final)<-NULL #rename rows
@@ -117,21 +119,31 @@ head(madis_daily_rf_today_final)
 tail(madis_daily_rf_today_final)
 
 #write or append daily rf data monthly file
-	#NEED TO INTGRATE WITH IKE DP
 setwd(agg_daily_wd)#server path daily agg file
 rf_month_filename<-paste0(format((Sys.Date()-1),"%Y_%m"),"_madis_daily_rf.csv") #dynamic file name that includes month year so when month is done new file is written
 
-if(max(as.numeric(list.files()==rf_month_filename))>0){
+#container write/append
+# if(as.numeric(format(Sys.Date()-1,"%d"))>=2){
+#   madis_rf_month<-read.csv(paste0(ikeUrl,"/rainfall/working_data/madis/",rf_month_filename))
+#   madis_rf_month$date<-as.Date(madis_rf_month$date)
+#   madis_rf_month<-rbind(madis_rf_month,madis_daily_rf_today_final)
+#   write.csv(madis_rf_month,rf_month_filename, row.names=F)
+#   print(paste(rf_month_filename,"appended"))
+#   }else{
+#   write.csv(madis_daily_rf_today_final,rf_month_filename, row.names=F)
+#   print(paste(rf_month_filename,"written"))
+#   }
+
+#local write/append
+if(file.exists(rf_month_filename)){
 	 write.table(madis_daily_rf_today_final,rf_month_filename, row.names=F,sep = ",", col.names = F, append = T)
-	 print(paste(rf_month_filename,"written"))
+	 print(paste(rf_month_filename,"appended"))
       }else{
 	 write.csv(madis_daily_rf_today_final,rf_month_filename, row.names=F)
-	 print(paste(rf_month_filename,"appended"))
+	 print(paste(rf_month_filename,"written"))
 	}
 
 print("PAU!")
-
-
 
 
 

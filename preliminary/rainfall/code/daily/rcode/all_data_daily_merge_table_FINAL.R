@@ -20,7 +20,7 @@ rbind.all.columns <- function(x, y) {     #function to smart rbind
 hads_daily_wd <- paste0(mainDir,"/rainfall/working_data/hads") #hads daily agg data wd
 nws_daily_wd <- paste0(mainDir,"/rainfall/working_data/nws_rr5") #nws daily agg wd
 scan_daily_wd <- paste0(mainDir,"/rainfall/working_data/scan") #scan daily agg wd
-#WORKING... madis daily agg wd
+madis_daily_wd <- paste0(mainDir,"/rainfall/working_data/madis") #madis daily agg wd
 #WORKING... hi mesonet daily agg wd
 #WORKING... smart ala wai daily agg wd
 
@@ -160,16 +160,54 @@ if(max(as.numeric(list.files()==scan_month_filename))>0){
 	  print(paste(scan_month_filename,"MISSING empty DF made!"))
     }
 
+#add MADIS data
+setwd(madis_daily_wd)#set data source wd
+madis_month_filename<-paste0(file_date,"_madis_daily_rf.csv")#dynamic file name that includes month year so when month is done new file is written
+if(max(as.numeric(list.files()==madis_month_filename))>0){  #does MADIS month file exist? 
+ madis<-read.csv(paste0(madis_month_filename),header=T,colClasses=c("staID"="character"))
+ madis<-madis[,c("staID","date","rf")]
+ names(madis)<-c("sourceID","date","x") #note 'source_id" IS "NWS.id" for madis
+ madis$date<-as.Date(madis$date)
+ madis_day<-madis[madis$date==map_date,] #date sub
+ if(nrow(madis_day)>0){ #if madis_day has rows/data
+  madis_day$date<-format(madis_day$date,"%Y.%m.%d")
+  madis_day<-madis_day[,c("sourceID","date","x")]
+  madis_day$x<-as.numeric(madis_day$x)
+  #head(madis_day)
+  madis_wide<- reshape(madis_day, idvar = "sourceID", timevar = "date", direction = "wide")
+  madis_wide$datastream<-"madis"
+  #tail(madis_wide)
+  madis_wide_merged_all<-merge(madis_wide,geog_meta_sub[,c("NWS.id","SKN")],by.x="sourceID",by.y="NWS.id",all.x=T)
+  missing_madis<-madis_wide_merged_all[is.na(madis_wide_merged_all$SKN),c("sourceID","datastream")] #missing stations
+  madis_wide_merged<-madis_wide_merged_all[!is.na(madis_wide_merged_all$SKN),] #remove missing stations with no SKN
+  names(madis_wide_merged)[2]<-gsub("x.","X",names(madis_wide_merged)[2])#make lower case x to uppercase X for continuity 
+  madis_wide_merged<-madis_wide_merged[!is.na(madis_wide_merged[,2]),] #remove NA rf day vals
+  #tail(madis_wide_merged)
+  count_log_madis<-data.frame(datastream=as.character("madis"),station_count=as.numeric(nrow(madis_wide_merged)),unique=as.logical(0)) #log of stations acquired
+  print(paste(madis_month_filename,"found!",nrow(madis_wide_merged),"stations added!"))
+  }else{ #else if nrow(madis_day) = 0 IE:no day data
+   madis_wide_merged<-data.frame(sourceID=as.character(NA),date_day=as.numeric(NA),datastream=as.character("madis"),SKN=as.numeric(NA))
+   names(madis_wide_merged)[2]<-format(Sys.Date()-1,"X%Y.%m.%d")
+   missing_madis<-data.frame(sourceID=as.character(NA),datastream=as.character(NA)) #missing stations blank df
+   count_log_madis<-data.frame(datastream=as.character("madis"),station_count=as.numeric(0),unique=as.logical(0))#log of stations acquired
+   print(paste("NO MADIS DATA:",map_date,"!"))
+   }}else{ #else if madis month df is missing make a blank df
+    madis_wide_merged<-data.frame(sourceID=as.character(NA),date_day=as.numeric(NA),datastream=as.character("madis"),SKN=as.numeric(NA))
+    names(madis_wide_merged)[2]<-format(Sys.Date()-1,"X%Y.%m.%d")
+	  missing_madis<-data.frame(sourceID=as.character(NA),datastream=as.character(NA)) #missing stations blank df
+	  count_log_madis<-data.frame(datastream=as.character("madis"),station_count=as.numeric(0),unique=as.logical(0))#log of stations acquired
+    print(paste(madis_month_filename,"MISSING empty DF made!"))
+    }
+
 #make and write table of all missing stations from acquired data
-all_missing<-rbind(missing_hads,missing_nws,missing_scan)
+all_missing<-rbind(missing_hads,missing_nws,missing_scan,missing_madis)
 all_missing<-all_missing[!is.na(all_missing$sourceID),] #remove no sourceID stations
 all_missing$lastDate<-as.Date(map_date)
 setwd(missing_sta_wd) #set output wd for missing station
-missing_files<-list.files()
 missing_month_filename<-paste0(file_date,"_unknown_rf_sta.csv") #dynamic file name that includes month year so when month is done new file is written
 
 #conditional statement that adds obs of missing stations and removes duplicate for the month
-if(max(as.numeric(missing_files==missing_month_filename))>0){
+if(file.exists(missing_month_filename)){
 	rf_missing_df<-read.csv(missing_month_filename)
 	rf_missing_df$lastDate<-as.Date(rf_missing_df$lastDate)
 	rf_missing_df<-rbind(rf_missing_df,all_missing)
@@ -190,39 +228,41 @@ print(all_missing)
 print("combinding all data...")
 hads_nws_wide<-rbind.all.columns(hads_wide_merged,nws_wide_merged)
 hads_nws_scan_wide<-rbind.all.columns(hads_nws_wide,scan_wide_merged)
+all_sta_data_wide<-rbind.all.columns(hads_nws_scan_wide,madis_wide_merged)
+
 print("all data combind!")
 
 #remove stations with NA values
 rf_col<-paste0("X",format(map_date,"%Y.%m.%d"))#define rf day col name
-hads_nws_scan_wide<-hads_nws_scan_wide[!is.na(hads_nws_scan_wide[,rf_col]),] #remove na rf obs should be none
+all_sta_data_wide<-all_sta_data_wide[!is.na(all_sta_data_wide[,rf_col]),] #remove na rf obs should be none
 
 #reorder to define data stream priority
-data_priority <- c("hads","nws","scan")
-hads_nws_scan_wide<-hads_nws_scan_wide[order(match(hads_nws_scan_wide$datastream, data_priority)),] #remove dup stations by priority
-dim(hads_nws_scan_wide)
-str(hads_nws_scan_wide)
-head(hads_nws_scan_wide)
-tail(hads_nws_scan_wide)
+data_priority <- c("hads","nws","madis","scan")
+all_sta_data_wide<-all_sta_data_wide[order(match(all_sta_data_wide$datastream, data_priority)),] #remove dup stations by priority
+dim(all_sta_data_wide)
+str(all_sta_data_wide)
+head(all_sta_data_wide)
+tail(all_sta_data_wide)
 print("combind data sorted!")
 
 #remove dup stations based on SKN but keeping data in order defined above
-hads_nws_scan_wide_no_dup<-hads_nws_scan_wide[!duplicated(hads_nws_scan_wide$SKN), ]
-str(hads_nws_scan_wide_no_dup)
-print(paste("station count with dups:",nrow(hads_nws_scan_wide)))#~258+
-print(paste("station count without dups:",nrow(hads_nws_scan_wide_no_dup)))#~159+
+all_sta_data_wide_no_dup<-all_sta_data_wide[!duplicated(all_sta_data_wide$SKN), ]
+str(all_sta_data_wide_no_dup)
+print(paste("station count with dups:",nrow(all_sta_data_wide)))#number of all stations
+print(paste("station count without dups:",nrow(all_sta_data_wide_no_dup)))#number of unique stations
 
 #sub cols rainfall
-hads_nws_scan_wide_no_dup_rf<-hads_nws_scan_wide_no_dup[,c("SKN",rf_col)]#remove rf meta cols except SKN & RF DAY col
-head(hads_nws_scan_wide_no_dup_rf)
+all_sta_data_wide_no_dup_rf<-all_sta_data_wide_no_dup[,c("SKN",rf_col)]#remove rf meta cols except SKN & RF DAY col
+head(all_sta_data_wide_no_dup_rf)
 
 #make rainfall source table and sub cols
-hads_nws_scan_wide_no_dup_source<-hads_nws_scan_wide_no_dup[,c("SKN","datastream")]#remove meta cols except SKN & data stream cols
-names(hads_nws_scan_wide_no_dup_source)<-names(hads_nws_scan_wide_no_dup_rf)#rename cols so source is date
-head(hads_nws_scan_wide_no_dup_source)
+all_sta_data_wide_no_dup_source<-all_sta_data_wide_no_dup[,c("SKN","datastream")]#remove meta cols except SKN & data stream cols
+names(all_sta_data_wide_no_dup_source)<-names(all_sta_data_wide_no_dup_rf)#rename cols so source is date
+head(all_sta_data_wide_no_dup_source)
 
 #make and write table of source log station counts from acquired data
 count_log_per<-rbind(count_log_hads,count_log_nws,count_log_scan)
-count_log_unq<-data.frame(table(hads_nws_scan_wide_no_dup$datastream))
+count_log_unq<-data.frame(table(all_sta_data_wide_no_dup$datastream))
 names(count_log_unq)<-c("datastream","station_count")
 count_log_unq$unique<-as.logical(1)
 count_log_all<-rbind(count_log_per,
@@ -254,12 +294,12 @@ source_month_filename<-paste0("Statewide_Daily_Source_",file_date,".csv") #dynam
 if(max(as.numeric(source_files==source_month_filename))>0){
   source_month_df<-read.csv(source_month_filename)
   sub_cols<-c("SKN",names(source_month_df)[grep("X",names(source_month_df))])
-  final_source_data<-merge(source_month_df[,sub_cols],hads_nws_scan_wide_no_dup_source,by="SKN",all=T)
+  final_source_data<-merge(source_month_df[,sub_cols],all_sta_data_wide_no_dup_source,by="SKN",all=T)
   final_source_data<-merge(geog_meta,final_source_data,by="SKN")
   write.csv(final_source_data,source_month_filename, row.names=F)
   print(paste(source_month_filename,"daily souce table appended!"))
 }else{ #if month year file does not exist make a new month year file
-  final_source_data<-merge(geog_meta,hads_nws_scan_wide_no_dup_source,by="SKN")
+  final_source_data<-merge(geog_meta,all_sta_data_wide_no_dup_source,by="SKN")
   write.csv(final_source_data,source_month_filename, row.names=F)
   print(paste(source_month_filename,"daily souce table written!"))
 }
@@ -271,19 +311,18 @@ tail(final_source_data)
 #write data by creating or appending day to month for rf and source tables
 #write or append daily rf data
 setwd(rf_day_data_wd) #set rainfall output wd
-rf_files<-list.files()
 rf_month_filename<-paste0("Statewide_Raw_Daily_RF_mm_",file_date,".csv") #dynamic file name that includes month year so when month is done new file is writen
 
 #conditional statement that adds new obs day col
-if(max(as.numeric(rf_files==rf_month_filename))>0){
+if(file.exists(rf_month_filename)){
 	rf_month_df<-read.csv(rf_month_filename)
 	sub_cols<-c("SKN",names(rf_month_df)[grep("X",names(rf_month_df))])
-	add_rf_data_sub<-merge(rf_month_df[,sub_cols],hads_nws_scan_wide_no_dup_rf,by="SKN",all=T)
+	add_rf_data_sub<-merge(rf_month_df[,sub_cols],all_sta_data_wide_no_dup_rf,by="SKN",all=T)
 	final_rf_data<-merge(geog_meta,add_rf_data_sub,by="SKN")
 	write.csv(final_rf_data,rf_month_filename, row.names=F)
 	print(paste(rf_month_filename,"daily rainfall table appended!"))
     }else{ #if month year file does not exist make a new month year file
-	final_rf_data<-merge(geog_meta,hads_nws_scan_wide_no_dup_rf,by="SKN")
+	final_rf_data<-merge(geog_meta,all_sta_data_wide_no_dup_rf,by="SKN")
 	write.csv(final_rf_data,rf_month_filename, row.names=F)
 	print(paste(rf_month_filename,"daily rainfall table written!"))
 }
