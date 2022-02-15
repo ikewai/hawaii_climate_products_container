@@ -6,7 +6,7 @@
             "rename": "rainfall_new_day_statewide_partial_station_data_%y_%m.csv",
             "system_id": "ikewai-annotated-data"
         },{
-		    "local_path": "/home/hawaii_climate_products_container/preliminary/rainfall/data_outputs/tables/station_data/daily/partial_filled/statewide/Statewide_Raw_Daily_RF_mm_%y_%m.csv",
+            "local_path": "/home/hawaii_climate_products_container/preliminary/rainfall/data_outputs/tables/station_data/daily/partial_filled/statewide/Statewide_Raw_Daily_RF_mm_%y_%m.csv",
             "remote_path": "HCDP/production/rainfall/new/day/statewide/raw/station_data/%y/%m"
             "rename": "rainfall_new_day_statewide_raw_station_data_%y_%m.csv",
             "system_id": "ikewai-annotated-data"
