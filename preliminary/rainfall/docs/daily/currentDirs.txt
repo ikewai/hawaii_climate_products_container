@@ -68,13 +68,12 @@
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/raw
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/raw/statewide
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/raw/county
-/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qaqc
-/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qaqc/qc_prob
-/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qaqc/qc_prob/statewide
-/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qaqc/qc_prob/county
-/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qaqc/qc_flag
-/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qaqc/qc_flag/statewide
-/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qaqc/qc_flag/county
+/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qc_prob
+/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qc_prob/statewide
+/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qc_prob/county
+/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qc_flag
+/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qc_flag/statewide
+/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/qc_flag/county
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/raw_qc
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/raw_qc/statewide
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/raw_qc/county
@@ -102,7 +101,6 @@
 /home/hawaii_climate_products_container/preliminary/rainfall/./working_data
 /home/hawaii_climate_products_container/preliminary/rainfall/./working_data/hi_mesonet
 /home/hawaii_climate_products_container/preliminary/rainfall/./working_data/hads
-/home/hawaii_climate_products_container/preliminary/rainfall/./working_data/IWDPdown
 /home/hawaii_climate_products_container/preliminary/rainfall/./working_data/madis
 /home/hawaii_climate_products_container/preliminary/rainfall/./working_data/scan
 /home/hawaii_climate_products_container/preliminary/rainfall/./working_data/nws_rr5

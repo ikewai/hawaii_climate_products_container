@@ -2,14 +2,15 @@
 ├── code
 │   ├── daily
 │   │   ├── bash
-│   │   │   └── dailyRFrun.sh
+│   │   │   ├── dailyRFrun.sh
+│   │   │   └── dailyRFwget.sh
 │   │   └── rcode
-│   │       ├── Daily_Gap_Filling_NR_only_TEST.R
-│   │       ├── all_data_daily_merge_table_FINAL.R
+│   │       ├── all_data_daily_merge_table_rf_FINAL.R
+│   │       ├── daily_gap_fill_NR_only_rf_FINAL.R
 │   │       ├── hads_daily_rf_FINAL.R
-│   │       ├── madis_daily_rf_TEST.R
+│   │       ├── madis_daily_rf_FINAL.R
 │   │       ├── nws_rr5_daily_rf_FINAL.R
-│   │       └── qaqc_randfor_bad_data_flag_remove_FINAL.R
+│   │       └── qaqc_randfor_bad_data_flag_remove_rf_FINAL.R
 │   └── monthly
 ├── data_outputs
 │   ├── tables
@@ -21,28 +22,27 @@
 │   │   │   ├── missing
 │   │   │   │   └── 2022_02_unknown_rf_sta.csv
 │   │   │   └── qaqc_fail
-│   │   │       ├── qaqc_fail_stations_2021_12.csv
-│   │   │       ├── qaqc_fail_stations_2022_01.csv
-│   │   │       └── qaqc_fail_stations_2022_02.csv
+│   │   │       ├── 2021_12_qaqc_fail_daily_rf.csv
+│   │   │       ├── 2022_01_qaqc_fail_daily_rf.csv
+│   │   │       └── 2022_02_qaqc_fail_daily_rf.csv
 │   │   └── station_data
 │   │       ├── daily
 │   │       │   ├── partial_filled
 │   │       │   │   ├── county
 │   │       │   │   └── statewide
 │   │       │   │       └── Statewide_Partial_Filled_Daily_RF_mm_2022_02.csv
-│   │       │   ├── qaqc
-│   │       │   │   ├── qc_flag
-│   │       │   │   │   ├── county
-│   │       │   │   │   └── statewide
-│   │       │   │   │       ├── Statewide_RF_QAQC_Daily_Bad_Flag_2021_12.csv
-│   │       │   │   │       ├── Statewide_RF_QAQC_Daily_Bad_Flag_2022_01.csv
-│   │       │   │   │       └── Statewide_RF_QAQC_Daily_Bad_Flag_2022_02.csv
-│   │       │   │   └── qc_prob
-│   │       │   │       ├── county
-│   │       │   │       └── statewide
-│   │       │   │           ├── Statewide_RF_QAQC_Daily_Bad_Prob_2021_12.csv
-│   │       │   │           ├── Statewide_RF_QAQC_Daily_Bad_Prob_2022_01.csv
-│   │       │   │           └── Statewide_RF_QAQC_Daily_Bad_Prob_2022_02.csv
+│   │       │   ├── qc_flag
+│   │       │   │   ├── county
+│   │       │   │   └── statewide
+│   │       │   │       ├── Statewide_RF_QAQC_Daily_Bad_Flag_2021_12.csv
+│   │       │   │       ├── Statewide_RF_QAQC_Daily_Bad_Flag_2022_01.csv
+│   │       │   │       └── Statewide_RF_QAQC_Daily_Bad_Flag_2022_02.csv
+│   │       │   ├── qc_prob
+│   │       │   │   ├── county
+│   │       │   │   └── statewide
+│   │       │   │       ├── Statewide_RF_QAQC_Daily_Bad_Prob_2021_12.csv
+│   │       │   │       ├── Statewide_RF_QAQC_Daily_Bad_Prob_2022_01.csv
+│   │       │   │       └── Statewide_RF_QAQC_Daily_Bad_Prob_2022_02.csv
 │   │       │   ├── raw
 │   │       │   │   ├── county
 │   │       │   │   └── statewide
@@ -765,22 +765,20 @@
 │   └── monthly
 ├── docs
 │   ├── daily
+│   │   ├── config_daily_rf.txt
+│   │   ├── crontab.copy
 │   │   ├── currentDirs.txt
 │   │   ├── currentFileTree.txt
 │   │   └── dependFiles.txt
 │   └── monthly
 └── working_data
-    ├── IWDPdown
     ├── hads
     │   └── 2022_02_hads_daily_rf.csv
     ├── hi_mesonet
     ├── madis
+    │   └── 2022_02_madis_daily_rf.csv
     ├── nws_rr5
-    │   ├── 2022_02_nws_daily_rf.csv
-    │   ├── nws_daily_rf_2021_12.csv
-    │   ├── nws_daily_rf_2022_01.csv
-    │   ├── nws_daily_rf_TEST_2022_01.csv
-    │   └── nws_daily_rf_TEST_2022_02.csv
+    │   └── 2022_02_nws_daily_rf.csv
     └── scan
 
-110 directories, 673 files
+108 directories, 673 files

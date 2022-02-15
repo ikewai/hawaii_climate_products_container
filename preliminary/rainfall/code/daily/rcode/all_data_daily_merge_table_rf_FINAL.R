@@ -3,7 +3,6 @@ rm(list = ls())#remove all objects in R
 
 #set MAIN DIR
 mainDir <- "/home/hawaii_climate_products_container/preliminary"
-#mainDir <- "C:/Users/Matt Lucas/Documents/jetsream_backup/" #dev dir
 
 options(warn=-1)#suppress warnings for session
 print(paste("all data daily merge run:",Sys.time()))#for cron log
@@ -48,7 +47,7 @@ file_date<-format(map_date,"%Y_%m")
 #add HADS data
 setwd(hads_daily_wd)#set data source wd
 hads_month_filename<-paste0(file_date,"_hads_daily_rf.csv")#dynamic file name that includes month year so when month is done new file is written
-if(max(as.numeric(list.files()==hads_month_filename))>0){  #does HADS month file exist? 
+if(file.exists(hads_month_filename)){  #does HADS month file exist? 
  hads<-read.csv(paste0(hads_month_filename),header=T,colClasses=c("staID"="character"))
  hads<-hads[,c("staID","date","rf")]
  names(hads)<-c("sourceID","date","x") #note 'source_id" IS "NESDIS.id" for hads
@@ -87,7 +86,7 @@ if(max(as.numeric(list.files()==hads_month_filename))>0){  #does HADS month file
 #add NWS data 
 setwd(nws_daily_wd)#set data source wd
 nws_month_filename<-paste0(file_date,"_nws_daily_rf.csv")#dynamic file name that includes month year so when month is done new file is written
-if(max(as.numeric(list.files()==nws_month_filename))>0){
+if(file.exists(nws_month_filename)){
  nws<-read.csv(nws_month_filename,header=T)
  nws<-nws[,c("nwsli","date","prec_mm_24hr")]
  names(nws)<-c("sourceID","date","x")
@@ -125,7 +124,7 @@ if(max(as.numeric(list.files()==nws_month_filename))>0){
 #add SCAN data
 setwd(scan_daily_wd)#set data source wd
 scan_month_filename<-paste0(file_date,"_scan_daily_rf.csv")
-if(max(as.numeric(list.files()==scan_month_filename))>0){
+if(file.exists(scan_month_filename)){
  scan<-read.csv(scan_month_filename,header=T)
  #subset 24hr obs
  names(scan)<-c("sourceID","date","x")
@@ -163,7 +162,7 @@ if(max(as.numeric(list.files()==scan_month_filename))>0){
 #add MADIS data
 setwd(madis_daily_wd)#set data source wd
 madis_month_filename<-paste0(file_date,"_madis_daily_rf.csv")#dynamic file name that includes month year so when month is done new file is written
-if(max(as.numeric(list.files()==madis_month_filename))>0){  #does MADIS month file exist? 
+if(file.exists(madis_month_filename)){  #does MADIS month file exist? 
  madis<-read.csv(paste0(madis_month_filename),header=T,colClasses=c("staID"="character"))
  madis<-madis[,c("staID","date","rf")]
  names(madis)<-c("sourceID","date","x") #note 'source_id" IS "NWS.id" for madis
@@ -272,10 +271,9 @@ count_log_all<-rbind(count_log_per,
 count_log_all$date<-map_date #add data date 
 setwd(count_log_wd)
 count_log_month_filename<-paste0(file_date,"_count_log_daily_rf.csv")#dynamic file name that includes month year so when month is done new file is written
-count_files<-list.files()
-	
+
 #conditional statement that adds obs of per day station counts
-if(max(as.numeric(count_files==count_log_month_filename))>0){
+if(file.exists(count_log_month_filename)){
 	write.table(count_log_all,count_log_month_filename, row.names=F,sep = ",",col.names = F, append = T)
 	print(paste(count_log_month_filename,"daily station count appended!"))
 	}else{
@@ -287,11 +285,10 @@ print(count_log_all)
 
 #write or append daily source data
 setwd(rf_day_source_wd)#set rainfall output wd
-source_files<-list.files()
 source_month_filename<-paste0("Statewide_Daily_Source_",file_date,".csv") #dynamic file name that includes month year so when month is done new file is written
 
 #conditional statement that adds new obs
-if(max(as.numeric(source_files==source_month_filename))>0){
+if(file.exists(source_month_filename)){
   source_month_df<-read.csv(source_month_filename)
   sub_cols<-c("SKN",names(source_month_df)[grep("X",names(source_month_df))])
   final_source_data<-merge(source_month_df[,sub_cols],all_sta_data_wide_no_dup_source,by="SKN",all=T)

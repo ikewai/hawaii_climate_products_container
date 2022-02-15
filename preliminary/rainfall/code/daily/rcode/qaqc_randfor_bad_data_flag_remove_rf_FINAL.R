@@ -20,10 +20,9 @@ qaqc_models_wd<- paste0(mainDir,"/rainfall/dependencies/daily/models") #input mo
 
 #output dirs
 qaqc_fail_stations_wd<- paste0(mainDir,"/rainfall/data_outputs/tables/rf_station_tracking/qaqc_fail")
-rf_qaqc_flag_data_wd<- paste0(mainDir,"/rainfall/data_outputs/tables/station_qaqc/qc_flag/statewide")
-rf_qaqc_prob_data_wd<- paste0(mainDir,"/rainfall/data_outputs/tables/station_qaqc/qc_prob/statewide")
+rf_qaqc_flag_data_wd<- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/qc_flag/statewide")
+rf_qaqc_prob_data_wd<- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/qc_prob/statewide")
 rf_qaqc_screen_data_wd<- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/raw_qc/statewide")
-
 
 #rf to prob function
 rf_Prob<-function(rf,meanlog,sdlog,pop){
@@ -179,11 +178,10 @@ rf_qaqc_fail_stations<-merge(geog_meta,rf_qaqc_fail_stations,by="SKN")
 
 #save or append to monthly qaqc station removes stations file
 setwd(qaqc_fail_stations_wd)
-qaqc_fail_files<-list.files()
-rf_fail_stations_month_filename<-paste0("qaqc_fail_stations_",file_date,".csv") #dynamic file name that includes month year so when month is done new file is written
+rf_fail_stations_month_filename<-paste0(file_date,"_qaqc_fail_daily_rf.csv") #dynamic file name that includes month year so when month is done new file is written
 
 #conditional statement that adds new qaqc daily data
-if(max(as.numeric(qaqc_fail_files==rf_fail_stations_month_filename))>0){
+if(file.exists(rf_fail_stations_month_filename)){
   rf_month_fail_df<-read.csv(rf_fail_stations_month_filename,colClasses=c("NESDIS.id"="character"))
   rf_month_fail_df<-rbind(rf_month_fail_df,rf_qaqc_fail_stations)
   write.csv(rf_month_fail_df,rf_fail_stations_month_filename,row.names = F)
@@ -202,11 +200,10 @@ row.names(daily_rf_checked)<-NULL
 
 ##flag file write or append daily rf QAQC
 setwd(rf_qaqc_flag_data_wd)
-qaqc_flag_files<-list.files()
 rf_qaqc_flag_month_filename<-paste0("Statewide_RF_QAQC_Daily_Bad_Flag_",file_date,".csv") #dynamic file name that includes month year so when month is done new file is written
 
 #conditional statement that adds new qaqc daily data
-if(max(as.numeric(qaqc_flag_files==rf_qaqc_flag_month_filename))>0){
+if(file.exists(rf_qaqc_flag_month_filename)){
   #load flag day file add all metadata
   rf_month_flag_df<-read.csv(rf_qaqc_flag_month_filename)
   sub_cols<-c("SKN",names(rf_month_flag_df)[grep("X",names(rf_month_flag_df))])
@@ -232,11 +229,10 @@ if(max(as.numeric(qaqc_flag_files==rf_qaqc_flag_month_filename))>0){
 
 ##prob file write or append daily rf QAQC
 setwd(rf_qaqc_prob_data_wd) 
-qaqc_prob_files<-list.files()
 rf_qaqc_prob_month_filename<-paste0("Statewide_RF_QAQC_Daily_Bad_Prob_",file_date,".csv") #dynamic file name that includes month year so when month is done new file is written
 
 #conditional statement that adds new qaqc daily data
-if(max(as.numeric(qaqc_prob_files==rf_qaqc_prob_month_filename))>0){
+if(file.exists(rf_qaqc_prob_month_filename)){
   #add prob bad day col to file
   rf_month_prob_df<-read.csv(rf_qaqc_prob_month_filename)
   sub_cols<-c("SKN",names(rf_month_prob_df)[grep("X",names(rf_month_prob_df))])
@@ -263,9 +259,8 @@ if(max(as.numeric(qaqc_prob_files==rf_qaqc_prob_month_filename))>0){
 ##save screened station values write/append
 setwd(rf_qaqc_screen_data_wd) #set qaqc rainfall output wd
 rf_qaqc_screen_month_filename<-paste0("Statewide_QAQC_Raw_Daily_RF_mm_",file_date,".csv") #dynamic file name that includes month year so when month is done new file is written
-rf_screen_files<-list.files()
 
-if(max(as.numeric(rf_screen_files==rf_qaqc_screen_month_filename))>0){
+if(file.exists(rf_qaqc_screen_month_filename)){
   #append qaqc rf
   rf_month_screened<-read.csv(rf_qaqc_screen_month_filename)
   sub_cols<-c("SKN",names(rf_month_screened)[grep("X",names(rf_month_screened))])

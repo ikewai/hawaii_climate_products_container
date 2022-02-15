@@ -1,3 +1,4 @@
+#dependency files as of 2022-02-14. to download tar.gz of all files see: home/hawaii_climate_products_container/preliminary/rainfall/code/daily/bash/dailyRFwget.sh
 /home/hawaii_climate_products_container/preliminary/rainfall/dependencies/daily/./models/KA_no_human_rf_nonzero_randfor.rds
 /home/hawaii_climate_products_container/preliminary/rainfall/dependencies/daily/./models/KA_no_human_rf_zero_randfor.rds
 /home/hawaii_climate_products_container/preliminary/rainfall/dependencies/daily/./models/MN_no_human_rf_nonzero_randfor.rds
