@@ -1,0 +1,32 @@
+attribute           value                                                       
+dataStatement       This Feb. 21, 2022 mosaic temperature map of the State of Hawaii is a high spatial resolution (~250m) gridded prediction of mean temperature in degrees Celsius. This was produced using a piece-wise linear regression model using elevation (m) as its predictor(s). This process was done for four individually produced maps of Kauai, Honolulu (Oahu), Maui (Maui, Lanai, Molokai, & Kahoolawe) and Hawaii counties. The linear regression fitting used 45 unique station locations statewide and their Feb. 21, 2022 recorded and/or estimated mean temperatures (degC). Please consult each county map meta-data files for more details on map production and accuracy at the county scale. A leave one out cross validation (LOOCV) of the all station data used in all four counties produced individual R-squared values of: 0.97, nan, 0.92, 0.83 for Hawaii, Kauai, Maui (Maui, Lanai, Molokai, & Kahoolawe), and Honolulu (Oahu) counties respectively. As a whole leave one out cross validation (LOOCV) data from all stations data compared to observed daily temperature (degC) produces a statewide R-squared value of: 0.96 meaning overall this Feb. 21, 2022 statewide mosaic daily mean temperature map is a high quality estimate of daily temperature. All maps are subject to change as new data becomes available or unknown errors are corrected in reoccurring versions. Errors in mean temperature estimates do vary over space meaning any gridded temperature value, even on higher quality maps, could still produce incorrect estimates. Check standard error (SE) maps to better understand spatial estimates of prediction error.
+keywords            Hawaii, Hawaiian Islands, Temperature prediction, Daily Temperature, Temperature, Climate, Linear Regression
+county              bi, ka, mn, oa                                              
+dataDate            2022-02-21                                                  
+dateProduced        2022-02-22                                                  
+dataVersionType     preliminary                                                 
+tempStationFile     daily_Tmin_2022_02.csv, daily_Tmax_2022_02.csv              
+tempGridFile        Tmean_map_state_20220221.tif                                
+tempSEGridFile      Tmean_map_state_20220221_se.tif                             
+GeoCoordUnits       Decimal Degrees                                             
+GeoCoordRefSystem   +proj=longlat +datum=WGS84 +no_defs                         
+XResolution         0.00225                                                     
+YResolution         0.00225                                                     
+ExtentXmin          -159.815                                                    
+ExtentXmax          -154.669                                                    
+ExtentYmin          18.85                                                       
+ExtentYmax          22.268                                                      
+stationCountCounties21, 6, 7, 11                                                
+gridPixCounties     179399, 25527, 54332, 27859                                 
+rsqTempCounties     0.97073 nan 0.92085 0.82801                                 
+rmseTempCounties    0.79032 nan 0.84947 0.61809                                 
+maeTempCounties     0.69126 nan 0.80662 0.55522                                 
+biasTempCounties    0.02717 nan -0.51685 -0.10541                               
+stationCount        45                                                          
+gridPixCount        287117                                                      
+rsqTemp             0.95952                                                     
+rmseTemp            0.84796                                                     
+maeTemp             0.74835                                                     
+biasTemp            -0.13568                                                    
+credits             All data produced by University of Hawaii at Manoa Dept. of Geography and the Enviroment, Ecohydology Lab in collaboration with the Water Resource Research Center (WRRC). Support for the Hawai‘i EPSCoR Program is provided by the Hawaii Emergency Management Agency.
+contacts            Keri Kodama (kodamak8@hawaii.edu), Matthew Lucas (mplucas@hawaii.edu), Ryan Longman (rlongman@hawaii.edu), Sayed Bateni (smbateni@hawaii.edu), Thomas Giambelluca (thomas@hawaii.edu)

@@ -17,14 +17,14 @@ require(xts)
 
 #functions
 getmode <- function(v) { #get mode of values
-	uniqv <- unique(v)
-	uniqv[which.max(tabulate(match(v, uniqv)))]
-	}#end getmode function
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}#end getmode function
 apply.hourly <- function(x, FUN, roundtime = "round", na.rm = TRUE){
   if(!is.xts(x)){
     stop("x must be an xts object")
   }
-
+  
   if(roundtime != "NA"){
     if(roundtime == "round"){
       time(x) <- round.POSIXt(time(x), "hours")
@@ -34,23 +34,30 @@ apply.hourly <- function(x, FUN, roundtime = "round", na.rm = TRUE){
       stop("roundtime must be either round or trunc")
     }
   }
-
+  
   ap <- endpoints(x,'hours')
   if(na.rm){
     period.apply(x,ap,FUN, na.rm = TRUE)
   } else {
     period.apply(x,ap,FUN)
   }
- }#end apply.hrly function
+}#end apply.hrly function
 
 #dirs
 parse_wd<-paste0(mainDir,"/data_aqs/data_outputs/hads/parse")
 agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/hads")
 
-#read HADS parsed table
-setwd(parse_wd)#sever path for parsed hads files
+#read HADS parsed table from dev server
+# setwd(parse_wd)#sever path for parsed hads files
+# hads_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_hads_parsed.csv") #dynamic file name that includes date
+# all_hads<-read.csv(hads_filename)
+
+#read HADS parsed table from ikewai data portal
+ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test" #url
 hads_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_hads_parsed.csv") #dynamic file name that includes date
-all_hads<-read.csv(hads_filename)
+all_hads<-read.csv(paste0(ikeUrl,"/data_aqs/data_outputs/hads/parse/",hads_filename))
+#head(all_hads)
+
 
 #subset precip var, convert inch to mm and convert UTC to HST
 all_hads_pc<-subset(all_hads,var=="PC")# subset precip only
@@ -112,23 +119,16 @@ head(hads_daily_rf_today_final)
 tail(hads_daily_rf_today_final)
 
 #write or append daily rf data monthly file
-	#NEED TO INTGRATE WITH IKE DP
+#NEED TO INTGRATE WITH IKE DP
 setwd(agg_daily_wd)#server path daily agg file
 rf_month_filename<-paste0(format((Sys.Date()-1),"%Y_%m"),"_hads_daily_rf.csv") #dynamic file name that includes month year so when month is done new file is written
 
 if(max(as.numeric(list.files()==rf_month_filename))>0){
-	 write.table(hads_daily_rf_today_final,rf_month_filename, row.names=F,sep = ",", col.names = F, append = T)
-	 print(paste(rf_month_filename,"written"))
-      }else{
-	 write.csv(hads_daily_rf_today_final,rf_month_filename, row.names=F)
-	 print(paste(rf_month_filename,"appended"))
-	}
+  write.table(hads_daily_rf_today_final,rf_month_filename, row.names=F,sep = ",", col.names = F, append = T)
+  print(paste(rf_month_filename,"written"))
+}else{
+  write.csv(hads_daily_rf_today_final,rf_month_filename, row.names=F)
+  print(paste(rf_month_filename,"appended"))
+}
 
 print("PAU!")
-
-
-
-
-
-
- 

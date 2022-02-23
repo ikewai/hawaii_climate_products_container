@@ -14,10 +14,16 @@ print(paste("nws rr5 daily rf agg:",Sys.time()))#for cron log
 parse_hrly_wd<-paste0(mainDir,"/data_aqs/data_outputs/nws_rr5/parse")
 agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/nws_rr5")
 
-#read parse file
-setwd(parse_hrly_wd)
+#read NWS parsed table from dev server
+# setwd(parse_hrly_wd)
+# nws_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_nwsrr5_parsed.csv") #dynamic file name that includes date
+# nws_hrly_data_final<-read.csv(nws_filename)
+
+#read NWS parsed table from ikewai data portal
+ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test" #url
 nws_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_nwsrr5_parsed.csv") #dynamic file name that includes date
-nws_hrly_data_final<-read.csv(nws_filename)
+nws_hrly_data_final<-read.csv(paste0(ikeUrl,"/data_aqs/data_outputs/nws_rr5/parse/",nws_filename))
+#head(nws_hrly_data_final)
 
 #agg to daily and removal partial daily obs
 nws_hrly_data_final$date<-as.Date(nws_hrly_data_final$date)#make date a date

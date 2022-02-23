@@ -47,11 +47,13 @@ apply.hourly <- function(x, FUN, roundtime = "round", na.rm = TRUE){
 parse_wd<-paste0(mainDir,"/data_aqs/data_outputs/madis/parse")
 agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/madis")
 
-#urls
-ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test"
+#read MADIS parsed table from dev server
+# setwd(parse_wd)#sever path for parsed madis files
+# madis_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_madis_parsed.csv") #dynamic file name that includes date
+# all_madis<-read.csv(madis_filename)
 
-#read HADS parsed table
-setwd(parse_wd)#sever path for parsed hads files
+#read MADIS parsed table from ikewai data portal
+ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test" #url
 madis_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_madis_parsed.csv") #dynamic file name that includes date
 all_madis<-read.csv(paste0(ikeUrl,"/data_aqs/data_outputs/madis/parse/",madis_filename))
 #head(all_madis)
