@@ -56,15 +56,27 @@ def update_input_file(df,output_file,master_file=META_MASTER_FILE):
     exist_df = exist_df.set_index(IDX_NAME)
     exist_cols = exist_df.columns
     data_df = exist_df[exist_cols[META_COL_N:]]
+    
     #Update unique indices with union of previous and new
-    updated_inds = np.unique(list(data_df.index)+list(df.index))
+    updated_inds = np.union1d(data_df.index.values,df.index.values)
     updated_df = pd.DataFrame(index=updated_inds)
     updated_df.index.name = IDX_NAME
     #Repopulate new dataframe with old data
     updated_df.loc[data_df.index,data_df.columns] = data_df
+    #Check which new data overlaps
+    overlap_inds = np.intersect1d(data_df.index.values,df.index.values)
+    overlap_cols = [col for col in list(df.columns) if col in list(data_df.columns)]
+    overlap_old_arr = data_df.loc[overlap_inds,overlap_cols].values
+    overlap_new_arr = df.loc[overlap_inds,overlap_cols].values
+
+    #Replace values where new data is nan with whatever was previously there 
+    new_isnan = np.where(np.isnan(overlap_new_arr))
+    overlap_new_arr[new_isnan] = overlap_old_arr[new_isnan]
+    df.loc[overlap_inds,overlap_cols] = overlap_new_arr
+    
     #Add new data where relevant. Overwrite old overlapping data
     updated_df.loc[df.index,df.columns] = df
-
+    
     #date_strs = updated_df.columns.values
     #refrm_dates = ['X'+'.'.join(dt.split('-')) for dt in date_strs]
     #Any date columns that have all missing data are removed prior to merge
@@ -99,7 +111,6 @@ def aggregate_input(varname,filename,datadir,outdir,master_file=META_MASTER_FILE
     st_date_str = ''.join(str(st_date.date()).split('-'))[:-2]
     en_date_str = ''.join(str(en_date.date()).split('-'))[:-2]
     temp_df.columns = date_keys
-
     if st_date_str == en_date_str:
         #same month
         #Check if file exists. If exists, just update

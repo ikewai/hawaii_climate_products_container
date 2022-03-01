@@ -35,7 +35,6 @@ airports<-c("HJR","HKO","HLI","HMK","HNL","HNY","HOG","HTO")
 nws_24hr_agg_final[nws_24hr_agg_final$nwsli %in% airports,"nwsli"]<-paste0("P",nws_24hr_agg_final[nws_24hr_agg_final$nwsli %in% airports,"nwsli"]) #add P to airport IDs to match meta
 
 #write/append to file 
-	#need to intigrate with ike dp? pull file beforehand?
 setwd(agg_daily_wd)#set wd to save/append final day aggs
 files<-list.files()
 rf_month_daily_filename<-paste0(format((Sys.Date()-1),"%Y_%m"),"_nws_daily_rf.csv")#dynamic filename that includes month year so when month is done new file is written

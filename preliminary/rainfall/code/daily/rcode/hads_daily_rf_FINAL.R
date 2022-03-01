@@ -47,10 +47,11 @@ apply.hourly <- function(x, FUN, roundtime = "round", na.rm = TRUE){
 parse_wd<-paste0(mainDir,"/data_aqs/data_outputs/hads/parse")
 agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/hads")
 
-#read HADS parsed table from dev server
+# #read HADS parsed table from dev server
 # setwd(parse_wd)#sever path for parsed hads files
 # hads_filename<-paste0(format((Sys.Date()-1),"%Y%m%d"),"_hads_parsed.csv") #dynamic file name that includes date
 # all_hads<-read.csv(hads_filename)
+# #head(all_hads)
 
 #read HADS parsed table from ikewai data portal
 ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test" #url
@@ -125,10 +126,10 @@ rf_month_filename<-paste0(format((Sys.Date()-1),"%Y_%m"),"_hads_daily_rf.csv") #
 
 if(max(as.numeric(list.files()==rf_month_filename))>0){
   write.table(hads_daily_rf_today_final,rf_month_filename, row.names=F,sep = ",", col.names = F, append = T)
-  print(paste(rf_month_filename,"written"))
+  print(paste(rf_month_filename,"appended"))
 }else{
   write.csv(hads_daily_rf_today_final,rf_month_filename, row.names=F)
-  print(paste(rf_month_filename,"appended"))
+  print(paste(rf_month_filename,"written"))
 }
 
 print("PAU!")
