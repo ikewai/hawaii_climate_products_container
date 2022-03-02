@@ -244,8 +244,6 @@ def select_stations(vars,varname,iCode,stn_date,min_stn=10,mixHighAlt=None):
     else:
         return None
 
-    master_df = pd.read_csv(META_MASTER_FILE)
-    master_df = master_df.set_index('SKN')
     #As long as inversion height is set by mixHighAlt parameter, automatically include all available
     #Automatically gapfill all pre-selected target stations
     var_isl = lr_temp_gapfill(vars,varname,stn_date)
@@ -269,27 +267,6 @@ def select_stations(vars,varname,iCode,stn_date,min_stn=10,mixHighAlt=None):
         var_isl = var_isl[~var_isl[varname].isna()]
         #Exclude any additional stations in the exclusion list
         var_isl = var_isl.loc[~var_isl.index.isin(excl_list)]
-    
-    #Final check if var_isl still below min_stn threshold.
-    if var_isl.shape[0] < min_stn:
-        clim_df = pd.read_csv(get_clim_file(varname))
-        mon_ind = stn_date.month - 1
-        clim_df_skns = clim_df.columns.values.astype(float)
-        #only replace values that aren't already in var_isl
-        non_overlap_skns = np.setdiff1d(clim_df_skns,var_isl.index.values)
-        non_overlap_cols = [str(skn) for skn in non_overlap_skns]
-        clim_to_join = clim_df.loc[mon_ind,non_overlap_cols]
-        clim_to_join.name = varname
-        clim_to_join.index.name = 'SKN'
-        clim_inds = clim_to_join.index.values.astype(float)
-        clim_to_join = pd.DataFrame(clim_to_join).reset_index()
-        clim_to_join['SKN'] = clim_to_join['SKN'].values.astype(float)
-        clim_meta = master_df.loc[clim_inds]
-        var_isl = var_isl.reset_index()
-        var_isl = var_isl.merge(clim_to_join,on=['SKN',varname],how='outer')
-        var_isl = var_isl.set_index('SKN')
-        var_isl.loc[clim_inds,clim_meta.columns] = clim_meta
-        var_isl = var_isl.sort_index()
         
     var_isl = var_isl[~var_isl.index.duplicated(keep='first')]
     return var_isl
@@ -338,13 +315,11 @@ def extract_temp_input(filename,meta_col_n=12,get_decomp=True):
     Processes it according to the date standard, outputs a meta-only dataframe (SKN-sorted),
     and a temp-only dataframe (SKN-sorted)
     """
-    master_df = pd.read_csv(META_MASTER_FILE)
-    master_df = master_df.set_index(STN_IDX_NAME)
     temp_df = pd.read_csv(filename,encoding="ISO-8859-1",engine='python')
     temp_df = temp_df.set_index(STN_IDX_NAME)
-    df_cols = list(temp_df.columns)
-    meta_cols = list(master_df.columns)
-    temp_cols = [col for col in df_cols if col not in meta_cols]
+    df_cols = temp_df.columns
+    meta_cols = df_cols[:meta_col_n]
+    temp_cols = df_cols[meta_col_n:]
     meta_df = temp_df[list(meta_cols)]
     temp_data = temp_df[list(temp_cols)]
 
