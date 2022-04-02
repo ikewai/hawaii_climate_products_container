@@ -115,11 +115,13 @@ rf_month_filename<-paste0("Statewide_Raw_Daily_RF_mm_",file_date,".csv") #dynami
 monthly_rf<-read.csv(rf_month_filename)
 monthly_rf$co<-as.factor(monthly_rf$Island)
 levels(monthly_rf$co)[levels(monthly_rf$co)=="MA"|levels(monthly_rf$co)=="KO"|levels(monthly_rf$co)=="LA"|levels(monthly_rf$co)=="MO"]<-"MN"
+monthly_rf[,grep("X",names(monthly_rf))][monthly_rf[,grep("X",names(monthly_rf))]>500]<-NA #remove daily vals >700 mm
 str(monthly_rf)
 
 #subset day
 rfcol<-format(as.Date(map_date),"X%Y.%m.%d")
 vars<-c("SKN","co","LAT","LON",rfcol)
+if(!as.logical(max(names(monthly_rf)==rfcol))){print(paste("day:",rfcol,"not present in monthly file:",rf_month_filename))}
 daily_rf<-monthly_rf[!is.na(monthly_rf[,rfcol]),vars]
 row.names(daily_rf)<-NULL
 str(daily_rf)

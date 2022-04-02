@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/hawaii_climate_products_container/preliminary/data_aqs/code/madis/mesonet_24hr_fetch_dev.py", line 151, in <module>
+    ds = xr.open_dataset(new_local_name)
+  File "/home/kodamak8/miniconda3/envs/grid_temp/lib/python3.7/site-packages/xarray/backends/api.py", line 479, in open_dataset
+    engine = plugins.guess_engine(filename_or_obj)
+  File "/home/kodamak8/miniconda3/envs/grid_temp/lib/python3.7/site-packages/xarray/backends/plugins.py", line 152, in guess_engine
+    raise ValueError(error_msg)
+ValueError: did not find a match in any of xarray's currently installed IO backends ['netcdf4', 'scipy']. Consider explicitly selecting one of the installed engines via the ``engine`` parameter, or installing additional IO dependencies, see:
+http://xarray.pydata.org/en/stable/getting-started-guide/installing.html
+http://xarray.pydata.org/en/stable/user-guide/io.html

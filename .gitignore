@@ -10,4 +10,6 @@ grid_temp_env.tar.gz
 dependencies.tar.gz
 madis_fetch.out
 *_meta.txt
+*.html
+*.jpg
 

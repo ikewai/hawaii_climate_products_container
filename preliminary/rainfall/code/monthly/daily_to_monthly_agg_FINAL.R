@@ -33,17 +33,24 @@ makeMonthlyRF<-function(rf_month_df){
   return(rf_month_final)
 }
 appendMonthCol<-function(yearDF,monthDF,metafile){
-  yearDF<-yearDF[,c(1,grep("X",names(yearDF)))]#keep only SKN and monthly RF cols
+  yearDFsub<-yearDF[,c(1,grep("X",names(yearDF)))]#keep only SKN and monthly RF cols
   monthDF<-monthDF[,c(1,grep("X",names(monthDF)))]#keep only SKN and monthly RF cols
-  yearDF<-merge(metafile,yearDF,by="SKN",all=T)
-  yearDF<-yearDF[,c(1,grep("X",names(yearDF)))]#keep only SKN and monthly RF cols
+  yearDFsub<-merge(metafile,yearDFsub,by="SKN",all=T)
+  yearDFsub<-yearDFsub[,c(1,grep("X",names(yearDFsub)))]#keep only SKN and monthly RF cols
   monthDF<-merge(metafile,monthDF,by="SKN",all=T)
   monthDF<-monthDF[,c(1,grep("X",names(monthDF)))]#keep only SKN and monthly RF cols
-  yearDF<-merge(yearDF,monthDF,by="SKN")
-  yearDF<-removeAllNA(yearDF)
-  yearFinal<-merge(metafile,yearDF,by="SKN")
-  return(yearFinal)
+  if(sum(names(yearDFsub) %in% names(monthDF))>1){
+    message("dup month! NOT added")
+    return(yearDF)
+  }else{
+    yearDFsub<-merge(yearDFsub,monthDF,by="SKN")
+    yearDFsub<-removeAllNA(yearDFsub)
+    yearFinal<-merge(metafile,yearDFsub,by="SKN")
+    message("month added to year!")
+    return(yearFinal)
+    }
 }
+
 stateSubCounty<-function(statefile,stateName,outdirCounty){
   countList<-list(statefile$Island=="BI",statefile$Island=="MA"|statefile$Island=="KO"|statefile$Island=="MO"|statefile$Island=="LA",statefile$Island=="OA",statefile$Island=="KA")
   names(countList)<-c("BI","MN","OA","KA")

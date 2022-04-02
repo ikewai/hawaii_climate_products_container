@@ -124,7 +124,7 @@ print("Close stations removed!")
 setwd(krigInputOut)#export table WD: local PC
 rf_month_anom_name<-paste0(data_mon_yr,"_statewide_rf_krig_input.csv") #make anom name
 write.csv(RF_MoYr,rf_month_anom_name, row.names = FALSE)
-stateSubCounty(RF_MoYr,rf_month_anom_name,krigInputOutCo)
+stateSubCounty(as.data.frame(RF_MoYr),rf_month_anom_name,krigInputOutCo) #
 print("Anom File Written!")
   
 ### best krig per county/island(s) ###
@@ -220,7 +220,8 @@ bi_rf_stats<-rbind(rf_dat_stats(dat=bi_anom_sp$total_rf_mm,space=co,var="rf_mm_s
                    rf_dat_stats(dat=bi_rf_mm_ras,space=co,var="rf_mm_krig",monyr=data_mon_yr,set=version),
                    rf_dat_stats(dat=bi_rf_mm_SE_ras,space=co,var="rf_mm_SE_krig",monyr=data_mon_yr,set=version))
   
-#raster file names
+#file names
+bi_stations_filename<-gsub("statewide",co,rf_month_anom_name)
 bi_rf_ras_filename<-paste0(data_mon_yr,"_",co,"_rf_mm.tif")#rf grid filename
 bi_rf_SE_ras_filename<-paste0(data_mon_yr,"_",co,"_rf_mm_SE.tif")#rf SE grid filename
 bi_krig_anom_filename<-paste0(data_mon_yr,"_",co,"_anom.tif")
@@ -332,7 +333,8 @@ mn_rf_stats<-rbind(rf_dat_stats(dat=mn_anom_sp$total_rf_mm,space=co,var="rf_mm_s
                    rf_dat_stats(dat=mn_rf_mm_ras,space=co,var="rf_mm_krig",monyr=data_mon_yr,set=version),
                    rf_dat_stats(dat=mn_rf_mm_SE_ras,space=co,var="rf_mm_SE_krig",monyr=data_mon_yr,set=version))
 
-#raster file names
+#file names
+mn_stations_filename<-gsub("statewide",co,rf_month_anom_name)
 mn_rf_ras_filename<-paste0(data_mon_yr,"_",co,"_rf_mm.tif")#rf grid filename
 mn_rf_SE_ras_filename<-paste0(data_mon_yr,"_",co,"_rf_mm_SE.tif")#rf SE grid filename
 mn_krig_anom_filename<-paste0(data_mon_yr,"_",co,"_anom.tif")
@@ -447,7 +449,8 @@ oa_rf_stats<-rbind(rf_dat_stats(dat=oa_anom_sp$total_rf_mm,space=co,var="rf_mm_s
                    rf_dat_stats(dat=oa_rf_mm_SE_ras,space=co,var="rf_mm_SE_krig",monyr=data_mon_yr,set=version))
 
 
-#raster file names
+#file names
+oa_stations_filename<-gsub("statewide",co,rf_month_anom_name)
 oa_rf_ras_filename<-paste0(data_mon_yr,"_",co,"_rf_mm.tif")#rf grid filename
 oa_rf_SE_ras_filename<-paste0(data_mon_yr,"_",co,"_rf_mm_SE.tif")#rf SE grid filename
 oa_krig_anom_filename<-paste0(data_mon_yr,"_",co,"_anom.tif")
@@ -531,7 +534,7 @@ ka_krig_anom_SE_ras<-best_krige_list_ka$rf_anom_SE_ras
 setwd(plotsOut)#export table WD: local PC
 
 #multiplot (with function)
-jpeg(paste0(plotsMultiOut,"/county/",toupper(co),"/",co,"_",data_mon_yr,"_rfCombo_rf_mm.jpg"),width = 7, height = 7, unit="in", res=300)
+jpeg(paste0("multiplot/county/",toupper(co),"/",co,"_",data_mon_yr,"_rfCombo_rf_mm.jpg"),width = 7, height = 7, unit="in", res=300)
 multiKrigePlot(kriges=ka_kriges,map_check_all=ka_map_check_all,best_vario_name=best_vario_name_ka)
 dev.off()
 
@@ -561,7 +564,8 @@ ka_rf_stats<-rbind(rf_dat_stats(dat=ka_anom_sp$total_rf_mm,space=co,var="rf_mm_s
                    rf_dat_stats(dat=ka_rf_mm_SE_ras,space=co,var="rf_mm_SE_krig",monyr=data_mon_yr,set=version))
 
 
-#raster file names
+#file names
+ka_stations_filename<-gsub("statewide",co,rf_month_anom_name)
 ka_rf_ras_filename<-paste0(data_mon_yr,"_",co,"_rf_mm.tif")#rf grid filename
 ka_rf_SE_ras_filename<-paste0(data_mon_yr,"_",co,"_rf_mm_SE.tif")#rf SE grid filename
 ka_krig_anom_filename<-paste0(data_mon_yr,"_",co,"_anom.tif")

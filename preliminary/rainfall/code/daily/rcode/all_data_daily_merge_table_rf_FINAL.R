@@ -201,6 +201,9 @@ if(file.exists(madis_month_filename)){  #does MADIS month file exist?
 #make and write table of all missing stations from acquired data
 all_missing<-rbind(missing_hads,missing_nws,missing_scan,missing_madis)
 all_missing<-all_missing[!is.na(all_missing$sourceID),] #remove no sourceID stations
+if(nrow(all_missing)==0){
+  all_missing<-data.frame(sourceID=NA,datastream="ALL")
+}
 all_missing$lastDate<-as.Date(map_date)
 setwd(missing_sta_wd) #set output wd for missing station
 missing_month_filename<-paste0(file_date,"_unknown_rf_sta.csv") #dynamic file name that includes month year so when month is done new file is written
