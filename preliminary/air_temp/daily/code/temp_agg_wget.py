@@ -14,7 +14,7 @@ PARENT_DIR = r'https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ik
 LOCAL_PARENT = r'/home/hawaii_climate_products_container/preliminary/'
 LOCAL_DATA_AQS = LOCAL_PARENT + r'data_aqs/data_outputs/'
 LOCAL_TEMP = LOCAL_PARENT + r'air_temp/data_outputs/tables/station_data/daily/raw/statewide/'
-SRC_LIST = ['madis']
+SRC_LIST = ['hads','madis']
 
 hst = pytz.timezone('HST')
 today = datetime.today().astimezone(hst)
@@ -33,12 +33,14 @@ for src in SRC_LIST:
 #Tmin daily stations pull
 src_url = PARENT_DIR + r'air_temp/data_outputs/tables/station_data/daily/raw/statewide/'
 filename = src_url + r'_'.join(('daily','Tmin',prev_day_mon)) + r'.csv'
-cmd = ["wget",filename,"-P",LOCAL_TEMP]
+local_name = LOCAL_TEMP + r'_'.join(('daily','Tmin',prev_day_mon)) + r'.csv'
+cmd = ["wget",filename,"-O",local_name]
 subprocess.call(cmd)
 
 #Tmax daily stations pull
 filename = src_url + r'_'.join(('daily','Tmax',prev_day_mon)) + r'.csv'
-cmd = ["wget",filename,"-P",LOCAL_TEMP]
+local_name = LOCAL_TEMP + r'_'.join(('daily','Tmax',prev_day_mon)) + r'.csv'
+cmd = ["wget",filename,"-O",local_name]
 subprocess.call(cmd)
 
 

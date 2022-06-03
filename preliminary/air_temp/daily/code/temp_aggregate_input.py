@@ -1,7 +1,7 @@
 """
 ____README____
 Version 1.1
-
+updated: 5/26/22 (unmerged)
 Description:
 -Module file. Can be run as command-line function or aggregate_input can be imported into wrapper.
 User specifies source and source file. aggregate_input appends source input data to aggregated
@@ -17,7 +17,7 @@ import pandas as pd
 from os.path import exists
 
 #DEFINE CONSTANTS--------------------------------------------------------------
-META_COL_N = 12
+#META_COL_N = 12
 IDX_NAME = 'SKN'
 MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
 WORKING_MASTER_DIR = MASTER_DIR + r'air_temp/working_data/'
@@ -52,10 +52,13 @@ def update_input_file(df,output_file,master_file=META_MASTER_FILE):
     """
     df: dataframe indexed by SKN or other station index code, column keys are date string only, no meta
     """
+    meta_df = pd.read_csv(master_file)
+    meta_df = meta_df.set_index(IDX_NAME)
+    meta_cols = list(meta_df.columns)
     exist_df = pd.read_csv(output_file)
     exist_df = exist_df.set_index(IDX_NAME)
     exist_cols = exist_df.columns
-    data_df = exist_df[exist_cols[META_COL_N:]]
+    data_df = exist_df[[col for col in list(exist_cols) if col not in meta_cols]]
     
     #Update unique indices with union of previous and new
     updated_inds = np.union1d(data_df.index.values,df.index.values)
@@ -83,8 +86,6 @@ def update_input_file(df,output_file,master_file=META_MASTER_FILE):
     updated_df = updated_df.dropna(how='all')
     #updated_df.columns = refrm_dates
     #Connect to master meta by unique index
-    meta_df = pd.read_csv(master_file)
-    meta_df = meta_df.set_index(IDX_NAME)
     meta_df = meta_df.loc[updated_df.index]
     updated_df = meta_df.join(updated_df,how='left')
     

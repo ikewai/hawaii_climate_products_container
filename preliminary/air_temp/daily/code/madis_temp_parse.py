@@ -33,9 +33,9 @@ def get_max_counts(temp_df,uni_stns):
         if stn in INT_EXCEPT.keys():
             max_count = INT_EXCEPT[stn]
         else:
-            stn_df = temp_df[temp_df[SRC_KEY]==stn].sort_values(by=SRC_TIME)
+            stn_df = temp_df[temp_df[SRC_KEY]==stn].drop_duplicates(subset=['time']).sort_values(by=SRC_TIME)
             stn_times = pd.to_datetime(stn_df[SRC_TIME])
-            stn_ints = (stn_times.round('min').diff().dropna().dt.seconds/60).values
+            stn_ints = (stn_times.round('min').diff().dropna().dt.total_seconds()/60).values
             if len(stn_ints) < 1:
                 continue
             vals, counts = np.unique(stn_ints,return_counts=True)
@@ -171,6 +171,8 @@ def get_station_sorted_temp(datadir,date_str,output_dir):
     wide_tmin = convert_dataframe(all_minmax,'Tmin')
     wide_tmax = convert_dataframe(all_minmax,'Tmax')
 
+    print('Tmin',wide_tmin)
+    print('Tmax',wide_tmax)
     #Create new processed table if none exists
     #Update previous with new daily data otherwise
     tmin_process_file = output_dir + '_'.join(('Tmin',SOURCE,date_year,date_month,'processed.csv'))

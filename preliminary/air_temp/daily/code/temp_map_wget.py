@@ -20,12 +20,14 @@ prev_day_mon = prev_day.strftime('%Y_%m')
 #Tmin daily stations pull
 src_url = PARENT_DIR + r'air_temp/data_outputs/tables/station_data/daily/raw/statewide/'
 filename = src_url + r'_'.join(('daily','Tmin',prev_day_mon)) + r'.csv'
-cmd = ["wget",filename,"-P",LOCAL_TEMP]
+local_name = LOCAL_TEMP + r'_'.join(('daily','Tmin',prev_day_mon)) + r'.csv'
+cmd = ["wget",filename,"-O",local_name]
 subprocess.call(cmd)
 
 #Tmax daily stations pull
 filename = src_url + r'_'.join(('daily','Tmax',prev_day_mon)) + r'.csv'
-cmd = ["wget",filename,"-P",LOCAL_TEMP]
+local_name = LOCAL_TEMP + r'_'.join(('daily','Tmax',prev_day_mon)) + r'.csv'
+cmd = ["wget",filename,"-O",local_name]
 subprocess.call(cmd)
 
 #Air temp daily dependencies
