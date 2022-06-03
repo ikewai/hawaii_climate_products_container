@@ -24,6 +24,7 @@ QC_OUTPUT_DIR = RUN_MASTER_DIR + r'tables/station_data/daily/raw_qc/statewide/'
 TEMP_SUFF = '.tif'
 SE_SUFF = '_se.tif'
 ICODE_LIST = ['BI','KA','MN','OA']
+NO_DATA_VAL = -9999
 #END SETTINGS-------------------------------------------------------#
 
 #DEFINE FUNCTIONS---------------------------------------------------#
@@ -80,13 +81,13 @@ def output_tiff(data,base_tiff_name,out_tiff_name,tiff_shape):
     cols,rows = tiff_shape
     ds = gdal.Open(base_tiff_name)
     driver = gdal.GetDriverByName("GTiff")
-    outdata = driver.Create(out_tiff_name, rows, cols, 1, gdal.GDT_Float64)
+    outdata = driver.Create(out_tiff_name, rows, cols, 1, gdal.GDT_Float32)
     # sets same geotransform as input
     outdata.SetGeoTransform(ds.GetGeoTransform())
     outdata.SetProjection(ds.GetProjection())  # sets same projection as input
     outdata.GetRasterBand(1).WriteArray(data.reshape(tiff_shape))
     # if you want these values (in the mask) transparent
-    outdata.GetRasterBand(1).SetNoDataValue(0)
+    outdata.GetRasterBand(1).SetNoDataValue(NO_DATA_VAL)
     outdata.FlushCache()  # saves to disk!!
     outdata = None
     band = None
@@ -99,11 +100,11 @@ def reformat_tiff(tiffname):
     data = ra.read(1)
     mask = ra.read_masks(1)
 
-    mask[mask > 0] = 1
-    masked_data = data * mask
-    masked_data[mask==0] = np.nan
+    data[mask==0] = np.nan
+    data = np.round(data,1)
+    data[np.isnan(data)] = NO_DATA_VAL
 
-    output_tiff(masked_data,tiffname,tiffname,shape)
+    output_tiff(data,tiffname,tiffname,shape)
 
 def qc_state_aggregate(varname,date_str):
     date_year = date_str.split('-')[0]
@@ -133,9 +134,9 @@ def statewide_mosaic(varname,date_str,input_dir,temp_suffix,output_dir):
     date_tail = ''.join(date_str.split('-'))
     file_names = [input_dir+varname+temp_suffix+'/'+icode.upper()+'/'+'_'.join((varname,'map',icode.upper(),date_tail)) + temp_suffix + '.tif' for icode in icode_list]
     output_name = output_dir + varname+temp_suffix + '/' + '_'.join((varname,'map','state',date_tail)) + temp_suffix + '.tif'
-    cmd = "gdal_merge.py -o "+output_name+" -of gtiff -co COMPRESS=LZW"
+    cmd = "gdal_merge.py -o "+output_name+" -of gtiff -co COMPRESS=LZW -n -9999 -a_nodata -9999"
     subprocess.call(cmd.split()+file_names)
-    reformat_tiff(output_name)
+    #reformat_tiff(output_name) #handled by gdal_merge in the live mode
 
 def loocv_aggregate(varname,date_str,input_dir=COUNTY_CV_DIR,output_dir=STATE_CV_DIR,n_params=1):
     #n_params defaults to elevation-only model. Increase if re-running for more predictors
@@ -272,7 +273,7 @@ def create_tables(variable,mode,date_str,tiff_dir=STATE_MAP_DIR,meta_dir=STATE_M
         quality=quality)
     field_value_list = {'attribute':'value','dataStatement':dataStatement_val,'keywords':keyword_val,
         'county':', '.join(icode_list),'dataDate':date_str,'dateProduced':today,'dataVersionType':'preliminary',
-        'tempStationFile':temp_station_name,'tempGridFile':temp_tiff_name,'tempSEGridFile':temp_se_name,
+        'tempStationFile':temp_station_name,'tempGridFile':temp_tiff_name,'tempSEGridFile':temp_se_name, 'fillValue':'-9999',
         'GeoCoordUnits':'Decimal Degrees','GeoCoordRefSystem':'+proj=longlat +datum=WGS84 +no_defs',
         'XResolution':xres,'YResolution':yres,'ExtentXmin':xmin,'ExtentXmax':xmax,'ExtentYmin':ymin,
         'ExtentYmax':ymax,'stationCountCounties':', '.join([str(x) for x in meta['StationCountCounties']]),'gridPixCounties':grid_pix,

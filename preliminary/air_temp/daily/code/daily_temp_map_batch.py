@@ -58,6 +58,7 @@ SE_TIFF_ON = True   #Set True to output standard error gridded geotiff
 TEMP_PNG_ON = False  #Set True to output png display of temperature geotiff
 SE_PNG_ON = False    #Set True to output png display of standard error geotiff
 
+NO_DATA_VAL = -9999
 #END CONSTANTS----------------------------------------------------------------
 
 #DEFINE FUNCTIONS-------------------------------------------------------------
@@ -174,13 +175,13 @@ def output_tiff(df_data,tiff_filename,iCode,shape):
 
     # arr_out = np.where((arr < arr_mean), -100000, arr)
     driver = gdal.GetDriverByName("GTiff")
-    outdata = driver.Create(tiff_filename, rows, cols, 1, gdal.GDT_Float64)
+    outdata = driver.Create(tiff_filename, rows, cols, 1, gdal.GDT_Float32)
     # sets same geotransform as input
     outdata.SetGeoTransform(ds.GetGeoTransform())
     outdata.SetProjection(ds.GetProjection())  # sets same projection as input
     outdata.GetRasterBand(1).WriteArray(df_data.reshape(shape))
     # if you want these values (in the mask) transparent
-    outdata.GetRasterBand(1).SetNoDataValue(0)
+    outdata.GetRasterBand(1).SetNoDataValue(NO_DATA_VAL)
     outdata.FlushCache()  # saves to disk!!
     outdata = None
     ds = None
@@ -376,8 +377,10 @@ def generate_county_map(iCode, varname, params, date_str, output_dir=None):
     #Create geotiff for temperature map and standard error map
     X_island = island_df.values
     T_model = MODEL(X_island[:, 2:], *theta)
-    T_model[mask == 0] = np.nan
-    se_model[mask == 0] = np.nan
+    T_model = np.round(T_model,1)
+    se_model = np.round(se_model,1)
+    T_model[mask == 0] = NO_DATA_VAL
+    se_model[mask == 0] = NO_DATA_VAL
 
     #Generate geotiffs for temperature map and standard error
     if TEMP_TIFF_ON:

@@ -18,6 +18,7 @@ CV_OUTPUT_DIR = RUN_MASTER_DIR + r'tables/loocv/daily/county/'
 TIFF_SUFFIX = '.tif'
 SE_SUFFIX = '_se.tif'
 CV_SUFFIX = '_loocv.csv'
+NO_DATA_VAL = -9999
 #END SETTINGS----------------------------------------------------------------#
 
 #FUNCTION DEFINITION---------------------------------------------------------#
@@ -66,7 +67,7 @@ def get_island_df(tiff_name,varname):
     raster_mask[raster_mask > 0] = 1
     masked_array = raster_data * raster_mask
 
-    masked_array[raster_mask == 0] = 0
+    masked_array[raster_mask == 0] = np.nan
 
     masked_array = masked_array.reshape(-1)
 
@@ -80,13 +81,13 @@ def output_tiff(data,base_tiff_name,out_tiff_name,tiff_shape):
     cols,rows = tiff_shape
     ds = gdal.Open(base_tiff_name)
     driver = gdal.GetDriverByName("GTiff")
-    outdata = driver.Create(out_tiff_name, rows, cols, 1, gdal.GDT_Float64)
+    outdata = driver.Create(out_tiff_name, rows, cols, 1, gdal.GDT_Float32)
     # sets same geotransform as input
     outdata.SetGeoTransform(ds.GetGeoTransform())
     outdata.SetProjection(ds.GetProjection())  # sets same projection as input
     outdata.GetRasterBand(1).WriteArray(data.reshape(tiff_shape))
     # if you want these values (in the mask) transparent
-    outdata.GetRasterBand(1).SetNoDataValue(0)
+    outdata.GetRasterBand(1).SetNoDataValue(NO_DATA_VAL)
     outdata.FlushCache()  # saves to disk!!
     outdata = None
     band = None
@@ -130,6 +131,8 @@ def generate_county_mean(iCode,date_str,datadir=None):
     #Take the mean of Tmin and Tmax columns, convert into dataframe
     tmean = merged_df[[min_varname,max_varname]].mean(axis=1).values
 
+    tmean = np.round(tmean,1)
+    tmean[np.isnan(tmean)] = NO_DATA_VAL
     #Output to new tiff
     output_tiff(tmean,tmin_tiff_name,tmean_tiff_name,shape)
     
@@ -165,6 +168,8 @@ def generate_se_mean(iCode,date_str,datadir=None):
     se_max2 = se_max_df[max_varname]**2
     combined = np.sqrt((se_min2) + (se_max2)) / 2.0
 
+    combined = np.round(combined,1)
+    combined[np.isnan(combined)] = NO_DATA_VAL
     output_tiff(combined.values,se_min_tiff_name,se_mean_tiff_name,tiff_shape)
     
 

@@ -265,7 +265,7 @@ def write_meta_text(varname,date_str,meta):
     #Arrange all meta fields and write to file
     field_value_list = {'attribute':'value','dataStatement':dataStatement_val,'keywords':kw_list,
         'county':island.lower(),'dataDate':formatted_date,'dataVersionType':'preliminary','tempStationFile':meta['input_file'],'tempGridFile':meta['temp_file'],
-        'tempSEGridFile':meta['se_file'],'crossValidationFile':cv_file,'GeoCoordUnits':'Decimal Degrees',
+        'tempSEGridFile':meta['se_file'],'crossValidationFile':cv_file,'fillValue':'-9999','GeoCoordUnits':'Decimal Degrees',
         'GeoCoordRefSystem':'+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0','XResolution':str(meta['XResolution']),
         'YResolution':str(meta['YResolution']),'ExtentXmin':str(meta['Xmin']),
         'ExtentXmax':str(meta['Xmax']),'ExtentYmin':str(meta['Ymin']),

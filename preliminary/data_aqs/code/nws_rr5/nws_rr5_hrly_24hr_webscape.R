@@ -52,15 +52,19 @@ print("hrly datetimes sites found!")
 #scape and save raw html text 
 setwd(raw_page_wd)#wd to save scraped html
 
+day_dir<-paste0("/nws_hrly_rf_html_",format(Sys.Date()-1,"%Y_%m_%d"))
+dir.create(day_dir)
+
 #for loop to scrap all html pages from day of interest
 for(i in V_urls){
 	url<-paste0("https://forecast.weather.gov/product.php?site=HFO&issuedby=HFO&product=RR5&format=txt&version=",i,"&glossary=0")
 	page<-readLines(url)
 	page_dt<-as.character(undup_dt_df_day[undup_dt_df_day$V==i,"datetime"])
 	obs_dt<-format((as.POSIXct(page_dt)-1),"%Y_%m_%d_%H00")
-	write(page,paste0("NWS_auto_1hr_",obs_dt,".html"))
-	}
-files2zip <- Sys.glob("*.html") #list all files to zip and later parse
+	write(page,paste0(day_dir,"/NWS_auto_1hr_",obs_dt,".html"))
+}
+
+files2zip <- Sys.glob(paths = day_dir, "*.html") #list all files to zip and later parse
 zip(zipfile = paste0(getwd(),"/nws_hrly_rf_html_",format(Sys.Date()-1,"%Y_%m_%d")), files = files2zip)#zip and/or append raw html files
 print("hrly html sites scraped and saved!!")
 
