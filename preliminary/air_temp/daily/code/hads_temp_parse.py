@@ -36,7 +36,7 @@ TMAX_VARNAME = 'Tmax'
 MASTER_KEY = 'NESDIS.id'
 MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
 SOURCE_DIR = MASTER_DIR + r'data_aqs/data_outputs/' + SOURCE_NAME + r'/parse/'
-CODE_MASTER_DIR = MASTER_DIR + r'air_temp/daily/code/'
+CODE_MASTER_DIR = MASTER_DIR + r'air_temp/daily/mmcode/'
 WORKING_MASTER_DIR = MASTER_DIR + r'air_temp/working_data/'
 RUN_MASTER_DIR = MASTER_DIR + r'air_temp/data_outputs/'
 PROC_OUTPUT_DIR = WORKING_MASTER_DIR + r'processed_data/' + SOURCE_NAME + r'/'
@@ -94,6 +94,9 @@ def get_tmin_tmax(temp_df,date_str):
             if tmin<tmax:
                 temp_data.append([stn,'Tmin',date_str,tmin,valid_pct])
                 temp_data.append([stn,'Tmax',date_str,tmax,valid_pct])
+            else:
+                temp_data.append([stn,'Tmin',date_str,np.nan,valid_pct])
+                temp_data.append([stn,'Tmax',date_str,np.nan,valid_pct])
 
     min_max_df = pd.DataFrame(temp_data,columns=[MASTER_KEY,'var','date','value','percent_valid'])
     return min_max_df
@@ -101,6 +104,7 @@ def get_tmin_tmax(temp_df,date_str):
 def convert_dataframe(long_df,varname):
     var_df = long_df[long_df['var']==varname]
     valid_df = var_df[var_df['percent_valid']>=0.95]
+    print(valid_df)
 
     wide_df = pd.DataFrame(index=valid_df[MASTER_KEY].values)
     for stn in wide_df.index.values:

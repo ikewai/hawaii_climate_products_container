@@ -1,4 +1,6 @@
+import sys
 import pytz
+from pandas import to_datetime
 from datetime import datetime, timedelta
 from daily_temp_map_batch import generate_county_map
 from daily_temp_mean_batch import generate_county_mean, generate_se_mean
@@ -9,11 +11,17 @@ ICODE_LIST = ['BI','KA','MN','OA']
 PARAM_LIST = ['dem_250']
 #END CONSTANTS----------------------------------------------------------------
 
-#Set date to previous 24 hours
-hst = pytz.timezone('HST')
-today = datetime.today().astimezone(hst)
-prev_day = today - timedelta(days=1)
-date_str = prev_day.strftime('%Y-%m-%d')
+if __name__=="__main__":
+    if len(sys.argv) > 1:
+        input_date = sys.argv[1]
+        dt = to_datetime(input_date)
+        date_str = dt.strftime('%Y-%m-%d')
+    else:
+        #Set date to previous 24 hours
+        hst = pytz.timezone('HST')
+        today = datetime.today().astimezone(hst)
+        prev_day = today - timedelta(days=1)
+        date_str = prev_day.strftime('%Y-%m-%d')
 print(date_str)
 #Tmin county maps
 varname = 'Tmin'

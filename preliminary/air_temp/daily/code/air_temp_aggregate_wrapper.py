@@ -49,25 +49,31 @@ def get_daily_count(count_file,stn_list,date_str):
 
 #Go through each source and aggregate everything in list
 #Eventually consider staggered aggregation
-hst = pytz.timezone('HST')
-today = datetime.today().astimezone(hst)
-prev_day = today - timedelta(days=1)
-date_str = prev_day.strftime('%Y-%m-%d')
-tmin_stns_by_src = {}
-tmax_stns_by_src = {}
-for src in SOURCE_LIST:
-    year = date_str.split('-')[0]
-    mon = date_str.split('-')[1]
-    proc_tmin_file_name = '_'.join((TMIN_VARNAME,src,year,mon,'processed')) + '.csv'
-    proc_tmax_file_name = '_'.join((TMAX_VARNAME,src,year,mon,'processed')) + '.csv'
-    #[SET_DIR]
-    source_processed_dir = PROC_DATA_DIR + src + '/'
-    tmin_agg_df,tmin_stns = aggregate_input(TMIN_VARNAME,proc_tmin_file_name,source_processed_dir,AGG_OUTPUT_DIR,META_MASTER_FILE)
-    tmax_agg_df,tmax_stns = aggregate_input(TMAX_VARNAME,proc_tmax_file_name,source_processed_dir,AGG_OUTPUT_DIR,META_MASTER_FILE)
-    tmin_stns_by_src[src] = tmin_stns
-    tmax_stns_by_src[src] = tmax_stns
+if __name__=='__main__':
+    if len(sys.argv) > 1:
+        input_date = sys.argv[1]
+        dt = pd.to_datetime(input_date) #converts any format to single datatype
+        date_str = dt.strftime('%Y-%m-%d') #converts date to standardized format
+    else:
+        hst = pytz.timezone('HST')
+        today = datetime.today().astimezone(hst)
+        prev_day = today - timedelta(days=1)
+        date_str = prev_day.strftime('%Y-%m-%d')
+    tmin_stns_by_src = {}
+    tmax_stns_by_src = {}
+    for src in SOURCE_LIST:
+        year = date_str.split('-')[0]
+        mon = date_str.split('-')[1]
+        proc_tmin_file_name = '_'.join((TMIN_VARNAME,src,year,mon,'processed')) + '.csv'
+        proc_tmax_file_name = '_'.join((TMAX_VARNAME,src,year,mon,'processed')) + '.csv'
+        #[SET_DIR]
+        source_processed_dir = PROC_DATA_DIR + src + '/'
+        tmin_agg_df,tmin_stns = aggregate_input(TMIN_VARNAME,proc_tmin_file_name,source_processed_dir,AGG_OUTPUT_DIR,META_MASTER_FILE)
+        tmax_agg_df,tmax_stns = aggregate_input(TMAX_VARNAME,proc_tmax_file_name,source_processed_dir,AGG_OUTPUT_DIR,META_MASTER_FILE)
+        tmin_stns_by_src[src] = tmin_stns
+        tmax_stns_by_src[src] = tmax_stns
 
-tmin_count_file = TRACK_DIR + '_'.join(('count_log_daily_Tmin',year,mon)) + '.csv'
-tmax_count_file = TRACK_DIR + '_'.join(('count_log_daily_Tmax',year,mon)) + '.csv'
-get_daily_count(tmin_count_file,tmin_stns_by_src,date_str)
-get_daily_count(tmax_count_file,tmax_stns_by_src,date_str)
+    tmin_count_file = TRACK_DIR + '_'.join(('count_log_daily_Tmin',year,mon)) + '.csv'
+    tmax_count_file = TRACK_DIR + '_'.join(('count_log_daily_Tmax',year,mon)) + '.csv'
+    get_daily_count(tmin_count_file,tmin_stns_by_src,date_str)
+    get_daily_count(tmax_count_file,tmax_stns_by_src,date_str)

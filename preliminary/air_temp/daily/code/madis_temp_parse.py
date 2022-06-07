@@ -171,8 +171,6 @@ def get_station_sorted_temp(datadir,date_str,output_dir):
     wide_tmin = convert_dataframe(all_minmax,'Tmin')
     wide_tmax = convert_dataframe(all_minmax,'Tmax')
 
-    print('Tmin',wide_tmin)
-    print('Tmax',wide_tmax)
     #Create new processed table if none exists
     #Update previous with new daily data otherwise
     tmin_process_file = output_dir + '_'.join(('Tmin',SOURCE,date_year,date_month,'processed.csv'))

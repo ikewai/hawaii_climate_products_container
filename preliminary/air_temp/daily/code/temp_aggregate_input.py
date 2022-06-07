@@ -12,6 +12,7 @@ already exists, otherwise appends as new date data at end of file.
 to new file.
 """
 import sys
+import os
 import numpy as np
 import pandas as pd
 from os.path import exists
@@ -122,12 +123,26 @@ def aggregate_input(varname,filename,datadir,outdir,master_file=META_MASTER_FILE
         date_keys_str = [dt.strftime('X%Y.%m.%d') for dt in date_keys]
         temp_df.columns = date_keys_str
         if exists(outfile_name):
-            month_meta = update_input_file(temp_df,outfile_name,master_file)
-            month_meta = sort_dates(month_meta,meta_cols)
-            month_meta = month_meta.fillna('NA')
-            month_meta = month_meta.reset_index()
-            month_meta.to_csv(outfile_name,index=False)
+            #if file exists, make sure it's not empty
+            if os.stat(outfile_name).st_size != 0:
+                print('not empty 1')
+                month_meta = update_input_file(temp_df,outfile_name,master_file)
+                month_meta = sort_dates(month_meta,meta_cols)
+                month_meta = month_meta.fillna('NA')
+                month_meta = month_meta.reset_index()
+                month_meta.to_csv(outfile_name,index=False)
+            else:
+                #if empty, just overwrite with new aggregated file from dataframe
+                temp_df = temp_df.dropna(how='all')
+                temp_df.columns = temp_cols
+                master_df = pd.read_csv(master_file)
+                updated_meta = meta_df.loc[temp_df.index]
+                full_df = updated_meta.join(temp_df,how='left')
+                month_meta = update_temp_meta(master_df,full_df)
+                month_meta = month_meta.fillna('NA')
+                month_meta.to_csv(outfile_name,index=False)
         else:
+            #if does not exist, create new file from dataframe
             temp_df = temp_df.dropna(how='all')
             temp_df.columns = temp_cols
             master_df = pd.read_csv(master_file)
@@ -150,12 +165,27 @@ def aggregate_input(varname,filename,datadir,outdir,master_file=META_MASTER_FILE
             outfile_name = outdir + '_'.join(('daily',varname,str(yr),'{:02d}'.format(mon))) + '.csv'
             #check to see if file exists
             if exists(outfile_name):
-                #Updates and overwrites previous version of data file
-                month_meta = update_input_file(month_df,outfile_name,master_file)
-                month_meta = sort_dates(month_meta,meta_cols)
-                month_meta = month_meta.fillna('NA')
-                month_meta = month_meta.reset_index()
-                month_meta.to_csv(outfile_name,index=False)
+                if os.stat(outfile_name).st_size != 0:
+                    print('not empty 2')
+                    #Updates and overwrites previous version of data file
+                    month_meta = update_input_file(month_df,outfile_name,master_file)
+                    month_meta = sort_dates(month_meta,meta_cols)
+                    month_meta = month_meta.fillna('NA')
+                    month_meta = month_meta.reset_index()
+                    month_meta.to_csv(outfile_name,index=False)
+                else:
+                    #create new aggregate file
+                    #update this with master
+                    month_meta = month_df.dropna(how='all')
+                    date_strs = month_meta.columns.values
+                    refrm_dates = ['X'+'.'.join(dt.split('-')) for dt in date_strs]
+                    month_meta.columns = refrm_dates
+                    updated_meta = meta_df.loc[month_meta.index]
+                    month_meta = updated_meta.join(month_df,how='left')
+                    month_meta = sort_dates(month_meta,meta_cols)
+                    month_meta = month_meta.fillna('NA')
+                    month_meta = month_meta.reset_index()
+                    month_meta.to_csv(outfile_name,index=False)
             else:
                 #create new aggregate file
                 #update this with master
