@@ -125,7 +125,6 @@ def aggregate_input(varname,filename,datadir,outdir,master_file=META_MASTER_FILE
         if exists(outfile_name):
             #if file exists, make sure it's not empty
             if os.stat(outfile_name).st_size != 0:
-                print('not empty 1')
                 month_meta = update_input_file(temp_df,outfile_name,master_file)
                 month_meta = sort_dates(month_meta,meta_cols)
                 month_meta = month_meta.fillna('NA')
@@ -166,7 +165,6 @@ def aggregate_input(varname,filename,datadir,outdir,master_file=META_MASTER_FILE
             #check to see if file exists
             if exists(outfile_name):
                 if os.stat(outfile_name).st_size != 0:
-                    print('not empty 2')
                     #Updates and overwrites previous version of data file
                     month_meta = update_input_file(month_df,outfile_name,master_file)
                     month_meta = sort_dates(month_meta,meta_cols)

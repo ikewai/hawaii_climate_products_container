@@ -35,14 +35,14 @@ if __name__=="__main__":
     filename = src_url + r'_'.join(('daily','Tmin',prev_day_mon)) + r'.csv'
     local_name = LOCAL_TEMP + r'_'.join(('daily','Tmin',prev_day_mon)) + r'.csv'
     cmd = ["wget",filename,"-O",local_name]
-    subprocess.call(cmd)
+    #subprocess.call(cmd)
 
     #Tmax daily stations pull
     src_url = REMOTE_BASEURL + r'max/day/statewide/raw/station_data/'+year_str+r'/'+mon_str+r'/'
     filename = src_url + r'_'.join(('daily','Tmax',prev_day_mon)) + r'.csv'
     local_name = LOCAL_TEMP + r'_'.join(('daily','Tmax',prev_day_mon)) + r'.csv'
     cmd = ["wget",filename,"-O",local_name]
-    subprocess.call(cmd)
+    #subprocess.call(cmd)
 
     #Air temp daily dependencies
     src_url = DEPEND_DIR + "dependencies.tar.gz"
