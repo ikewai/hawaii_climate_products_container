@@ -32,14 +32,16 @@ if __name__=="__main__":
 
     #Tmin daily stations pull
     src_url = REMOTE_BASEURL + r'min/day/statewide/raw/station_data/'+year_str+r'/'+mon_str+r'/'
-    filename = src_url + r'_'.join(('daily','Tmin',prev_day_mon)) + r'.csv'
+    #filename = src_url + r'_'.join(('daily','Tmin',prev_day_mon)) + r'.csv'
+    filename= src_url + 'temperature_min_day_statewide_raw_station_data_'+ prev_day_mon + '.csv'
     local_name = LOCAL_TEMP + r'_'.join(('daily','Tmin',prev_day_mon)) + r'.csv'
     cmd = ["wget",filename,"-O",local_name]
     #subprocess.call(cmd)
 
     #Tmax daily stations pull
     src_url = REMOTE_BASEURL + r'max/day/statewide/raw/station_data/'+year_str+r'/'+mon_str+r'/'
-    filename = src_url + r'_'.join(('daily','Tmax',prev_day_mon)) + r'.csv'
+    #filename = src_url + r'_'.join(('daily','Tmax',prev_day_mon)) + r'.csv'
+    filename= src_url + 'temperature_max_day_statewide_raw_station_data_'+ prev_day_mon + '.csv'
     local_name = LOCAL_TEMP + r'_'.join(('daily','Tmax',prev_day_mon)) + r'.csv'
     cmd = ["wget",filename,"-O",local_name]
     #subprocess.call(cmd)
