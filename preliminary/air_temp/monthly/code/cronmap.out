@@ -1,0 +1,77 @@
+dependencies/
+dependencies/predictors/
+dependencies/predictors/tmax_predictors.csv
+dependencies/predictors/tmin_predictors.csv
+dependencies/clim/
+dependencies/clim/Tmin_stn_clim.csv
+dependencies/clim/Tmax_stn_clim.csv
+dependencies/gapfill_models/
+dependencies/gapfill_models/Tmin_targetSKN1075.0_20140101-20181231.csv
+dependencies/gapfill_models/Tmax_targetSKN728.2_20140101-20181231.csv
+dependencies/gapfill_models/Tmin_targetSKN337.1_20140101-20181231.csv
+dependencies/gapfill_models/Tmin_targetSKN39.0_20140101-20181231.csv
+dependencies/gapfill_models/Tmax_targetSKN337.0_20140101-20181231.csv
+dependencies/gapfill_models/Tmin_targetSKN728.2_20140101-20181231.csv
+dependencies/gapfill_models/Tmin_targetSKN339.6_20140101-20181231.csv
+dependencies/gapfill_models/Tmin_targetSKN39.1_20140101-20181231.csv
+dependencies/gapfill_models/.DS_Store
+dependencies/gapfill_models/Tmax_targetSKN39.0_20140101-20181231.csv
+dependencies/gapfill_models/Tmax_targetSKN339.6_20140101-20181231.csv
+dependencies/gapfill_models/Tmax_targetSKN885.7_20140101-20181231.csv
+dependencies/gapfill_models/Tmax_targetSKN39.1_20140101-20181231.csv
+dependencies/gapfill_models/Tmin_targetSKN885.7_20140101-20181231.csv
+dependencies/gapfill_models/Tmax_targetSKN1075.0_20140101-20181231.csv
+dependencies/gapfill_models/Tmax_targetSKN39.2_20140101-20181231.csv
+dependencies/gapfill_models/Tmax_targetSKN337.1_20140101-20181231.csv
+dependencies/gapfill_models/Tmin_targetSKN337.0_20140101-20181231.csv
+dependencies/gapfill_models/Tmin_targetSKN39.2_20140101-20181231.csv
+dependencies/geoTiffs_250m/
+dependencies/geoTiffs_250m/dem/
+dependencies/geoTiffs_250m/dem/mn_dem_250m.tif
+dependencies/geoTiffs_250m/dem/bi_dem_250m.tif
+dependencies/geoTiffs_250m/dem/.DS_Store
+dependencies/geoTiffs_250m/dem/oa_dem_250m.tif
+dependencies/geoTiffs_250m/dem/ka_dem_250m.tif
+dependencies/geoTiffs_250m/dem/oa_dem_250m_orig.tif
+dependencies/geoTiffs_250m/masks/
+dependencies/geoTiffs_250m/masks/statewide_mask_master.tif
+dependencies/geoTiffs_250m/masks/mn_mask.tif
+dependencies/geoTiffs_250m/masks/bi_mask.tif
+dependencies/geoTiffs_250m/masks/oa_mask_orig.tif
+dependencies/geoTiffs_250m/masks/ka_mask.tif
+dependencies/geoTiffs_250m/masks/oa_mask.tif
+dependencies/geoTiffs_250m/.DS_Store
+2022 08
+Tmax BI 2022-08-01 done
+Tmin BI 2022-08-01 done
+Tmean BI 2022-08-01 done
+Tmax KA 2022-08-01 done
+Tmin KA 2022-08-01 done
+Tmean KA 2022-08-01 done
+Tmax MN 2022-08-01 done
+Tmin MN 2022-08-01 done
+Tmean MN 2022-08-01 done
+Tmax OA 2022-08-01 done
+Tmin OA 2022-08-01 done
+Tmean OA 2022-08-01 done
+Tmax BI 2022-08-01 done
+Tmin BI 2022-08-01 done
+Tmean BI 2022-08-01 done
+Tmax KA 2022-08-01 done
+Tmin KA 2022-08-01 done
+Tmean KA 2022-08-01 done
+Tmax MN 2022-08-01 done
+Tmin MN 2022-08-01 done
+Tmean MN 2022-08-01 done
+Tmax OA 2022-08-01 done
+Tmin OA 2022-08-01 done
+Tmean OA 2022-08-01 done
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+2022-08-01 Tmax done
+2022-08-01 Tmin done
+2022-08-01 Tmean done

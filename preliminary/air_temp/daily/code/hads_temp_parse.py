@@ -104,7 +104,6 @@ def get_tmin_tmax(temp_df,date_str):
 def convert_dataframe(long_df,varname):
     var_df = long_df[long_df['var']==varname]
     valid_df = var_df[var_df['percent_valid']>=0.95]
-    print(valid_df)
 
     wide_df = pd.DataFrame(index=valid_df[MASTER_KEY].values)
     for stn in wide_df.index.values:

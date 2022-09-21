@@ -32,16 +32,24 @@ if __name__=="__main__":
 
     #Tmin daily stations pull
     src_url = REMOTE_BASEURL + r'min/day/statewide/raw/station_data/'+year_str+r'/'+mon_str+r'/'
+<<<<<<< HEAD
     #filename = src_url + r'_'.join(('daily','Tmin',prev_day_mon)) + r'.csv'
     filename= src_url + 'temperature_min_day_statewide_raw_station_data_'+ prev_day_mon + '.csv'
+=======
+    filename = src_url + r'_'.join(('temperature','min','day_statewide_raw_station_data',prev_day_mon)) + r'.csv'
+>>>>>>> f46d294 (KMK: added monthly real time scripts)
     local_name = LOCAL_TEMP + r'_'.join(('daily','Tmin',prev_day_mon)) + r'.csv'
     cmd = ["wget",filename,"-O",local_name]
     #subprocess.call(cmd)
 
     #Tmax daily stations pull
     src_url = REMOTE_BASEURL + r'max/day/statewide/raw/station_data/'+year_str+r'/'+mon_str+r'/'
+<<<<<<< HEAD
     #filename = src_url + r'_'.join(('daily','Tmax',prev_day_mon)) + r'.csv'
     filename= src_url + 'temperature_max_day_statewide_raw_station_data_'+ prev_day_mon + '.csv'
+=======
+    filename = src_url + r'_'.join(('temperature','max','day_statewide_raw_station_data',prev_day_mon)) + r'.csv'
+>>>>>>> f46d294 (KMK: added monthly real time scripts)
     local_name = LOCAL_TEMP + r'_'.join(('daily','Tmax',prev_day_mon)) + r'.csv'
     cmd = ["wget",filename,"-O",local_name]
     #subprocess.call(cmd)
@@ -51,8 +59,12 @@ if __name__=="__main__":
     dest_path = LOCAL_DEPEND + "dependencies.tar.gz"
     cmd = ["wget",src_url]
     subprocess.call(cmd)
+<<<<<<< HEAD
     cmd = ["tar","-xvf","dependencies.tar.gz"]
     subprocess.call(cmd)
     dpath =  LOCAL_DEPEND +"/dependencies"
     cmd =["cp", "-r", "dependencies/*",dpath] 
+=======
+    cmd = ["tar","-xvf",dest_path,"-C",LOCAL_DEPEND]
+>>>>>>> f46d294 (KMK: added monthly real time scripts)
     subprocess.call(cmd)

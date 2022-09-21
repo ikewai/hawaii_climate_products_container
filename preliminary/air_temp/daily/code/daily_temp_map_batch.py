@@ -253,6 +253,13 @@ def update_fail(fail_name,fail_temps,date_str,varname):
         
         return new_fail_meta
 
+def sort_dates(df,meta_cols):
+    non_meta_cols = [col for col in list(df.columns) if col not in meta_cols]
+    date_keys_sorted = sorted(pd.to_datetime([dt.split('X')[1] for dt in non_meta_cols]))
+    date_cols_sorted = [dt.strftime('X%Y.%m.%d') for dt in date_keys_sorted]
+    sorted_cols = meta_cols + date_cols_sorted
+    sorted_df = df[sorted_cols]
+    return sorted_df
 
 def generate_county_map(iCode, varname, params, date_str, output_dir=None):
 
@@ -303,7 +310,7 @@ def generate_county_map(iCode, varname, params, date_str, output_dir=None):
     temp_date = tmpl.get_temperature_date(temp_data,temp_meta,iCode,date_str,varname=varname,climloc=climname)
     valid_skns = np.intersect1d(temp_date.index.values,pr_series.index.values)
     df_date = pd.concat([temp_date.loc[valid_skns,[varname,'Island','LON','LAT']],pr_series.loc[valid_skns]],axis=1)
-
+    meta_cols = list(temp_meta.columns)
     #Fit temperature model
     temp_series = df_date[varname]
     pr_series = df_date[params]
@@ -330,26 +337,31 @@ def generate_county_map(iCode, varname, params, date_str, output_dir=None):
     if exists(qc_temp_file):
         temp_qc_prev = pd.read_csv(qc_temp_file)
         temp_qc_prev = temp_qc_prev.set_index('SKN')
-        meta_cols = list(temp_meta.columns)
+        #print('prev file read',temp_qc_prev)
         prev_meta = temp_qc_prev[meta_cols]
         prev_data_cols = [col for col in list(temp_qc_prev.columns) if col not in meta_cols]
         dt_cols = pd.to_datetime([col.split('X')[1] for col in prev_data_cols])
         temp_qc_prev.rename(columns=dict(zip(prev_data_cols,dt_cols)),inplace=True)
         prev_inds = temp_qc_prev.index.values
-        new_inds = np.union1d(prev_inds,df_indx)
+        new_inds = np.union1d(prev_inds,target_isl_qc.index.values)
         new_temp_qc = pd.DataFrame(index=new_inds)
         new_temp_qc.index.name = 'SKN'
         #Backfill prior
         new_temp_qc.loc[temp_qc_prev.index,temp_qc_prev.columns] = temp_qc_prev
         #Add new flagged data in specified column.
         #Dates are formatted as pd.datetime objects
-        new_temp_qc.loc[target_isl_qc.index,today_dt] = target_isl_qc[varname].values
+        target_isl_qc = target_isl_qc.rename(columns={varname:today_dt})
+        new_temp_qc.loc[target_isl_qc.index,target_isl_qc.columns] = target_isl_qc
+        
         #Convert times
         data_cols = [col for col in list(new_temp_qc.columns) if col not in meta_cols]
         new_dates = [dt.strftime('X%Y.%m.%d') for dt in data_cols]
         col_rename = dict(zip(data_cols,new_dates))
         new_temp_qc.rename(columns=col_rename,inplace=True)
+        #Make sure dates are sorted first
+        new_temp_qc = sort_dates(new_temp_qc,meta_cols)
         #Write updated qc table
+        new_temp_qc = new_temp_qc.fillna('NA')
         new_temp_qc = new_temp_qc.reset_index()
         new_temp_qc.to_csv(qc_temp_file,index=False)
     else:
@@ -357,6 +369,9 @@ def generate_county_map(iCode, varname, params, date_str, output_dir=None):
         #Convert times first
         x_date_str = today_dt.strftime('X%Y.%m.%d')
         target_isl_qc.rename(columns={varname:x_date_str},inplace=True)
+        #Sort dates
+        target_isl_qc = sort_dates(target_isl_qc,meta_cols)
+        target_isl_qc = target_isl_qc.fillna('NA')
         target_isl_qc = target_isl_qc.reset_index()
         target_isl_qc.to_csv(qc_temp_file,index=False)
     

@@ -135,7 +135,8 @@ def get_metrics(varname,iCode,date_str,param_list,inversion=2150):
         tmin_file = '_'.join(('daily','Tmin',year,mon)) + '.csv'
         tmax_file = '_'.join(('daily','Tmax',year,mon)) + '.csv'
         input_file = ', '.join((tmin_file,tmax_file))
-    input_file = '_'.join(('daily',varname,year,mon)) +'.csv'
+    else:
+        input_file = '_'.join(('daily',varname,year,mon)) +'.csv'
     
 
     cv_data = pd.read_csv(cv_file)

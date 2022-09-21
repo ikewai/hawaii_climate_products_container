@@ -113,16 +113,17 @@ def qc_state_aggregate(varname,date_str):
     state_df = pd.DataFrame()
     for icode in ICODE_LIST:
         fname = QC_DATA_DIR + '_'.join(('daily',varname,icode.upper(),date_year,date_mon,'qc')) + '.csv'
-        county_code = icode.lower()
+        #county_code = icode.lower()
         county_qc_df = pd.read_csv(fname)
         county_qc_df.set_index('SKN',inplace=True)
-        county_pos = county_qc_df.columns.get_loc('Island')
-        county_qc_df.insert(loc=county_pos,column='county',value=[county_code]*len(county_qc_df.index.values))
+        #county_pos = county_qc_df.columns.get_loc('Island')
+        #county_qc_df.insert(loc=county_pos,column='county',value=[county_code]*len(county_qc_df.index.values))
         state_df = pd.concat([state_df,county_qc_df],axis=0)
     
     state_df.index.name = 'SKN'
     state_df = state_df.sort_index()
     state_df = state_df.reset_index()
+    state_df = state_df.fillna('NA')
     state_df.to_csv(csv_name,index=False)
     return state_df
 
