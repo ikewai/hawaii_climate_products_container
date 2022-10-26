@@ -35,6 +35,18 @@ def monthly_mean(temp_data,date_str,threshold=15):
     #Only outputs dataframe with SKN index and monthly averaged column
     return month_df
 
+def sort_dates(df,meta_cols):
+    """
+    Assumes the input df is indexed by SKN and is joined to metadata
+    Dates formatted as X%Y.%m.%d
+    """
+    date_cols = [col for col in list(df.columns) if col not in meta_cols]
+    date_keys_sorted = sorted(pd.to_datetime([dt.split('X')[1] for dt in date_cols]))
+    date_cols_sorted = [dt.strftime('X%Y.%m') for dt in date_keys_sorted]
+    sorted_cols = meta_cols + date_cols_sorted
+    sorted_df = df[sorted_cols]
+    return sorted_df
+
 def update_monthly_file(date_id,varname):
     master_df = pd.read_csv(MASTER_META)
     master_df = master_df.set_index('SKN')
@@ -55,9 +67,12 @@ def update_monthly_file(date_id,varname):
         upd_inds = np.union1d(old_df.index.values,mon_df.index.values)
         #Backfill old
         upd_df = pd.DataFrame(index=upd_inds)
+        upd_df.index.name = 'SKN'
         upd_df.loc[old_df.index,old_df.columns] = old_df.copy()
         #Fill new
         upd_df.loc[mon_df.index,mon_df.columns] = mon_df.copy()
+        #Order the dates
+        upd_df = sort_dates(upd_df,meta_cols)
         #Write file
         upd_df = upd_df.reset_index()
         upd_df = upd_df.fillna('NA')
@@ -74,20 +89,35 @@ def update_monthly_file(date_id,varname):
 if __name__=="__main__":
     varname = sys.argv[1]
     if len(sys.argv) > 2:
-        today_in = sys.argv[2]
-        today = pd.to_datetime(today_in)
-    else:
+        #If manual input of date
+        date_str = sys.argv[2]
+        date_time = pd.to_datetime(date_str)
+        this_year = date_time.year
+        this_mon = date_time.month
+        month_st = datetime(this_year,this_mon,1)
+        #Double check that the month is complete
+        #If manual start is the same as today month start, month not complete
         today = datetime.today()
-    this_year = today.year
-    this_month = today.month
-    month_st = datetime(this_year,this_month,1)
-    prev = month_st - timedelta(days=1)
-    prev_year = prev.year
-    prev_month = prev.month
-    prev_st = datetime(prev_year,prev_month,1)
+        today_year = today.year
+        today_mon = today.month
+        today_st = datetime(today_year,today_mon,1)
+        if month_st == today_st:
+            print('Month incomplete. Exiting.')
+            quit()
+    else:
+        #Automatic real-time date set
+        #Runs for the last complete month prior to today()
+        today = datetime.today()
+        this_year = today.year
+        this_mon = today.month
+        this_st = datetime(this_year,this_mon,1)
+        prev = this_st - timedelta(days=1)
+        prev_year = prev.year
+        prev_mon = prev.month
+        month_st = datetime(prev_year,prev_mon,1)
     
     #based on what month it is, create previous full month's monthly mean, append to year file
-    update_monthly_file(prev_st,varname)
+    update_monthly_file(month_st,varname)
 
 
 

@@ -3,7 +3,7 @@ dataStatement       This Jul. 2022 mosaic temperature map of the State of Hawaii
 keywords            Hawaii, Hawaiian Islands, Temperature prediction, monthly Temperature, Temperature, Climate, Linear Regression
 county              bi, ka, mn, oa                                              
 dataYearMon         2022-07                                                     
-dateProduced        2022-09-13                                                  
+dateProduced        2022-10-12                                                  
 dataVersionType     archival                                                    
 tempStationFile     daily_Tmin_2022_07.csv                                      
 tempGridFile        Tmin_map_state_202207_monthly.tif                           

@@ -1,0 +1,29 @@
+attribute           value                                                       
+dataStatement       This Sep. 2022 monthly temperature max map of Kauai County is a high spatial resolution gridded prediction of max temperature in degrees Celsius for the month Sep. 2022. This was produced using a piece-wise linear regression model regressed on elevation with the junction point at 2150 meters. The model was trained on 11 unique station location(s) within Kauai County. A leave one out cross validation (LOOCV) of the station data used in this map produced an R-squared of: 0.9462. All maps are subject to change as new data becomes available or unknown errors are corrected in reoccurring versions. Errors in temperature estimates do vary over space meaning any gridded temperature value, even on higher quality maps, could still produce incorrect estimates. Check standard error (SE) maps to better understand spatial estimates of prediction error
+keywords            Kauai County, Hawaii, max temperature prediction, daily temperature, temperature, climate, linear regression
+county              ka                                                          
+dataYearMon         Sep. 2022                                                   
+dataVersionType     preliminary                                                 
+tempStationFile     daily_Tmax_2022_09.csv                                      
+tempGridFile        Tmax_map_KA_202209_monthly.tif                              
+tempSEGridFile      Tmax_map_KA_202209_se_monthly.tif                           
+crossValidationFile 202209_Tmax_KA_loocv_monthly.csv                            
+GeoCoordUnits       Decimal Degrees                                             
+GeoCoordRefSystem   +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+XResolution         0.00225                                                     
+YResolution         0.00225                                                     
+ExtentXmin          -159.814875                                                 
+ExtentXmax          -159.252375                                                 
+ExtentYmin          21.820125                                                   
+ExtentYmax          22.267875                                                   
+stationCount        11                                                          
+outerStationCount   0                                                           
+regressionConst     30.578                                                      
+regressionSlope1    -0.0071                                                     
+regressionSlope2    0.0                                                         
+biasTemp            -0.01161                                                    
+rsqTemp             0.94616                                                     
+rmseTemp            0.69935                                                     
+maeTemp             0.53985                                                     
+credits             All data produced by University of Hawaii at Manoa Dept. of Geography and the Enviroment, Ecohydology Lab in collaboration with the Water Resource Research Center (WRRC). Support for the Hawai‘i EPSCoR Program is provided by the Hawaii Emergency Management Agency.
+contacts            Keri Kodama (kodamak8@hawaii.edu), Matthew Lucas (mplucas@hawaii.edu), Ryan Longman (rlongman@hawaii.edu), Sayed Bateni (smbateni@hawaii.edu), Thomas Giambelluca (thomas@hawaii.edu)

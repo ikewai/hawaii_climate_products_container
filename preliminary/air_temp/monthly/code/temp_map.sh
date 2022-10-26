@@ -11,3 +11,5 @@ python -W ignore /home/hawaii_climate_products_container/preliminary/air_temp/mo
 python -W ignore /home/hawaii_climate_products_container/preliminary/air_temp/monthly/code/monthly_meta_wrapper.py
 
 python -W ignore /home/hawaii_climate_products_container/preliminary/air_temp/monthly/code/monthly_state_wrapper.py
+
+python -W ignore /home/hawaii_climate_products_container/preliminary/air_temp/monthly/code/monthly_stn_data.py
