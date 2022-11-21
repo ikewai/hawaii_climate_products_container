@@ -1,0 +1,29 @@
+attribute           value                                                       
+dataStatement       This Aug. 2022 monthly temperature mean map of Hawaii County is a high spatial resolution gridded prediction of mean temperature in degrees Celsius for the month Aug. 2022. This was produced using a piece-wise linear regression model regressed on elevation with the junction point at 2150 meters. The model was trained on 30 unique station location(s) within Hawaii County. Due to limited station availability, the model training was supplemented by 1 station(s) from Maui. A leave one out cross validation (LOOCV) of the station data used in this map produced an R-squared of: 0.9719. All maps are subject to change as new data becomes available or unknown errors are corrected in reoccurring versions. Errors in temperature estimates do vary over space meaning any gridded temperature value, even on higher quality maps, could still produce incorrect estimates. Check standard error (SE) maps to better understand spatial estimates of prediction error
+keywords            Hawaii County, Hawaii, mean temperature prediction, daily temperature, temperature, climate, linear regression
+county              bi                                                          
+dataYearMon         Aug. 2022                                                   
+dataVersionType     preliminary                                                 
+tempStationFile     daily_Tmin_2022_08.csv, daily_Tmax_2022_08.csv              
+tempGridFile        Tmean_map_BI_202208_monthly.tif                             
+tempSEGridFile      Tmean_map_BI_202208_se_monthly.tif                          
+crossValidationFile 202208_Tmean_BI_loocv_monthly.csv                           
+GeoCoordUnits       Decimal Degrees                                             
+GeoCoordRefSystem   +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+XResolution         0.00225                                                     
+YResolution         0.00225                                                     
+ExtentXmin          -156.241875                                                 
+ExtentXmax          -154.669125                                                 
+ExtentYmin          18.850125000000002                                          
+ExtentYmax          20.332875                                                   
+stationCount        30                                                          
+outerStationCount   1                                                           
+regressionConst     nan                                                         
+regressionSlope1    nan                                                         
+regressionSlope2    nan                                                         
+biasTemp            0.06336                                                     
+rsqTemp             0.9719                                                      
+rmseTemp            0.76397                                                     
+maeTemp             0.65215                                                     
+credits             All data produced by University of Hawaii at Manoa Dept. of Geography and the Enviroment, Ecohydology Lab in collaboration with the Water Resource Research Center (WRRC). Support for the Hawai‘i EPSCoR Program is provided by the Hawaii Emergency Management Agency.
+contacts            Keri Kodama (kodamak8@hawaii.edu), Matthew Lucas (mplucas@hawaii.edu), Ryan Longman (rlongman@hawaii.edu), Sayed Bateni (smbateni@hawaii.edu), Thomas Giambelluca (thomas@hawaii.edu)

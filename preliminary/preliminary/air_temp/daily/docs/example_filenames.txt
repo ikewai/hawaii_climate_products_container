@@ -1,0 +1,54 @@
+***Example deliverable names and paths***
+
+Deliverables list:
+1. Daily Tmin and Tmax station data (monthly separated csv)
+2. Daily Tmin, Tmax, Tmean statewide gridded temperature maps (daily .tif raster maps)
+3. Daily Tmin, Tmax, Tmean statewide gridded standard error maps (daily .tif raster maps)
+4. Daily Tmin, Tmax, Tmean statewide metadata descriptor text (daily plain-text .txt)
+
+master_directory: /home/hawaii_climate_products_container/preliminary/
+
+Daily Tmin and Tmax station data
+Filename only:
+daily_Tmax_YYYY_MM.csv
+daily_Tmin_YYYY_MM.csv
+
+Full path to file
+/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/station_data/daily/raw/statewide/daily_Tmax_YYYY_MM.csv
+/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/station_data/daily/raw/statewide/daily_Tmin_YYYY_MM.csv
+
+
+Daily Tmin, Tmax, Tmean state gridded temperature maps
+Filename only:
+Tmax_map_state_YYYYMMDD.tif
+Tmean_map_state_YYYYMMDD.tif
+Tmin_map_state_YYYYMMDD.tif
+
+Full path to file
+/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/temp/Tmax_map_state_YYYYMMDD.tif
+/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/temp/Tmean_map_state_YYYYMMDD.tif
+/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/temp/Tmin_map_state_YYYYMMDD.tif
+
+
+Daily Tmin, Tmax, Tmean state gridded standard error maps
+Filename only:
+Tmax_map_state_YYYYMMDD_se.tif
+Tmean_map_state_YYYYMMDD_se.tif
+Tmin_map_state_YYYYMMDD_se.tif
+
+Full path to file
+/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/temp_se/Tmax_map_state_YYYYMMDD_se.tif
+/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/temp_se/Tmean_map_state_YYYYMMDD_se.tif
+/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/temp_se/Tmin_map_state_YYYYMMDD_se.tif
+
+
+Daily Tmin, Tmax, Tmean state meta and validation descriptor file
+Filename only:
+YYYYMMDD_Tmax_state_meta.txt
+YYYYMMDD_Tmax_state_meta.txt
+YYYYMMDD_Tmax_state_meta.txt
+
+Full path to file
+/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/metadata/daily/statewide/YYYYMMDD_Tmax_state_meta.txt
+/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/metadata/daily/statewide/YYYYMMDD_Tmean_state_meta.txt
+/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/metadata/daily/statewide/YYYYMMDD_Tmin_state_meta.txt

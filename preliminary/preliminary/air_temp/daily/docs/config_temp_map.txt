@@ -1,0 +1,256 @@
+{"upload":
+	[
+        {
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/Tmax/Tmax_map_state_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/max/day/statewide/data_map/yyyy/mm"
+            "rename": "temperature_max_day_statewide_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/Tmin/Tmin_map_state_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/min/day/statewide/data_map/yyyy/mm"
+            "rename": "temperature_min_day_statewide_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/Tmean/Tmean_map_state_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/mean/day/statewide/data_map/yyyy/mm"
+            "rename": "temperature_mean_day_statewide_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/Tmax_se/Tmax_map_state_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/max/day/statewide/standard_error/yyyy/mm"
+            "rename": "temperature_max_day_statewide_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/Tmin_se/Tmin_map_state_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/min/day/statewide/standard_error/yyyy/mm"
+            "rename": "temperature_min_day_statewide_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/statewide/Tmean_se/Tmean_map_state_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/mean/day/statewide/standard_error/yyyy/mm"
+            "rename": "temperature_mean_day_statewide_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax/BI/Tmax_map_BI_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/max/day/bi/data_map/yyyy/mm"
+            "rename": "temperature_max_day_bi_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin/BI/Tmin_map_BI_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/min/day/bi/data_map/yyyy/mm"
+            "rename": "temperature_min_day_bi_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean/BI/Tmean_map_BI_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/mean/day/bi/data_map/yyyy/mm"
+            "rename": "temperature_mean_day_bi_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax/KA/Tmax_map_KA_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/max/day/ka/data_map/yyyy/mm"
+            "rename": "temperature_max_day_ka_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin/KA/Tmin_map_KA_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/min/day/ka/data_map/yyyy/mm"
+            "rename": "temperature_min_day_ka_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean/KA/Tmean_map_KA_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/mean/day/ka/data_map/yyyy/mm"
+            "rename": "temperature_mean_day_ka_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax/MN/Tmax_map_MN_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/max/day/mn/data_map/yyyy/mm"
+            "rename": "temperature_max_day_mn_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin/MN/Tmin_map_MN_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/min/day/mn/data_map/yyyy/mm"
+            "rename": "temperature_min_day_mn_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean/MN/Tmean_map_MN_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/mean/day/mn/data_map/yyyy/mm"
+            "rename": "temperature_mean_day_mn_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax/OA/Tmax_map_OA_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/max/day/oa/data_map/yyyy/mm"
+            "rename": "temperature_max_day_oa_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin/OA/Tmin_map_OA_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/min/day/oa/data_map/yyyy/mm"
+            "rename": "temperature_min_day_oa_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean/OA/Tmean_map_OA_yyyymmdd.tif",
+            "remote_path": "HCDP/production/temperature/mean/day/oa/data_map/yyyy/mm"
+            "rename": "temperature_mean_day_oa_data_map_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax_se/BI/Tmax_map_BI_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/max/day/bi/standard_error/yyyy/mm"
+            "rename": "temperature_max_day_bi_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin_se/BI/Tmin_map_BI_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/min/day/bi/standard_error/yyyy/mm"
+            "rename": "temperature_min_day_bi_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean_se/BI/Tmean_map_BI_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/mean/day/bi/standard_error/yyyy/mm"
+            "rename": "temperature_mean_day_bi_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax_se/KA/Tmax_map_KA_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/max/day/ka/standard_error/yyyy/mm"
+            "rename": "temperature_max_day_ka_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin_se/KA/Tmin_map_KA_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/min/day/ka/standard_error/yyyy/mm"
+            "rename": "temperature_min_day_ka_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean_se/KA/Tmean_map_KA_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/mean/day/ka/standard_error/yyyy/mm"
+            "rename": "temperature_mean_day_ka_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax_se/MN/Tmax_map_MN_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/max/day/mn/standard_error/yyyy/mm"
+            "rename": "temperature_max_day_mn_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin_se/MN/Tmin_map_MN_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/min/day/mn/standard_error/yyyy/mm"
+            "rename": "temperature_min_day_mn_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean_se/MN/Tmean_map_MN_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/mean/day/mn/standard_error/yyyy/mm"
+            "rename": "temperature_mean_day_mn_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax_se/OA/Tmax_map_OA_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/max/day/oa/standard_error/yyyy/mm"
+            "rename": "temperature_max_day_oa_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin_se/OA/Tmin_map_OA_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/min/day/oa/standard_error/yyyy/mm"
+            "rename": "temperature_min_day_oa_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean_se/OA/Tmean_map_OA_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/mean/day/oa/standard_error/yyyy/mm"
+            "rename": "temperature_mean_day_oa_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmax_se/OA/Tmax_map_OA_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/max/day/oa/standard_error/yyyy/mm"
+            "rename": "temperature_max_day_oa_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmin_se/OA/Tmin_map_OA_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/min/day/oa/standard_error/yyyy/mm"
+            "rename": "temperature_min_day_oa_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/daily/county/Tmean_se/OA/Tmean_map_OA_yyyymmdd_se.tif",
+            "remote_path": "HCDP/production/temperature/mean/day/oa/standard_error/yyyy/mm"
+            "rename": "temperature_mean_day_oa_standard_error_yyyy_mm_dd.tif",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/statewide/yyyymmdd_Tmax_state_meta.txt",
+            "remote_path": "HCDP/production/temperature/max/day/statewide/metadata/yyyy/mm"
+            "rename": "temperature_max_day_statewide_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/statewide/yyyymmdd_Tmin_state_meta.txt",
+            "remote_path": "HCDP/production/temperature/min/day/statewide/metadata/yyyy/mm"
+            "rename": "temperature_min_day_statewide_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/statewide/yyyymmdd_Tmean_state_meta.txt",
+            "remote_path": "HCDP/production/temperature/mean/day/statewide/metadata/yyyy/mm"
+            "rename": "temperature_mean_day_statewide_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/BI/yyyymmdd_Tmax_BI_meta.txt",
+            "remote_path": "HCDP/production/temperature/max/day/bi/metadata/yyyy/mm"
+            "rename": "temperature_max_day_bi_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/BI/yyyymmdd_Tmin_BI_meta.txt",
+            "remote_path": "HCDP/production/temperature/min/day/bi/metadata/yyyy/mm"
+            "rename": "temperature_min_day_bi_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/BI/yyyymmdd_Tmean_BI_meta.txt",
+            "remote_path": "HCDP/production/temperature/mean/day/bi/metadata/yyyy/mm"
+            "rename": "temperature_mean_day_bi_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/KA/yyyymmdd_Tmax_KA_meta.txt",
+            "remote_path": "HCDP/production/temperature/max/day/ka/metadata/yyyy/mm"
+            "rename": "temperature_max_day_ka_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/KA/yyyymmdd_Tmin_KA_meta.txt",
+            "remote_path": "HCDP/production/temperature/min/day/ka/metadata/yyyy/mm"
+            "rename": "temperature_min_day_ka_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/KA/yyyymmdd_Tmean_KA_meta.txt",
+            "remote_path": "HCDP/production/temperature/mean/day/ka/metadata/yyyy/mm"
+            "rename": "temperature_mean_day_ka_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/MN/yyyymmdd_Tmax_MN_meta.txt",
+            "remote_path": "HCDP/production/temperature/max/day/mn/metadata/yyyy/mm"
+            "rename": "temperature_max_day_mn_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/MN/yyyymmdd_Tmin_MN_meta.txt",
+            "remote_path": "HCDP/production/temperature/min/day/mn/metadata/yyyy/mm"
+            "rename": "temperature_min_day_mn_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/MN/yyyymmdd_Tmean_MN_meta.txt",
+            "remote_path": "HCDP/production/temperature/mean/day/mn/metadata/yyyy/mm"
+            "rename": "temperature_mean_day_mn_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/OA/yyyymmdd_Tmax_OA_meta.txt",
+            "remote_path": "HCDP/production/temperature/max/day/oa/metadata/yyyy/mm"
+            "rename": "temperature_max_day_oa_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/OA/yyyymmdd_Tmin_OA_meta.txt",
+            "remote_path": "HCDP/production/temperature/min/day/oa/metadata/yyyy/mm"
+            "rename": "temperature_min_day_oa_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/daily/county/OA/yyyymmdd_Tmean_OA_meta.txt",
+            "remote_path": "HCDP/production/temperature/mean/day/oa/metadata/yyyy/mm"
+            "rename": "temperature_mean_day_oa_metadata_yyyy_mm_dd.txt",
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/station_data/daily/raw/statewide/daily_Tmax_yyyy_mm.csv",
+            "remote_path": "HCDP/production/temperature/max/day/statewide/raw/station_data/yyyy/mm"
+            "rename": "temperature_max_day_statewide_raw_station_data_yyyy_mm.csv"
+            "system_id": "ikewai-annotated-data"
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/station_data/daily/raw/statewide/daily_Tmin_yyyy_mm.csv",
+            "remote_path": "HCDP/production/temperature/min/day/statewide/raw/station_data/yyyy/mm"
+            "rename": "temperature_min_day_statewide_raw_station_data_yyyy_mm.csv"
+            "system_id": "ikewai-annotated-data"
+        }
+
+    ]
+}

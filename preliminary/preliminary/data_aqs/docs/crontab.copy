@@ -1,0 +1,38 @@
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+
+### SYSTEM TIME MUST BE HST! ###
+
+#data aquistion
+55 00 * * * Rscript /home/hawaii_climate_products_container/preliminary/data_aqs/code/nws_rr5/nws_rr5_hrly_24hr_webscape.R
+   # NWS hrly data daily grab - 12:55 am daily
+
+#15 1 * * * Rscript /home/hawaii_climate_products_container/preliminary/data_aqs/code/nano scan_daily_hourly_data_agg_FINAL.R
+#Currently not working#
+   #SCAN hourly daily grab - 1:15am daily
+
+35 1 * * * Rscript  /home/hawaii_climate_products_container/preliminary/data_aqs/code/hads/hads_24hr_webscape.R
+   #HADS daily data grab - 1:35am daily
+
+0 1 * * * bash -c /home/hawaii_climate_products_container/preliminary/data_aqs/code/madis/madis_fetch_cron.sh > /home/hawaii_climate_products_container/preliminary/data_aqs/code/madis/madis_fetch.out 2> /home/hawaii_climate_products_container/preliminary/data_aqs/code/madis/madis_fetch.err
+   #MADIS daily data grab - 1:00am daily

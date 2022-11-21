@@ -1,0 +1,29 @@
+attribute           value                                                       
+dataStatement       This Jul. 2022 monthly temperature min map of Maui County (Maui, Lanai, Molokai, Kahoolawe) is a high spatial resolution gridded prediction of min temperature in degrees Celsius for the month Jul. 2022. This was produced using a piece-wise linear regression model regressed on elevation with the junction point at 2150 meters. The model was trained on 18 unique station location(s) within Maui County (Maui, Lanai, Molokai, Kahoolawe). Due to limited station availability, the model training was supplemented by 2 station(s) from Big Island. A leave one out cross validation (LOOCV) of the station data used in this map produced an R-squared of: 0.967. All maps are subject to change as new data becomes available or unknown errors are corrected in reoccurring versions. Errors in temperature estimates do vary over space meaning any gridded temperature value, even on higher quality maps, could still produce incorrect estimates. Check standard error (SE) maps to better understand spatial estimates of prediction error
+keywords            Maui County (Maui, Lanai, Molokai, Kahoolawe), Hawaii, min temperature prediction, daily temperature, temperature, climate, linear regression
+county              mn                                                          
+dataYearMon         Jul. 2022                                                   
+dataVersionType     preliminary                                                 
+tempStationFile     daily_Tmin_2022_07.csv                                      
+tempGridFile        Tmin_map_MN_202207_monthly.tif                              
+tempSEGridFile      Tmin_map_MN_202207_se_monthly.tif                           
+crossValidationFile 202207_Tmin_MN_loocv_monthly.csv                            
+GeoCoordUnits       Decimal Degrees                                             
+GeoCoordRefSystem   +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+XResolution         0.00225                                                     
+YResolution         0.00225                                                     
+ExtentXmin          -157.348875                                                 
+ExtentXmax          -155.926875                                                 
+ExtentYmin          20.344125000000002                                          
+ExtentYmax          21.320625000000003                                          
+stationCount        18                                                          
+outerStationCount   2                                                           
+regressionConst     22.7158                                                     
+regressionSlope1    -0.0064                                                     
+regressionSlope2    0.0025                                                      
+biasTemp            -0.02433                                                    
+rsqTemp             0.96703                                                     
+rmseTemp            0.71501                                                     
+maeTemp             0.64787                                                     
+credits             All data produced by University of Hawaii at Manoa Dept. of Geography and the Enviroment, Ecohydology Lab in collaboration with the Water Resource Research Center (WRRC). Support for the Hawai‘i EPSCoR Program is provided by the Hawaii Emergency Management Agency.
+contacts            Keri Kodama (kodamak8@hawaii.edu), Matthew Lucas (mplucas@hawaii.edu), Ryan Longman (rlongman@hawaii.edu), Sayed Bateni (smbateni@hawaii.edu), Thomas Giambelluca (thomas@hawaii.edu)

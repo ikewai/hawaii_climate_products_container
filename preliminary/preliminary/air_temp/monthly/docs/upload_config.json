@@ -1,0 +1,582 @@
+{
+	"global_cache": "cache.pk",
+	    "retry": 10,
+	    "print_exec_stats": true,
+	    "write_exec_stats": "stats.json",
+	    "agave_options": {
+		"api_server": "https://ikeauth.its.hawaii.edu",
+		"username": "username",
+		"password": "password",
+		"api_key": "api_key",
+		"api_secret": "api_secret"
+	    },
+	"upload":
+	[
+        {
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/statewide/Tmax/Tmax_map_state_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/max/month/statewide/data_map/%y",
+            "rename": "temperature_max_month_statewide_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/statewide/Tmin/Tmin_map_state_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/min/month/statewide/data_map/%y",
+            "rename": "temperature_min_month_statewide_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/statewide/Tmean/Tmean_map_state_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/mean/month/statewide/data_map/%y",
+            "rename": "temperature_mean_month_statewide_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/statewide/Tmax_se/Tmax_map_state_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/max/month/statewide/standard_error/%y",
+            "rename": "temperature_max_month_statewide_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/statewide/Tmin_se/Tmin_map_state_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/min/month/statewide/standard_error/%y",
+            "rename": "temperature_min_month_statewide_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/statewide/Tmean_se/Tmean_map_state_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/mean/month/statewide/standard_error/%y",
+            "rename": "temperature_mean_month_statewide_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmax/BI/Tmax_map_BI_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/max/month/bi/data_map/%y",
+            "rename": "temperature_max_month_bi_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmin/BI/Tmin_map_BI_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/min/month/bi/data_map/%y",
+            "rename": "temperature_min_month_bi_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmean/BI/Tmean_map_BI_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/mean/month/bi/data_map/%y",
+            "rename": "temperature_mean_month_bi_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmax/KA/Tmax_map_KA_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/max/month/ka/data_map/%y",
+            "rename": "temperature_max_month_ka_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmin/KA/Tmin_map_KA_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/min/month/ka/data_map/%y",
+            "rename": "temperature_min_month_ka_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmean/KA/Tmean_map_KA_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/mean/month/ka/data_map/%y",
+            "rename": "temperature_mean_month_ka_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmax/MN/Tmax_map_MN_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/max/month/mn/data_map/%y",
+            "rename": "temperature_max_month_mn_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmin/MN/Tmin_map_MN_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/min/month/mn/data_map/%y",
+            "rename": "temperature_min_month_mn_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmean/MN/Tmean_map_MN_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/mean/month/mn/data_map/%y",
+            "rename": "temperature_mean_month_mn_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmax/OA/Tmax_map_OA_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/max/month/oa/data_map/%y",
+            "rename": "temperature_max_month_oa_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmin/OA/Tmin_map_OA_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/min/month/oa/data_map/%y",
+            "rename": "temperature_min_month_oa_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmean/OA/Tmean_map_OA_%y%m_monthly.tif",
+            "remote_path": "HCDP/production/temperature/mean/month/oa/data_map/%y",
+            "rename": "temperature_mean_month_oa_data_map_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmax_se/BI/Tmax_map_BI_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/max/month/bi/standard_error/%y",
+            "rename": "temperature_max_month_bi_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmin_se/BI/Tmin_map_BI_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/min/month/bi/standard_error/%y",
+            "rename": "temperature_min_month_bi_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmean_se/BI/Tmean_map_BI_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/mean/month/bi/standard_error/%y",
+            "rename": "temperature_mean_month_bi_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmax_se/KA/Tmax_map_KA_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/max/month/ka/standard_error/%y",
+            "rename": "temperature_max_month_ka_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmin_se/KA/Tmin_map_KA_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/min/month/ka/standard_error/%y",
+            "rename": "temperature_min_month_ka_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmean_se/KA/Tmean_map_KA_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/mean/month/ka/standard_error/%y",
+            "rename": "temperature_mean_month_ka_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmax_se/MN/Tmax_map_MN_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/max/month/mn/standard_error/%y",
+            "rename": "temperature_max_month_mn_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmin_se/MN/Tmin_map_MN_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/min/month/mn/standard_error/%y",
+            "rename": "temperature_min_month_mn_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmean_se/MN/Tmean_map_MN_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/mean/month/mn/standard_error/%y",
+            "rename": "temperature_mean_month_mn_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmax_se/OA/Tmax_map_OA_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/max/month/oa/standard_error/%y",
+            "rename": "temperature_max_month_oa_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmin_se/OA/Tmin_map_OA_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/min/month/oa/standard_error/%y",
+            "rename": "temperature_min_month_oa_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tiffs/monthly/county/Tmean_se/OA/Tmean_map_OA_%y%m_monthly_se.tif",
+            "remote_path": "HCDP/production/temperature/mean/month/oa/standard_error/%y",
+            "rename": "temperature_mean_month_oa_standard_error_%y_%m.tif",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/statewide/%y%m_Tmax_state_meta.txt",
+            "remote_path": "HCDP/production/temperature/max/month/statewide/metadata/%y",
+            "rename": "temperature_max_month_statewide_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/statewide/%y%m_Tmin_state_meta.txt",
+            "remote_path": "HCDP/production/temperature/min/month/statewide/metadata/%y",
+            "rename": "temperature_min_month_statewide_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/statewide/%y%m_Tmean_state_meta.txt",
+            "remote_path": "HCDP/production/temperature/mean/month/statewide/metadata/%y",
+            "rename": "temperature_mean_month_statewide_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/county/BI/%y%m_Tmax_BI_meta.txt",
+            "remote_path": "HCDP/production/temperature/max/month/bi/metadata/%y",
+            "rename": "temperature_max_month_bi_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/county/BI/%y%m_Tmin_BI_meta.txt",
+            "remote_path": "HCDP/production/temperature/min/month/bi/metadata/%y",
+            "rename": "temperature_min_month_bi_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/county/BI/%y%m_Tmean_BI_meta.txt",
+            "remote_path": "HCDP/production/temperature/mean/month/bi/metadata/%y",
+            "rename": "temperature_mean_month_bi_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/county/KA/%y%m_Tmax_KA_meta.txt",
+            "remote_path": "HCDP/production/temperature/max/month/ka/metadata/%y",
+            "rename": "temperature_max_month_ka_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/county/KA/%y%m_Tmin_KA_meta.txt",
+            "remote_path": "HCDP/production/temperature/min/month/ka/metadata/%y",
+            "rename": "temperature_min_month_ka_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/county/KA/%y%m_Tmean_KA_meta.txt",
+            "remote_path": "HCDP/production/temperature/mean/month/ka/metadata/%y",
+            "rename": "temperature_mean_month_ka_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/county/MN/%y%m_Tmax_MN_meta.txt",
+            "remote_path": "HCDP/production/temperature/max/month/mn/metadata/%y",
+            "rename": "temperature_max_month_mn_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/county/MN/%y%m_Tmin_MN_meta.txt",
+            "remote_path": "HCDP/production/temperature/min/month/mn/metadata/%y",
+            "rename": "temperature_min_month_mn_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/county/MN/%y%m_Tmean_MN_meta.txt",
+            "remote_path": "HCDP/production/temperature/mean/month/mn/metadata/%y",
+            "rename": "temperature_mean_month_mn_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/county/OA/%y%m_Tmax_OA_meta.txt",
+            "remote_path": "HCDP/production/temperature/max/month/oa/metadata/%y",
+            "rename": "temperature_max_month_oa_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/county/OA/%y%m_Tmin_OA_meta.txt",
+            "remote_path": "HCDP/production/temperature/min/month/oa/metadata/%y",
+            "rename": "temperature_min_month_oa_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/metadata/monthly/county/OA/%y%m_Tmean_OA_meta.txt",
+            "remote_path": "HCDP/production/temperature/mean/month/oa/metadata/%y",
+            "rename": "temperature_mean_month_oa_metadata_%y_%m.txt",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/station_data/monthly/raw_qc/statewide/monthly_Tmin_%y_qc.csv",
+            "remote_path": "HCDP/production/temperature/min/month/statewide/partial/station_data/%y",
+            "rename": "temperature_min_month_statewide_partial_station_data_%y.csv",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        },{
+            "local_path": "/home/hawaii_climate_products_container/preliminary/air_temp/data_outputs/tables/station_data/monthly/raw_qc/statewide/monthly_Tmax_%y_qc.csv",
+            "remote_path": "HCDP/production/temperature/max/month/statewide/partial/station_data/%y",
+            "rename": "temperature_max_month_statewide_partial_station_data_%y.csv",
+            "system_id": "ikewai-annotated-data",
+            "dir_permissions": [
+                {
+                    "permission": "READ",
+                    "recursive": true,
+                    "username": "public"
+                }
+            ]
+        }
+
+    ]
+}
