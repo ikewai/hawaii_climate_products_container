@@ -7,21 +7,25 @@
     },
     "data": [
         {
-            "additional_properties": {"production": "new" },		
+            "additional_properties": {"production": "new" },
             "additional_key_properties": [ "production"],
 	    "data_col_start": 13,
             "id_col": 0,
             "nodata": "NA",
             "datatype": "rainfall",
             "period": "day",
-            "start_date": "%y-11-01", 
+            "start_date": "%y-11-01",
 	    "end_date": "%y-%m-%d",
 	    "fill": "partial",
             "files": [
             	"/home/hawaii_climate_products_container/preliminary/rainfall/data_outputs/tables/station_data/daily/partial_filled/statewide/Statewide_Partial_Filled_Daily_RF_mm_%y_%m.csv"
 	    ],
-            "file_urls": [
-                "https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/production/rainfall/new/day/statewide/raw/station_data/%y/%m/rainfall_new_day_statewide_raw_station_data_%y_%m.csv"
+            "file_pulls": [
+                {
+                    "url": "https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/production/rainfall/new/day/statewide/partial/station_data/%y/%m/rainfall_new_day_statewide_partial_station_data_%y_%m",
+                    "placement_dir": "/home/ingest",
+                    "rename": "Statewide_Partial_Filled_Daily_RF_mm_%y_%m.csv"
+                }
             ]
         }
     ]
