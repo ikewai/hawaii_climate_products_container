@@ -18,7 +18,7 @@
 	    "end_date": "%y-%m-%d",
 	    "fill": "partial",
             "files": [
-            	"/home/hawaii_climate_products_container/preliminary/rainfall/data_outputs/tables/station_data/daily/partial_filled/statewide/Statewide_Partial_Filled_Daily_RF_mm_%y_%m.csv"
+            	"/home/ingest/Statewide_Partial_Filled_Daily_RF_mm_%y_%m.csv"
 	    ],
             "file_pulls": [
                 {
