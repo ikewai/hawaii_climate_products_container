@@ -22,7 +22,7 @@
     "start_date": "%y-%m",
     "end_date": "%y-%m",
             "files": [
-                "/home/hawaii_climate_products_container/preliminary/rainfall/data_outputs/tables/station_data/monthly/partial_filled/statewide/Statewide_Partial_Filled_Monthly_RF_mm_%y.csv"
+                "/home/ingest/Statewide_Partial_Filled_Monthly_RF_mm_%y.csv"
             ],
             "file_pulls": [
                 {
