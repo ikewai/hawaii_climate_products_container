@@ -87,8 +87,7 @@ def update_monthly_file(date_id,varname):
 #END FUNCTIONS----------------------------------------------------------------
 
 if __name__=="__main__":
-    varname = sys.argv[1]
-    if len(sys.argv) > 2:
+    if len(sys.argv) > 1:
         #If manual input of date
         date_str = sys.argv[2]
         date_time = pd.to_datetime(date_str)
@@ -117,7 +116,8 @@ if __name__=="__main__":
         month_st = datetime(prev_year,prev_mon,1)
     
     #based on what month it is, create previous full month's monthly mean, append to year file
-    update_monthly_file(month_st,varname)
+    update_monthly_file(month_st,'Tmin')
+    update_monthly_file(month_st,'Tmax')
 
 
 
