@@ -97,7 +97,6 @@ def cross_validation(prediction,predictor,varname,model,iCode,threshold=2.5):
         y_pred = model(X_test,*theta)
         anom = y_obs - y_pred
         cols = ['ObservedTemp','PredictedTemp','Obs-Pred','ValidatedStation']
-        print(cv_data)
         sr = pd.Series([y_obs,y_pred,anom,'TRUE'],index=cols)
         cv_data.loc[target,cols] = sr
 
