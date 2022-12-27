@@ -85,7 +85,6 @@ def cross_validation(prediction,predictor,varname,model,iCode,threshold=2.5):
     else:
         isl_list = [iCode]
     target_isl = prediction[prediction['Island'].isin(isl_list)].index.values
-
     cv_data = pd.DataFrame(index=prediction.index)
     for target in target_isl:
         #All stations excluding target station
@@ -97,14 +96,17 @@ def cross_validation(prediction,predictor,varname,model,iCode,threshold=2.5):
         theta,pcov,X,y = tmpl.makeModel(y_train,X_train,model,threshold)
         y_pred = model(X_test,*theta)
         anom = y_obs - y_pred
-        cv_data.loc[target,['ObservedTemp','PredictedTemp','Obs-Pred','ValidatedStation']] = [y_obs,y_pred,anom,'TRUE']
+        cols = ['ObservedTemp','PredictedTemp','Obs-Pred','ValidatedStation']
+        print(cv_data)
+        sr = pd.Series([y_obs,y_pred,anom,'TRUE'],index=cols)
+        cv_data.loc[target,cols] = sr
 
     #cv_data now populated for all target island stations
     #Include non-validated training data
     non_target_isl = prediction[~prediction['Island'].isin(isl_list)].index.values
     cv_data.loc[non_target_isl,'ObservedTemp'] = prediction.loc[non_target_isl,varname]
     cv_data.loc[non_target_isl,'ValidatedStation'] = 'FALSE'
-
+    
     return cv_data
 
 def get_metrics(varname,iCode,date_str,param_list=['dem_250'],inversion=2150):
