@@ -1,3 +1,0 @@
-/home/hawaii_climate_products_container/preliminary/rainfall/. [error opening dir]
-
-0 directories

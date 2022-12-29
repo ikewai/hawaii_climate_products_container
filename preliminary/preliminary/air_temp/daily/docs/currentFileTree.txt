@@ -1,3 +1,0 @@
-hawaii_climate_products_container/preliminary/air_temp/ [error opening dir]
-
-0 directories

@@ -88,16 +88,22 @@ str(rf_month_wide)
 head(rf_month_wide)
 tail(rf_month_wide)
 
-#write our data file
+#get monthly rf annual file table from ikewai data portal
 setwd(outDir)
+ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test" #url
+filename<-paste0("Statewide_Partial_Filled_Monthly_RF_mm_",fileYear,".csv") #dynamic file name that includes year of file
+urlFilename<-paste0(ikeUrl,"/rainfall/data_outputs/tables/station_data/monthly/krigInput/statewide/",filename)
+download.file(url=urlFilename,filename)
+
+#append or write new annual monthly rf file
 filename<-paste0("Statewide_Partial_Filled_Monthly_RF_mm_",fileYear,".csv")
-if(file.exists(filename)){
+if(file.exists(filename)){ #check if downloaded file is in wd
   yearFile<-read.csv(filename)
   yearFile<-appendMonthCol(yearDF=yearFile,monthDF=rf_month_wide,metafile=geo_meta)
   write.csv(yearFile,filename,row.names=F)
   print(paste(fileYear,"appended..."))
-}else{
-write.csv(final_data_new,row.names=F)
+}else{ #if file did not download write new file
+write.csv(rf_month_wide,row.names=F)
 print(paste(fileYear,filename,"written..."))
 }
 
