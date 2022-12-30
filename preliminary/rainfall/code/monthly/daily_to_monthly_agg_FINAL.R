@@ -50,7 +50,6 @@ appendMonthCol<-function(yearDF,monthDF,metafile){
     return(yearFinal)
     }
 }
-
 stateSubCounty<-function(statefile,stateName,outdirCounty){
   countList<-list(statefile$Island=="BI",statefile$Island=="MA"|statefile$Island=="KO"|statefile$Island=="MO"|statefile$Island=="LA",statefile$Island=="OA",statefile$Island=="KA")
   names(countList)<-c("BI","MN","OA","KA")
@@ -63,6 +62,30 @@ stateSubCounty<-function(statefile,stateName,outdirCounty){
     print(paste("wrote...",coFileName))
   }#end county loop
 }#county sub function
+ikeFileDownload <- function(url,filename) {
+    out <- tryCatch(
+        {
+            message("trying url to download...")
+			download.file(url=url,filename)
+        },
+        error=function(cond) {
+            message(paste("URL does not seem to exist:", url))
+            message("Here's the original error message:")
+            message(cond)
+            # Choose a return value in case of error
+            return(NA)
+        },
+        warning=function(cond) {
+            message(paste("URL caused a warning:", url))
+            message("Here's the original warning message:")
+            message(cond)
+        },
+        finally={
+            message(paste("Processed URL:", url))
+           }
+    )    
+    return(out)
+}
 
 #dirs
 inDir<-"/home/hawaii_climate_products_container/preliminary/rainfall/data_outputs/tables/station_data/daily/partial_filled/statewide"
@@ -93,7 +116,7 @@ setwd(outDir)
 ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test" #url
 filename<-paste0("Statewide_Partial_Filled_Monthly_RF_mm_",fileYear,".csv") #dynamic file name that includes year of file
 urlFilename<-paste0(ikeUrl,"/rainfall/data_outputs/tables/station_data/monthly/krigInput/statewide/",filename)
-download.file(url=urlFilename,filename)
+ikeFileDownload(url=urlFilename,filename=filename) #try catch download
 
 #append or write new annual monthly rf file
 filename<-paste0("Statewide_Partial_Filled_Monthly_RF_mm_",fileYear,".csv")
