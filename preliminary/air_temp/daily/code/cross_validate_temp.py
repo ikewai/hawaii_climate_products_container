@@ -97,7 +97,9 @@ def cross_validation(prediction,predictor,varname,model,iCode,threshold=2.5):
         theta,pcov,X,y = tmpl.makeModel(y_train,X_train,model,threshold)
         y_pred = model(X_test,*theta)
         anom = y_obs - y_pred
-        cv_data.loc[target,['ObservedTemp','PredictedTemp','Obs-Pred','ValidatedStation']] = [y_obs,y_pred,anom,'TRUE']
+        cols = ['ObservedTemp','PredictedTemp','Obs-Pred','ValidatedStation']
+        sr = pd.Series([y_obs,y_pred,anom,'TRUE'],index=cols)
+        cv_data.loc[target,cols] = sr
 
     #cv_data now populated for all target island stations
     #Include non-validated training data
