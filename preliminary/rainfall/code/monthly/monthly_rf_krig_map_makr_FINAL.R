@@ -15,6 +15,12 @@ require(dplyr)
 require(colorRamps)
 require(lubridate)
 
+#set/get date
+globalDate<-commandArgs(trailingOnly=TRUE)[1] #pull from outside var when sourcing script
+globalDate<-as.Date("2023-01-01") #set date in code if you like
+globalDate<-ifelse(exists("globalDate"),globalDate,NA) #define globalDate as NA if it does not exsist
+dataDate<-as.Date(ifelse(!is.na(globalDate),globalDate-1,Sys.Date()-1)) #make file month_year from globalDate or sysDate -1
+
 #pkg vec for para loop
 pkgs_vec<-c("colorRamps","dplyr","randomForest","foreach","doParallel","svMisc","Metrics","gstat","automap","raster","rgdal","rgeos","lubridate")
 
@@ -55,7 +61,6 @@ statewide_mask<-mosaic(mosaic(bi_mask,mn_mask, fun=max),mosaic(oa_mask,ka_mask, 
 
 #Read in file contain Monthly all RF observations load MonYr rf version
 setwd(inDir) #set monthly rf data: local pc
-dataDate<-Sys.Date()-1 #yesterday
 dataYear<-format(dataDate,"%Y")
 RF_MoYr_filename<-paste0("Statewide_Partial_Filled_Monthly_RF_mm_",dataYear,".csv")
 RF_MoYr_ALL <- read.csv(file = RF_MoYr_filename , header = TRUE)
