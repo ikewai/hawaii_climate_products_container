@@ -159,6 +159,7 @@
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tiffs/monthly/anom/county/OA
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tiffs/monthly/anom/county/MN
 /home/hawaii_climate_products_container/preliminary/rainfall/./code
+/home/hawaii_climate_products_container/preliminary/rainfall/./code/source
 /home/hawaii_climate_products_container/preliminary/rainfall/./code/daily
 /home/hawaii_climate_products_container/preliminary/rainfall/./code/daily/bash
 /home/hawaii_climate_products_container/preliminary/rainfall/./code/daily/rcode

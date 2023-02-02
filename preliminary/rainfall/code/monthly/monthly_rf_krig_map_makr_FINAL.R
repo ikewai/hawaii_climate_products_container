@@ -15,12 +15,6 @@ require(dplyr)
 require(colorRamps)
 require(lubridate)
 
-#set/get date
-globalDate<-commandArgs(trailingOnly=TRUE)[1] #pull from outside var when sourcing script
-globalDate<-as.Date("2023-01-01") #set date in code if you like
-globalDate<-ifelse(exists("globalDate"),globalDate,NA) #define globalDate as NA if it does not exsist
-dataDate<-as.Date(ifelse(!is.na(globalDate),globalDate-1,Sys.Date()-1)) #make file month_year from globalDate or sysDate -1
-
 #pkg vec for para loop
 pkgs_vec<-c("colorRamps","dplyr","randomForest","foreach","doParallel","svMisc","Metrics","gstat","automap","raster","rgdal","rgeos","lubridate")
 
@@ -28,7 +22,7 @@ pkgs_vec<-c("colorRamps","dplyr","randomForest","foreach","doParallel","svMisc",
 masterDir<-"/home/hawaii_climate_products_container/preliminary/rainfall" #master dir 
 runVersionDir<-paste0(masterDir,"/data_outputs/") 
 dependDir<-paste0(masterDir,"/dependencies/monthly")
-codeDir<-paste0(masterDir,"/code/monthly")
+codeDir<-paste0(masterDir,"/code/source")
 inDir<-paste0(masterDir,"/data_outputs/tables/station_data/monthly/partial_filled/statewide")
 krigInputOut<-paste0(masterDir,"/data_outputs/tables/station_data/monthly/krigInput/statewide")
 krigInputOutCo<-paste0(masterDir,"/data_outputs/tables/station_data/monthly/krigInput/county")
@@ -49,6 +43,8 @@ metaStateOut<-paste0(masterDir,"/data_outputs/tables/metadata/monthly/statewide"
 #dependencies 
 setwd(codeDir)
 source("custom_krige_class_fix_functions_final.R") #load custom functions
+source("dataDateFunc.R")
+
 
 #add in island rasters masks
 setwd(dependDir)#set mean rf raster: local pc
@@ -58,6 +54,8 @@ oa_mask<-raster("masks/oa_mask.tif")
 ka_mask<-raster("masks/ka_mask.tif")
 statewide_mask<-mosaic(mosaic(bi_mask,mn_mask, fun=max),mosaic(oa_mask,ka_mask, fun=max), fun=max)#make statewide raster mask
 
+#define dataDate
+dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
 
 #Read in file contain Monthly all RF observations load MonYr rf version
 setwd(inDir) #set monthly rf data: local pc

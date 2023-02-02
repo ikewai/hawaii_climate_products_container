@@ -1,19 +1,12 @@
 #this code combines all daily agg rf together and removes duplicates by priority ranking
 rm(list = ls())#remove all objects in R
 
-#set MAIN DIR
-mainDir <- "/home/hawaii_climate_products_container/preliminary"
-
 options(warn=-1)#suppress warnings for session
 print(paste("all data daily merge run:",Sys.time()))#for cron log
 
-#functions
-rbind.all.columns <- function(x, y) {     #function to smart rbind
-    x.diff <- setdiff(colnames(x), colnames(y))
-    y.diff <- setdiff(colnames(y), colnames(x))
-    x[, c(as.character(y.diff))] <- NA 
-    y[, c(as.character(x.diff))] <- NA 
-    return(rbind(x, y))}
+#set dirs
+mainDir <- "/home/hawaii_climate_products_container/preliminary"
+codeDir<-paste0(mainDir,"/rainfall/code/source")
 
 #input dirs
 hads_daily_wd <- paste0(mainDir,"/rainfall/working_data/hads") #hads daily agg data wd
@@ -29,6 +22,14 @@ count_log_wd <- paste0(mainDir,"/rainfall/data_outputs/tables/rf_station_trackin
 rf_day_source_wd <- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/source/statewide") #datastream source of data
 rf_day_data_wd <- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/raw/statewide") #final combine daily rainfall data
 
+#functions
+rbind.all.columns <- function(x, y) {     #function to smart rbind
+    x.diff <- setdiff(colnames(x), colnames(y))
+    y.diff <- setdiff(colnames(y), colnames(x))
+    x[, c(as.character(y.diff))] <- NA 
+    y[, c(as.character(x.diff))] <- NA 
+    return(rbind(x, y))}
+
 #add master metadata with SKN and lat long
 meta_url <- "https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv"
 geog_meta<-read.csv(meta_url, colClasses=c("NESDIS.id"="character"))
@@ -41,7 +42,9 @@ geog_meta_sub$no_sourceID<-geog_meta_sub$SKN
 print("master meta added!")
 
 #define date
-map_date<-Sys.Date()-1# yesterday as date
+source(paste0(codeDir,"/dataDateFunc.R"))
+dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
+map_date<-dataDate #dataDate as map_date
 file_date<-format(map_date,"%Y_%m")
 
 #add HADS data
@@ -71,13 +74,13 @@ if(file.exists(hads_month_filename)){  #does HADS month file exist?
   print(paste(hads_month_filename,"found!",nrow(hads_wide_merged),"stations added!"))
   }else{ #else if nrow(hads_day) = 0 IE:no day data
    hads_wide_merged<-data.frame(sourceID=as.character(NA),date_day=as.numeric(NA),datastream=as.character("hads"),SKN=as.numeric(NA))
-   names(hads_wide_merged)[2]<-format(Sys.Date()-1,"X%Y.%m.%d")
+   names(hads_wide_merged)[2]<-format(dataDate,"X%Y.%m.%d")
    missing_hads<-data.frame(sourceID=as.character(NA),datastream=as.character(NA)) #missing stations blank df
    count_log_hads<-data.frame(datastream=as.character("hads"),station_count=as.numeric(0),unique=as.logical(0))#log of stations acquired
    print(paste("NO HADS DATA:",map_date,"!"))
    }}else{ #else if hads month df is missing make a blank df
     hads_wide_merged<-data.frame(sourceID=as.character(NA),date_day=as.numeric(NA),datastream=as.character("hads"),SKN=as.numeric(NA))
-    names(hads_wide_merged)[2]<-format(Sys.Date()-1,"X%Y.%m.%d")
+    names(hads_wide_merged)[2]<-format(dataDate,"X%Y.%m.%d")
 	  missing_hads<-data.frame(sourceID=as.character(NA),datastream=as.character(NA)) #missing stations blank df
 	  count_log_hads<-data.frame(datastream=as.character("hads"),station_count=as.numeric(0),unique=as.logical(0))#log of stations acquired
     print(paste(hads_month_filename,"MISSING empty DF made!"))
@@ -109,13 +112,13 @@ if(file.exists(nws_month_filename)){
   print(paste(nws_month_filename,"found!",nrow(nws_wide_merged),"stations added!"))
   }else{ #else if nrow(nws_day) = 0
    nws_wide_merged<-data.frame(sourceID=as.character(NA),date_day=as.numeric(NA),datastream=as.character("nws"),SKN=as.numeric(NA))
-   names(nws_wide_merged)[2]<-format(Sys.Date()-1,"X%Y.%m.%d")
+   names(nws_wide_merged)[2]<-format(dataDate,"X%Y.%m.%d")
    missing_nws<-data.frame(sourceID=as.character(NA),datastream=as.character(NA)) #missing stations blank df
    count_log_nws<-data.frame(datastream=as.character("nws"),station_count=as.numeric(0),unique=as.logical(0))
    print(paste("NO NWS DATA:",map_date,"!"))
    }}else{ #else if nws month df is missing make a blank df
     nws_wide_merged<-data.frame(sourceID=as.character(NA),date_day=as.numeric(NA),datastream=as.character("nws"),SKN=as.numeric(NA))
-    names(nws_wide_merged)[2]<-format(Sys.Date()-1,"X%Y.%m.%d")
+    names(nws_wide_merged)[2]<-format(dataDate,"X%Y.%m.%d")
 	  missing_nws<-data.frame(sourceID=as.character(NA),datastream=as.character(NA)) #missing stations blank df
 	  count_log_nws<-data.frame(datastream=as.character("nws"),station_count=as.numeric(0),unique=as.logical(0))
     print(paste(nws_month_filename,"MISSING empty DF made!"))
@@ -147,13 +150,13 @@ if(file.exists(scan_month_filename)){
   print(paste(scan_month_filename,"found!",nrow(scan_wide_merged),"stations added!"))
   }else{ #else if nrow(scan_day) = 0
    scan_wide_merged<-data.frame(sourceID=as.character(NA),date_day=as.numeric(NA),datastream=as.character("scan"),SKN=as.numeric(NA))
-   names(scan_wide_merged)[2]<-format(Sys.Date()-1,"X%Y.%m.%d")
+   names(scan_wide_merged)[2]<-format(dataDate,"X%Y.%m.%d")
    missing_scan<-data.frame(sourceID=as.character(NA),datastream=as.character(NA)) #missing stations blank df
    count_log_scan<-data.frame(datastream=as.character("scan"),station_count=as.numeric(0),unique=as.logical(0))
    print(paste("NO SCAN DATA:",map_date,"!"))
    }}else{ #else if scan month df is missing make a blank df
     scan_wide_merged<-data.frame(sourceID=as.character(NA),date_day=as.numeric(NA),datastream=as.character("scan"),SKN=as.numeric(NA))
-    names(scan_wide_merged)[2]<-format(Sys.Date()-1,"X%Y.%m.%d")
+    names(scan_wide_merged)[2]<-format(dataDate,"X%Y.%m.%d")
 	  missing_scan<-data.frame(sourceID=as.character(NA),datastream=as.character(NA)) #missing stations blank df
     count_log_scan<-data.frame(datastream=as.character("scan"),station_count=as.numeric(0),unique=as.logical(0))
 	  print(paste(scan_month_filename,"MISSING empty DF made!"))
@@ -186,13 +189,13 @@ if(file.exists(madis_month_filename)){  #does MADIS month file exist?
   print(paste(madis_month_filename,"found!",nrow(madis_wide_merged),"stations added!"))
   }else{ #else if nrow(madis_day) = 0 IE:no day data
    madis_wide_merged<-data.frame(sourceID=as.character(NA),date_day=as.numeric(NA),datastream=as.character("madis"),SKN=as.numeric(NA))
-   names(madis_wide_merged)[2]<-format(Sys.Date()-1,"X%Y.%m.%d")
+   names(madis_wide_merged)[2]<-format(dataDate,"X%Y.%m.%d")
    missing_madis<-data.frame(sourceID=as.character(NA),datastream=as.character(NA)) #missing stations blank df
    count_log_madis<-data.frame(datastream=as.character("madis"),station_count=as.numeric(0),unique=as.logical(0))#log of stations acquired
    print(paste("NO MADIS DATA:",map_date,"!"))
    }}else{ #else if madis month df is missing make a blank df
     madis_wide_merged<-data.frame(sourceID=as.character(NA),date_day=as.numeric(NA),datastream=as.character("madis"),SKN=as.numeric(NA))
-    names(madis_wide_merged)[2]<-format(Sys.Date()-1,"X%Y.%m.%d")
+    names(madis_wide_merged)[2]<-format(dataDate,"X%Y.%m.%d")
 	  missing_madis<-data.frame(sourceID=as.character(NA),datastream=as.character(NA)) #missing stations blank df
 	  count_log_madis<-data.frame(datastream=as.character("madis"),station_count=as.numeric(0),unique=as.logical(0))#log of stations acquired
     print(paste(madis_month_filename,"MISSING empty DF made!"))
@@ -331,5 +334,5 @@ print("final data table below...")
 head(final_rf_data)
 tail(final_rf_data)
 
-paste(Sys.Date()-1,"DATA COMBIND RUN - CODE PAU!")
+paste(dataDate,"DATA COMBIND RUN - CODE PAU!")
 

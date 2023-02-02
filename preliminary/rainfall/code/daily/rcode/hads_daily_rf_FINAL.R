@@ -2,20 +2,23 @@
 
 rm(list = ls())#remove all objects in R
 
-#set MAIN DIR
-mainDir <- "/home/hawaii_climate_products_container/preliminary"
-
-#set options
-options(warn=-1)#supress warnings for session
-print(paste("hads rf daily run:",Sys.time()))#for cron log
-
-#dates
+#set global options
+options(warn=-1) #suppress warnings for session
 Sys.setenv(TZ='Pacific/Honolulu') #set TZ to honolulu
-currentDate<-Sys.Date()
+print(paste("hads rf daily run:",Sys.time()))#for cron log
 
 #load packages
 #install.packages("xts")
 require(xts)
+
+#set dirs
+mainDir <- "/home/hawaii_climate_products_container/preliminary"
+codeDir<-paste0(mainDir,"/rainfall/code/source")
+
+#define dates
+source(paste0(codeDir,"/dataDateFunc.R"))
+dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
+currentDate<-dataDate #dataDate as currentDate
 
 #functions
 getmode <- function(v) { #get mode of values
@@ -49,18 +52,17 @@ apply.hourly <- function(x, FUN, roundtime = "round", na.rm = TRUE){
 parse_wd<-paste0(mainDir,"/data_aqs/data_outputs/hads/parse")
 agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/hads")
 
-# #read HADS parsed table from dev server
+# #read HADS parsed table from dev server OLD
 # setwd(parse_wd)#sever path for parsed hads files
-# hads_filename<-paste0(format((currentDate-1),"%Y%m%d"),"_hads_parsed.csv") #dynamic file name that includes date
+# hads_filename<-paste0(format((currentDate),"%Y%m%d"),"_hads_parsed.csv") #dynamic file name that includes date
 # all_hads<-read.csv(hads_filename)
 # #head(all_hads)
 
 #read HADS parsed table from ikewai data portal
 ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test" #url
-hads_filename<-paste0(format((currentDate-1),"%Y%m%d"),"_hads_parsed.csv") #dynamic file name that includes date
+hads_filename<-paste0(format((currentDate),"%Y%m%d"),"_hads_parsed.csv") #dynamic file name that includes date
 all_hads<-read.csv(paste0(ikeUrl,"/data_aqs/data_outputs/hads/parse/",hads_filename))
 #head(all_hads)
-
 
 #subset precip var, convert inch to mm and convert UTC to HST
 all_hads_pc<-subset(all_hads,var=="PC")# subset precip only
@@ -108,7 +110,7 @@ row.names(hads_daily_rf)<-NULL #rename rows
 #tail(hads_daily_rf)
 
 #subsets: yesterday with 95% data
-hads_daily_rf_today<-hads_daily_rf[hads_daily_rf$date==(currentDate-1),]#subset yesterday
+hads_daily_rf_today<-hads_daily_rf[hads_daily_rf$date==(currentDate),]#subset yesterday
 row.names(hads_daily_rf_today)<-NULL #rename rows
 #head(hads_daily_rf_today)
 #tail(hads_daily_rf_today)
@@ -124,7 +126,7 @@ tail(hads_daily_rf_today_final)
 #write or append daily rf data monthly file
 #NEED TO INTGRATE WITH IKE DP
 setwd(agg_daily_wd)#server path daily agg file
-rf_month_filename<-paste0(format((currentDate-1),"%Y_%m"),"_hads_daily_rf.csv") #dynamic file name that includes month year so when month is done new file is written
+rf_month_filename<-paste0(format((currentDate),"%Y_%m"),"_hads_daily_rf.csv") #dynamic file name that includes month year so when month is done new file is written
 
 if(file.exists(rf_month_filename)){
   write.table(hads_daily_rf_today_final,rf_month_filename, row.names=F,sep = ",", col.names = F, append = T)

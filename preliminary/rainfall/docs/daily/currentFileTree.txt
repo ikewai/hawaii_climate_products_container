@@ -3,7 +3,8 @@
 │   ├── daily
 │   │   ├── bash
 │   │   └── rcode
-│   └── monthly
+│   ├── monthly
+│   └── source
 ├── data_outputs
 │   ├── plots
 │   │   └── monthly
@@ -174,4 +175,4 @@
     ├── nws_rr5
     └── scan
 
-174 directories
+175 directories

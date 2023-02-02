@@ -5,6 +5,13 @@ rm(list = ls())#start fresh!
 require(reshape2)
 require(xts)
 
+#set dirs
+mainDir <- "/home/hawaii_climate_products_container/preliminary"
+codeDir<-paste0(mainDir,"/rainfall/code/source")
+inDir<-paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/partial_filled/statewide")
+outDir<-paste0(mainDir,"/rainfall/data_outputs/tables/station_data/monthly/partial_filled/statewide") #outdir of MONTHLY rf data
+outdirCounty<-paste0(mainDir,"/rainfall/data_outputs/tables/station_data/monthly/partial_filled/county") #outdir of per county MONTHLY rf data
+
 #custom functions
 removeAllNA<-function(df){
   if(length(grep("X",names(df)))>1){
@@ -87,20 +94,19 @@ ikeFileDownload <- function(url,filename) {
     return(out)
 }
 
-#dirs
-inDir<-"/home/hawaii_climate_products_container/preliminary/rainfall/data_outputs/tables/station_data/daily/partial_filled/statewide"
-outDir<-"/home/hawaii_climate_products_container/preliminary/rainfall/data_outputs/tables/station_data/monthly/partial_filled/statewide" #outdir of MONTHLY rf data
-outdirCounty<-"/home/hawaii_climate_products_container/preliminary/rainfall/data_outputs/tables/station_data/monthly/partial_filled/county" #outdir of per county MONTHLY rf data
 
 #add master metadata with SKN and lat long
 meta_url <- "https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv"
 geo_meta<-read.csv(meta_url, colClasses=c("NESDIS.id"="character"))
 head(geo_meta)
 
+#define date
+source(paste0(codeDir,"/dataDateFunc.R"))
+dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
+fileDate<-format(dataDate,"%Y_%m")
+fileYear<-format(dataDate,"%Y")
+
 #add daily rf monthly file
-setwd(inDir)
-fileDate<-format(Sys.Date()-1,"%Y_%m")
-fileYear<-format(Sys.Date()-1,"%Y")
 setwd(inDir) #wd of & monthly and daily rf data
 rf_month_df<-read.csv(paste0("Statewide_Partial_Filled_Daily_RF_mm_",fileDate,".csv"))
 head(rf_month_df)

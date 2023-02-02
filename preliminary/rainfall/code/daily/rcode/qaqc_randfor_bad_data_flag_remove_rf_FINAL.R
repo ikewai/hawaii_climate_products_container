@@ -2,16 +2,16 @@
 #install.packages(c("reshape2","raster","rgdal","randomForest","geosphere","data.table"))
 rm(list=ls())
 
-#set MAIN DIR
-mainDir <- "/home/hawaii_climate_products_container/preliminary"
-#mainDir <- "C:/Users/Matt Lucas/Documents/jetsream_backup"
-
 library(reshape2)
 library(raster)
 library(rgdal)
 library(geosphere)
 library(data.table)
 library(randomForest)
+
+#set MAIN DIR
+mainDir <- "/home/hawaii_climate_products_container/preliminary"
+codeDir<-paste0(mainDir,"/rainfall/code/source")
 
 #input dirs
 rf_day_data_wd <- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/raw/statewide") #input final combine daily rainfall data
@@ -105,8 +105,10 @@ pred_bad<-function(close10DF,rfDayCol,rfZ,rfNZ){
 meta_url <- "https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv"
 geog_meta<-read.csv(meta_url, colClasses=c("NESDIS.id"="character"))
 
-#define dates
-map_date<-Sys.Date()-1# yesterday as date
+#define date
+source(paste0(codeDir,"/dataDateFunc.R"))
+dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
+map_date<-dataDate #dataDate as map_date
 file_date<-format(map_date,"%Y_%m")
 
 #get month data

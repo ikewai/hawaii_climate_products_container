@@ -1,12 +1,13 @@
-# This code is desiged to fill all gaps in the daily rainfall time series.
+# This code is designed to fill all gaps in the daily rainfall time series.
 # Drawing on input files that were previously generated in a companion code. 
 rm(list = ls())
 library(dplyr)
 library(matrixStats)
 library(geosphere)
 
-#set MAIN DIR
+#set dirs
 mainDir <- "/home/hawaii_climate_products_container/preliminary"
+codeDir<-paste0(mainDir,"/rainfall/code/source")
 
 #in dirs
 inDir <- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/raw_qc/statewide") #Path to the QAQC daily data
@@ -20,8 +21,10 @@ gapLogDir <- paste0(mainDir,"/rainfall/data_outputs/tables/rf_station_tracking/g
 meta_url <- "https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv"
 geog_meta<-read.csv(meta_url, colClasses=c("NESDIS.id"="character"))
 
-#define dates
-doi<-Sys.Date()-1# get date of interest
+#define date
+source(paste0(codeDir,"/dataDateFunc.R"))
+dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
+doi<-dataDate #dataDate as date of interest (doi)
 file_date<-format(doi,"%Y_%m")
 
 #Read in monthly table

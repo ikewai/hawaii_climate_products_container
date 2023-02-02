@@ -6,7 +6,7 @@ require(reshape2)
 require(xts)
 
 #set/get date
-#globalDate<-commandArgs(trailingOnly=TRUE)[1]
+globalDate<-commandArgs(trailingOnly=TRUE)[1]
 #globalDate<-as.Date("2023-01-01") #set date in code if you like
 globalDate<-ifelse(exists("globalDate"),globalDate,NA) #define globalDate as NA if it does not exsist
 fileDate<-ifelse(!is.na(globalDate),format(globalDate-1,"%Y_%m"),format(Sys.Date()-1,"%Y_%m")) #make file month_year from globalDate or sysDate -1

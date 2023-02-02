@@ -2,16 +2,19 @@
 
 rm(list = ls())#remove all objects in R
 
-#set MAIN DIR
-mainDir <- "/home/hawaii_climate_products_container/preliminary"
-
 #set options
 options(warn=-1)#supress warnings for session
+Sys.setenv(TZ='Pacific/Honolulu') #set TZ to honolulu
 print(paste("madis rf daily run:",Sys.time()))#for cron log
 
-#dates
-Sys.setenv(TZ='Pacific/Honolulu') #set TZ to honolulu
-currentDate<-Sys.Date()
+#set MAIN DIR
+mainDir <- "/home/hawaii_climate_products_container/preliminary"
+codeDir<-paste0(mainDir,"/rainfall/code/source")
+
+#define dates
+source(paste0(codeDir,"/dataDateFunc.R"))
+dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
+currentDate<-dataDate #dataDate as currentDate
 
 #load packages
 #install.packages("xts")
@@ -49,14 +52,14 @@ apply.hourly <- function(x, FUN, roundtime = "round", na.rm = TRUE){
 parse_wd<-paste0(mainDir,"/data_aqs/data_outputs/madis/parse")
 agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/madis")
 
-#read MADIS parsed table from dev server
+#read MADIS parsed table from dev server OLD
 # setwd(parse_wd)#sever path for parsed madis files
-# madis_filename<-paste0(format((currentDate-1),"%Y%m%d"),"_madis_parsed.csv") #dynamic file name that includes date
+# madis_filename<-paste0(format((currentDate),"%Y%m%d"),"_madis_parsed.csv") #dynamic file name that includes date
 # all_madis<-read.csv(madis_filename)
 
 #read MADIS parsed table from ikewai data portal
 ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test" #url
-madis_filename<-paste0(format((currentDate-1),"%Y%m%d"),"_madis_parsed.csv") #dynamic file name that includes date
+madis_filename<-paste0(format((currentDate),"%Y%m%d"),"_madis_parsed.csv") #dynamic file name that includes date
 all_madis<-read.csv(paste0(ikeUrl,"/data_aqs/data_outputs/madis/parse/",madis_filename))
 #head(all_madis)
 
@@ -109,7 +112,7 @@ row.names(madis_daily_rf)<-NULL #rename rows
 # tail(madis_daily_rf)
 
 #subsets: yesterday with 95% data
-madis_daily_rf_today<-madis_daily_rf[madis_daily_rf$date==(currentDate-1),]#subset yesterday
+madis_daily_rf_today<-madis_daily_rf[madis_daily_rf$date==(currentDate),]#subset yesterday
 row.names(madis_daily_rf_today)<-NULL #rename rows
 # head(madis_daily_rf_today)
 # tail(madis_daily_rf_today)
@@ -124,7 +127,7 @@ tail(madis_daily_rf_today_final)
 
 #write or append daily rf data monthly file
 setwd(agg_daily_wd)#server path daily agg file
-rf_month_filename<-paste0(format((currentDate-1),"%Y_%m"),"_madis_daily_rf.csv") #dynamic file name that includes month year so when month is done new file is written
+rf_month_filename<-paste0(format((currentDate),"%Y_%m"),"_madis_daily_rf.csv") #dynamic file name that includes month year so when month is done new file is written
 
 #local write/append
 if(file.exists(rf_month_filename)){

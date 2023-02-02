@@ -2,30 +2,35 @@
 
 rm(list = ls())#remove all objects in R
 
-#set MAIN DIR
-mainDir <- "/home/hawaii_climate_products_container/preliminary"
-
-#packages and settings
+#packages 
 require(plyr)
+
+#settings
 options(warn=-1)#suppress warnings for session
+Sys.setenv(TZ='Pacific/Honolulu') #set TZ to honolulu
 print(paste("nws rr5 daily rf agg:",Sys.time()))#for cron log
 
-#dates
-Sys.setenv(TZ='Pacific/Honolulu') #set TZ to honolulu
-currentDate<-Sys.Date()
+#set MAIN DIR
+mainDir <- "/home/hawaii_climate_products_container/preliminary"
+codeDir<-paste0(mainDir,"/rainfall/code/source")
+
+#define dates
+source(paste0(codeDir,"/dataDateFunc.R"))
+dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
+currentDate<-dataDate #dataDate as currentDate
 
 #dirs
 parse_hrly_wd<-paste0(mainDir,"/data_aqs/data_outputs/nws_rr5/parse")
 agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/nws_rr5")
 
-#read NWS parsed table from dev server
+#read NWS parsed table from dev server OLD
 # setwd(parse_hrly_wd)
-# nws_filename<-paste0(format((currentDate-1),"%Y%m%d"),"_nwsrr5_parsed.csv") #dynamic file name that includes date
+# nws_filename<-paste0(format((currentDate),"%Y%m%d"),"_nwsrr5_parsed.csv") #dynamic file name that includes date
 # nws_hrly_data_final<-read.csv(nws_filename)
 
 #read NWS parsed table from ikewai data portal
 ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test" #url
-nws_filename<-paste0(format((currentDate-1),"%Y%m%d"),"_nwsrr5_parsed.csv") #dynamic file name that includes date
+nws_filename<-paste0(format((currentDate),"%Y%m%d"),"_nwsrr5_parsed.csv") #dynamic file name that includes date
 nws_hrly_data_final<-read.csv(paste0(ikeUrl,"/data_aqs/data_outputs/nws_rr5/parse/",nws_filename))
 #head(nws_hrly_data_final)
 
@@ -43,7 +48,7 @@ nws_24hr_agg_final[nws_24hr_agg_final$nwsli %in% airports,"nwsli"]<-paste0("P",n
 #write/append to file 
 setwd(agg_daily_wd)#set wd to save/append final day aggs
 files<-list.files()
-rf_month_daily_filename<-paste0(format((currentDate-1),"%Y_%m"),"_nws_daily_rf.csv")#dynamic filename that includes month year so when month is done new file is written
+rf_month_daily_filename<-paste0(format((currentDate),"%Y_%m"),"_nws_daily_rf.csv")#dynamic filename that includes month year so when month is done new file is written
 if(file.exists(rf_month_daily_filename)){
 	write.table(nws_24hr_agg_final,rf_month_daily_filename, row.names=F, sep = ",", col.names = F, append = T)
 	print(paste(rf_month_daily_filename,"appended"))
