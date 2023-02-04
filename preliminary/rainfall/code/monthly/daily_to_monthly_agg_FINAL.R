@@ -12,6 +12,13 @@ inDir<-paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/partial_
 outDir<-paste0(mainDir,"/rainfall/data_outputs/tables/station_data/monthly/partial_filled/statewide") #outdir of MONTHLY rf data
 outdirCounty<-paste0(mainDir,"/rainfall/data_outputs/tables/station_data/monthly/partial_filled/county") #outdir of per county MONTHLY rf data
 
+#define date
+source(paste0(codeDir,"/dataDateFunc.R"))
+dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
+fileDate<-format(dataDate,"%Y_%m")
+fileYear<-format(dataDate,"%Y")
+print(dataDate)
+
 #custom functions
 removeAllNA<-function(df){
   if(length(grep("X",names(df)))>1){
@@ -69,42 +76,11 @@ stateSubCounty<-function(statefile,stateName,outdirCounty){
     print(paste("wrote...",coFileName))
   }#end county loop
 }#county sub function
-ikeFileDownload <- function(url,filename) {
-    out <- tryCatch(
-        {
-            message("trying url to download...")
-			download.file(url=url,filename)
-        },
-        error=function(cond) {
-            message(paste("URL does not seem to exist:", url))
-            message("Here's the original error message:")
-            message(cond)
-            # Choose a return value in case of error
-            return(NA)
-        },
-        warning=function(cond) {
-            message(paste("URL caused a warning:", url))
-            message("Here's the original warning message:")
-            message(cond)
-        },
-        finally={
-            message(paste("Processed URL:", url))
-           }
-    )    
-    return(out)
-}
-
 
 #add master metadata with SKN and lat long
 meta_url <- "https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv"
 geo_meta<-read.csv(meta_url, colClasses=c("NESDIS.id"="character"))
 head(geo_meta)
-
-#define date
-source(paste0(codeDir,"/dataDateFunc.R"))
-dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
-fileDate<-format(dataDate,"%Y_%m")
-fileYear<-format(dataDate,"%Y")
 
 #add daily rf monthly file
 setwd(inDir) #wd of & monthly and daily rf data
@@ -117,12 +93,9 @@ str(rf_month_wide)
 head(rf_month_wide)
 tail(rf_month_wide)
 
-#get monthly rf annual file table from ikewai data portal
+#save monthly rf annual file table
 setwd(outDir)
-ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test" #url
 filename<-paste0("Statewide_Partial_Filled_Monthly_RF_mm_",fileYear,".csv") #dynamic file name that includes year of file
-urlFilename<-paste0(ikeUrl,"/rainfall/data_outputs/tables/station_data/monthly/krigInput/statewide/",filename)
-ikeFileDownload(url=urlFilename,filename=filename) #try catch download
 
 #append or write new annual monthly rf file
 filename<-paste0("Statewide_Partial_Filled_Monthly_RF_mm_",fileYear,".csv")
@@ -132,8 +105,9 @@ if(file.exists(filename)){ #check if downloaded file is in wd
   write.csv(yearFile,filename,row.names=F)
   print(paste(fileYear,"appended..."))
 }else{ #if file did not download write new file
-write.csv(rf_month_wide,row.names=F)
-print(paste(fileYear,filename,"written..."))
+  yearFile<-rf_month_wide
+  write.csv(yearFile,filename,row.names=F)
+  print(paste(fileYear,filename,"written..."))
 }
 
 #write county

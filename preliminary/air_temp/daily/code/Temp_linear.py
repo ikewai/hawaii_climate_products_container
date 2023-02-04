@@ -160,7 +160,7 @@ def lr_temp_gapfill(isl_df,varname,stn_date):
                     beta1 = fill_model_df.at[float(pred),'beta1']
                     pred_x = new_isl_df.at[float(pred),varname]
                     targ_est = linear(pred_x,beta1,beta0)
-                    isl_df.at[float(target),varname] = targ_est
+                    new_isl_df.at[float(target),varname] = targ_est
                     lr_fill_flag = True
                     break
     #if no linear regression was used, fill target with climo
@@ -169,7 +169,6 @@ def lr_temp_gapfill(isl_df,varname,stn_date):
                 clim_df = pd.read_csv(clim_file)
                 mon = stn_date.month - 1
                 new_isl_df.at[float(target),varname] = clim_df.at[mon,target]
-
     return new_isl_df
 # In[ ]:
 def removeOutlier(X,y,threshold=2.5):
@@ -254,7 +253,6 @@ def select_stations(vars,varname,iCode,stn_date,min_stn=10,mixHighAlt=None):
         var_isl = var_isl[(var_isl['Island'].isin(isl_list) | (var_isl[ELEV_IDX_NAME] > mixHighAlt))]
     else:
         var_isl = var_isl[var_isl['Island'].isin(isl_list)]
-        
     #Iteratively check number of available stations. Progressively add outer island stations until minimum requirement is met
     var_isl = var_isl[~var_isl[varname].isna()]
     #Exclude any stations in exclusion list

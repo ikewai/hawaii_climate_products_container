@@ -4,11 +4,17 @@ dataDateMkr <- function(dateVar=NA){
   #try get date from source if exist 
   globalDate<-commandArgs(trailingOnly=TRUE)[1] #pull from outside var when sourcing script
   #make globalDate if 
-  globalDate<-if(is.na(globalDate) & !is.na("dateVar")){
-            as.Date(dateVar) #if globalDate is NA & dateVar is NA, set date in code
+  globalDate<-if(is.na(globalDate) & !is.na(dateVar)){
+            as.Date(dateVar) #if globalDate is NA & dateVar is not NA, set date in code with dateVar
             }else{
-            ifelse(exists("globalDate"),globalDate,NA) #else define globalDate as NA if it does exist
+            if(exists("globalDate")){
+              as.Date(globalDate)
+              }else{NA}
             } 
-  dataDate<-as.Date(ifelse(!is.na(globalDate),globalDate-1,Sys.Date()-1)) #make dataDate from globalDate or sysDate -1
+  dataDate<-if(!is.na(globalDate)){
+                globalDate-1 #make dataDate from globalDate
+                }else{
+                Sys.Date()-1 #or sysDate -1
+                }  
   return(dataDate)
   }

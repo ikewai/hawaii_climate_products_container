@@ -14,7 +14,7 @@ codeDir<-paste0(mainDir,"/rainfall/code/source")
 #define dates
 source(paste0(codeDir,"/dataDateFunc.R"))
 dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
-currentDate<-dataDate #dataDate as currentDate
+currentDate<-dataDate #dataDate as currentDate (yesterday)
 
 #load packages
 #install.packages("xts")
@@ -70,8 +70,8 @@ all_madis_pc$time<-strptime(all_madis_pc$time, format="%Y-%m-%d %H:%M", tz="UTC"
 attr(all_madis_pc$time,"tzone") <- "Pacific/Honolulu" #convert TZ attribute to HST
 all_madis_pc$time<-(all_madis_pc$time-36000) #minus 10 hrs for UTC to HST
 all_madis_pc$time<-(all_madis_pc$time)-1 #minus 1 second to put midnight obs in last day
-tail(all_madis_pc)
-head(all_madis_pc)
+#tail(all_madis_pc)
+#head(all_madis_pc)
 
 #separate accum precip and raw precip
 all_madis_pr<-subset(all_madis_pc,varname=="rawPrecip")# subset raw precip only
@@ -108,15 +108,16 @@ for(j in stations){
 }
 print("loop complete!")
 row.names(madis_daily_rf)<-NULL #rename rows
-# head(madis_daily_rf)
-# tail(madis_daily_rf)
+#head(madis_daily_rf)
+#tail(madis_daily_rf)
 
-#subsets: yesterday with 95% data
+#subset yesterday
 madis_daily_rf_today<-madis_daily_rf[madis_daily_rf$date==(currentDate),]#subset yesterday
 row.names(madis_daily_rf_today)<-NULL #rename rows
-# head(madis_daily_rf_today)
-# tail(madis_daily_rf_today)
+#head(madis_daily_rf_today)
+#tail(madis_daily_rf_today)
 
+#subset 95% data for day
 madis_daily_rf_today_final<-madis_daily_rf_today[madis_daily_rf_today$data_per>=0.95,]#subset days with at least 95% data
 row.names(madis_daily_rf_today_final)<-NULL #rename rows
 
