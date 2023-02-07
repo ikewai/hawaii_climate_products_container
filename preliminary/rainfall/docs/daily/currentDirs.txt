@@ -93,6 +93,7 @@
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/rf_station_tracking/qaqc_fail
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/rf_station_tracking/count
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/rf_station_tracking/gapFilling
+/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/rf_station_tracking/lastObs
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/metadata
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/metadata/monthly
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/metadata/monthly/statewide
