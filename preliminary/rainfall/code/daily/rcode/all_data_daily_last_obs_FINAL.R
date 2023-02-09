@@ -3,6 +3,7 @@ rm(list = ls())#remove all objects in R
 
 #packages
 library(dplyr)
+library(data.table)
 
 #set dirs
 mainDir <- "/home/hawaii_climate_products_container/preliminary"
@@ -19,7 +20,8 @@ file_date<-format(doi,"%Y_%m")
 #custom functions
 lastObsCsvRead<-function(x){
   require(dplyr)
-  df<-x
+  require(data.table)
+    df<-x
   df<-df[,c(1,grep("X",names(df)))]
   df <- as.data.frame(melt(setDT(df), id.vars = c("SKN"), variable.name = "date"))
   df <- df[!is.na(df$value),]
