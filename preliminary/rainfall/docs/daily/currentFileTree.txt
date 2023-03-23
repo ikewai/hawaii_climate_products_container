@@ -47,6 +47,7 @@
 │   │   │   ├── gapFilling
 │   │   │   ├── lastObs
 │   │   │   ├── missing
+│   │   │   ├── qaqc_count
 │   │   │   └── qaqc_fail
 │   │   ├── station_data
 │   │   │   ├── daily
@@ -66,9 +67,10 @@
 │   │   │   │   ├── raw_qc
 │   │   │   │   │   ├── county
 │   │   │   │   │   └── statewide
-│   │   │   │   └── source
-│   │   │   │       ├── county
-│   │   │   │       └── statewide
+│   │   │   │   ├── source
+│   │   │   │   │   ├── county
+│   │   │   │   │   └── statewide
+│   │   │   │   └── test
 │   │   │   └── monthly
 │   │   │       ├── krigInput
 │   │   │       │   ├── county
@@ -176,4 +178,4 @@
     ├── nws_rr5
     └── scan
 
-176 directories
+178 directories

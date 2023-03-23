@@ -57,6 +57,7 @@
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/source
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/source/statewide
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/source/county
+/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/test
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/raw
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/raw/statewide
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/daily/raw/county
@@ -89,6 +90,7 @@
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/monthly/partial_filled/county/OA
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/station_data/monthly/partial_filled/county/MN
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/rf_station_tracking
+/home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/rf_station_tracking/qaqc_count
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/rf_station_tracking/missing
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/rf_station_tracking/qaqc_fail
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/tables/rf_station_tracking/count

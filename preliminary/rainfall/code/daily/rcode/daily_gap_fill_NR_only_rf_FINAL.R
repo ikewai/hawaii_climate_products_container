@@ -1,5 +1,7 @@
 # This code is designed to fill all gaps in the daily rainfall time series.
-# Drawing on input files that were previously generated in a companion code. 
+# Drawing on input files that were previously generated in a companion code.
+# Fills all rf stations that had daily RF records with last 2 years
+
 rm(list = ls())
 library(dplyr)
 library(matrixStats)
@@ -11,6 +13,7 @@ codeDir<-paste0(mainDir,"/rainfall/code/source")
 
 #in dirs
 inDir <- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/raw_qc/statewide") #Path to the QAQC daily data
+activeStaDir <- paste0(mainDir,"/rainfall/data_outputs/tables/rf_station_tracking/lastObs") #last RF obs date per station file dir
 gapFilesDir <- paste0(mainDir,"/rainfall/dependencies/daily/gapFilling") #gap relationship files dir
 
 #out dirs
@@ -32,16 +35,29 @@ setwd(inDir)
 Daily_RF <- read.csv(file = paste0("Statewide_QAQC_Raw_Daily_RF_mm_",file_date,".csv"))
 #head(Daily_RF)
 
-#Get the number of stations in the month
-N_Sta <- nrow(Daily_RF)
+#Get the stations that have reported in last 24 months
+setwd(activeStaDir)
+lastObs<-read.csv("lastRFdayObs.csv")
+lastObs$lastRFDate<-as.Date(lastObs$lastRFDate)
+lastObs2yr<-lastObs[lastObs$lastRFDate>(dataDate-365.25*2),]
+N_Sta <- nrow(lastObs2yr)
 
 #get date cols
 dateCols<-grep("X",names(Daily_RF))
 minHistCol<-min(dateCols)
 maxHistCol<-max(dateCols)
 
+#add stations that reported in last 2 years not already found in table
+addSKNs<-lastObs2yr[!lastObs2yr$SKN %in% Daily_RF$SKN,"SKN"]
+addDF<-data.frame(matrix(nrow = length(addSKNs), ncol = length(dateCols)+1))
+names(addDF)<-names(Daily_RF)[c(1,dateCols)]
+addDF$SKN<-addSKNs
+addDF<-merge(addDF,geog_meta,by="SKN")
+Daily_RF<-rbind(Daily_RF,addDF)
+tail(Daily_RF)
+
 # Set up Gapfilled output   
-RF_Filled <- Daily_RF #duplicate the Input rf file    
+RF_Filled <- Daily_RF #duplicate the Input rf file 
 
 #Day of Month Loop
 #Loop through each day and fill any missing values
@@ -133,12 +149,16 @@ for (D in minHistCol:maxHistCol)  {    #Start minHistCol after metadata ends
     }  # End Station Loop
 
     }  # End Day of Month Loop 
-    
-    
+
+
+#remove station rows where all date cols are NA
+datesFill<-RF_Filled[,minHistCol:maxHistCol] #only date cols
+RF_Filled<-RF_Filled[rowSums(is.na(datesFill)) != ncol(datesFill), ] #remove rows where all date cols are NA
+
 #Write (or overwrite) Final Gap-filled dataset
 setwd(rfFilledDir) #set rainfall output wd
 parFillRFName <- paste0("Statewide_Partial_Filled_Daily_RF_mm_",file_date,".csv")
-ifelse(file.exists(parFillRFName),paste(parFillRFName,"file update!"),paste(parFillRFName,"file write!"))
+ifelse(file.exists(parFillRFName),paste(parFillRFName,"file updated!"),paste(parFillRFName,"file written!"))
 write.csv(RF_Filled,parFillRFName,row.names = FALSE)
 
 #make and save statistics to say how much of the data was filled. 

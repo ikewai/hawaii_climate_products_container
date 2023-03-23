@@ -108,7 +108,7 @@ geog_meta<-read.csv(meta_url, colClasses=c("NESDIS.id"="character"))
 
 #define date
 source(paste0(codeDir,"/dataDateFunc.R"))
-dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
+dataDate<-dataDateMkr("2023-03-03") #function for importing/defining date as input or as yesterday
 map_date<-dataDate #dataDate as map_date
 file_date<-format(map_date,"%Y_%m")
 
@@ -118,7 +118,7 @@ rf_month_filename<-paste0("Statewide_Raw_Daily_RF_mm_",file_date,".csv") #dynami
 monthly_rf<-read.csv(rf_month_filename)
 monthly_rf$co<-as.factor(monthly_rf$Island)
 levels(monthly_rf$co)[levels(monthly_rf$co)=="MA"|levels(monthly_rf$co)=="KO"|levels(monthly_rf$co)=="LA"|levels(monthly_rf$co)=="MO"]<-"MN"
-monthly_rf[,grep("X",names(monthly_rf))][monthly_rf[,grep("X",names(monthly_rf))]>500]<-NA #remove daily vals >700 mm
+monthly_rf[,grep("X",names(monthly_rf))][monthly_rf[,grep("X",names(monthly_rf))]>700]<-NA #remove daily vals >700 mm
 str(monthly_rf)
 
 #subset day
@@ -128,6 +128,9 @@ if(!as.logical(max(names(monthly_rf)==rfcol))){print(paste("day:",rfcol,"not pre
 daily_rf<-monthly_rf[!is.na(monthly_rf[,rfcol]),vars]
 row.names(daily_rf)<-NULL
 str(daily_rf)
+
+#save pre screen numbers
+rawStaCount<-sum(!is.na(daily_rf[,rfcol]))
 
 #get mean log sd log & pop rasters
 setwd(lognorm_ras_wd)
@@ -145,29 +148,21 @@ s<-Sys.time()
 #flag remove repeat bad data
 for(i in unique(daily_rf$co)){
   daily_rf_co<-daily_rf[daily_rf[!is.na(daily_rf[,rfcol]),"co"]==i,-2]
-  setwd(qaqc_models_wd)
-  modNZ<-readRDS(paste0(i,"_no_human_rf_nonzero_randfor.rds"))
-  modZ<-readRDS(paste0(i,"_no_human_rf_zero_randfor.rds"))
-  close10DF<-close10RF(day_df=daily_rf_co,ln6moRas=state_6mo,lnAnnRas=state_ann)
-  daily_rf_co_pred<-pred_bad(close10DF,rfcol,modZ,modNZ)
-  if(daily_rf_co_pred[which.max(daily_rf_co_pred$probBad),"statusPred"]==1){
-    daily_rf_qaqc_fail<-rbind(daily_rf_qaqc_fail,daily_rf_co_pred[which.max(daily_rf_co_pred$probBad),])
-    daily_rf_co_pred<-daily_rf_co_pred[-which.max(daily_rf_co_pred$probBad),]
-  }
-  nbad<-sum(daily_rf_co_pred$statusPred)
-  while(nbad>0){
-    daily_rf_co<-daily_rf_co_pred[,1:4]
-    close10DF<-close10RF(day_df=daily_rf_co,ln6moRas=state_6mo,lnAnnRas=state_ann)
-    daily_rf_co_pred<-pred_bad(close10DF,rfcol,modZ,modNZ)
-    if(daily_rf_co_pred[which.max(daily_rf_co_pred$probBad),"statusPred"]==1){
-      daily_rf_qaqc_fail<-rbind(daily_rf_qaqc_fail,daily_rf_co_pred[which.max(daily_rf_co_pred$probBad),])
-      daily_rf_co_pred<-daily_rf_co_pred[-which.max(daily_rf_co_pred$probBad),]
-    }
-    nbad<-sum(daily_rf_co_pred$statusPred)
-    if(nrow(daily_rf_co_pred)<=11){nbad<-0}
-  }#remove bad while loop
-  daily_rf_qaqc_pass<-rbind(daily_rf_qaqc_pass,daily_rf_co_pred)
+  if(nrow(daily_rf_co)<=11){
+    daily_rf_co_pred<-daily_rf_co
+    daily_rf_co_pred$statusPred<-NA
+    daily_rf_co_pred$probBad<-NA
+  }else{ #else there is enough (11) stations to QAQC
+    setwd(qaqc_models_wd)
+    modNZ<-modNZlist[[i]]
+    modZ<-modZlist[[i]]
+    close10DF<-close10RF(day_df=daily_rf_co,ln6moRas=state_6mo,lnAnnRas=state_ann) #GET CLOSE 10 STATIONS
+    daily_rf_co_pred<-pred_bad(close10DF,rfcol,modZ,modNZ) #BAD PREDICTION HAPPENS HERE
+  }#end n stations > 11 else 
+  daily_rf_qaqc_fail<-rbind(daily_rf_qaqc_fail,daily_rf_co_pred[daily_rf_co_pred$statusPred==1,]) #store bad stations
+  daily_rf_qaqc_pass<-rbind(daily_rf_qaqc_pass,daily_rf_co_pred[daily_rf_co_pred$statusPred==0,]) #store good stations
 }#co loop end
+
 e<-Sys.time()
 print("rf daily value screening...")
 print(e-s)
@@ -297,9 +292,9 @@ rf_qaqc_log_month_filename<-paste0("Statewide_QAQC_Daily_RF_mm_count_log_",file_
 if(file.exists(rf_qaqc_log_month_filename)){
   write.table(qaStaLogRow, file = rf_qaqc_log_month_filename, sep = ",",append=T,quote=F,col.names=F,row.names=F)
   print(paste(rf_qaqc_log_month_filename,"table appended!"))
-  }else{
+}else{
   write.csv(qaStaLogRow,rf_qaqc_log_month_filename,row.names=F)
   print(paste(rf_qaqc_log_month_filename,"table written!"))
-  }
+}
 
 #code pau

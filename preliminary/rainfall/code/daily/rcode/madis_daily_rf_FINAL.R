@@ -141,8 +141,3 @@ if(file.exists(rf_month_filename)){
 
 
 print("PAU!")
-
-
-
-
- 
