@@ -90,11 +90,11 @@ for(j in stations){
   sta_data_xts<-xts(sta_data$value,order.by=sta_data$obs_time,unique = TRUE) #make xtended timeseries object
   sta_data_xts_sub<- sta_data_xts[!duplicated(index(sta_data_xts)),] #remove duplicate time obs
   if(nrow(sta_data_xts_sub)>=23){
-    sta_data_xts_sub_lag<-xts::diff(sta_data_xts_sub,lag=1)
+    sta_data_xts_sub_lag<-diff(sta_data_xts_sub,lag=1)
     sta_data_xts_sub_lag[sta_data_xts_sub_lag<0]<-NA #NA to neg values when lag 1 dif
     sta_data_hrly_xts<-apply.hourly(sta_data_xts_sub_lag,FUN=sum,roundtime = "trunc")#agg to hourly and truncate hour
     sta_data_daily_xts<-apply.daily(sta_data_hrly_xts,FUN=sum,na.rm = F)#daily sum of all all lag observations
-    obs_ints<-xts::diff(index(sta_data_xts_sub),lag=1) #calculate vector of obs intervals
+    obs_ints<-diff(index(sta_data_xts_sub),lag=1) #calculate vector of obs intervals
     obs_int_hr<-getmode(as.numeric(obs_ints, units="hours"))
     obs_int_minutes<-obs_int_hr*60
     obs_per_day<-((1/obs_int_hr)*24)#calculate numbers of obs per day based on obs interval
