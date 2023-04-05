@@ -5,6 +5,8 @@
 │   │   └── rcode
 │   ├── monthly
 │   └── source
+├── copyRedoFiles
+│   └── 2023_03
 ├── data_outputs
 │   ├── plots
 │   │   └── monthly
@@ -67,10 +69,9 @@
 │   │   │   │   ├── raw_qc
 │   │   │   │   │   ├── county
 │   │   │   │   │   └── statewide
-│   │   │   │   ├── source
-│   │   │   │   │   ├── county
-│   │   │   │   │   └── statewide
-│   │   │   │   └── test
+│   │   │   │   └── source
+│   │   │   │       ├── county
+│   │   │   │       └── statewide
 │   │   │   └── monthly
 │   │   │       ├── krigInput
 │   │   │       │   ├── county
@@ -178,4 +179,4 @@
     ├── nws_rr5
     └── scan
 
-178 directories
+179 directories

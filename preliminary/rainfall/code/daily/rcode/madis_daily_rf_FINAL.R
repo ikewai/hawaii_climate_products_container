@@ -96,6 +96,7 @@ for(j in stations){
     sta_data_xts_sub_lag<-diff(sta_data_xts_sub,lag=1)
     sta_data_xts_sub_lag[sta_data_xts_sub_lag<0]<-NA #NA to neg values when lag 1 dif
     sta_data_hrly_xts<-apply.hourly(sta_data_xts_sub_lag,FUN=sum,roundtime = "trunc")#agg to hourly and truncate hour
+    indexTZ(sta_data_hrly_xts) <- "Pacific/Honolulu"
     sta_data_daily_xts<-apply.daily(sta_data_hrly_xts,FUN=sum,na.rm = F)#daily sum of all hrly observations
     obs_ints<-diff(index(sta_data_xts_sub),lag=1) #calculate vector of obs intervals
     obs_int_hr<-getmode(as.numeric(obs_ints, units="hours"))
