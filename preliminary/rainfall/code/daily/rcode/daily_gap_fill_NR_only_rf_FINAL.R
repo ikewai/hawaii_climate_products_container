@@ -54,7 +54,7 @@ names(addDF)<-names(Daily_RF)[c(1,dateCols)]
 addDF$SKN<-addSKNs
 addDF<-merge(addDF,geog_meta,by="SKN")
 Daily_RF<-rbind(Daily_RF,addDF)
-tail(Daily_RF)
+head(Daily_RF)
 
 # Set up Gapfilled output   
 RF_Filled <- Daily_RF #duplicate the Input rf file 
@@ -152,7 +152,9 @@ for (D in minHistCol:maxHistCol)  {    #Start minHistCol after metadata ends
 
 
 #remove station rows where all date cols are NA
-datesFill<-RF_Filled[,minHistCol:maxHistCol] #only date cols
+if(length(dateCols)){}else{}
+datesFill<-as.data.frame(RF_Filled[,dateCols]) #only date cols
+names(datesFill)<-names(RF_Filled)[dateCols] #rename date cols with date col names
 RF_Filled<-RF_Filled[rowSums(is.na(datesFill)) != ncol(datesFill), ] #remove rows where all date cols are NA
 
 #Write (or overwrite) Final Gap-filled dataset
