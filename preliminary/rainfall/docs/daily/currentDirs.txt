@@ -9,6 +9,7 @@
 /home/hawaii_climate_products_container/preliminary/rainfall/./docs/daily
 /home/hawaii_climate_products_container/preliminary/rainfall/./docs/monthly
 /home/hawaii_climate_products_container/preliminary/rainfall/./copyRedoFiles
+/home/hawaii_climate_products_container/preliminary/rainfall/./copyRedoFiles/2023_04
 /home/hawaii_climate_products_container/preliminary/rainfall/./copyRedoFiles/2023_03
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs
 /home/hawaii_climate_products_container/preliminary/rainfall/./data_outputs/plots

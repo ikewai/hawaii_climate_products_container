@@ -120,6 +120,7 @@ monthly_rf$co<-as.factor(monthly_rf$Island)
 levels(monthly_rf$co)[levels(monthly_rf$co)=="MA"|levels(monthly_rf$co)=="KO"|levels(monthly_rf$co)=="LA"|levels(monthly_rf$co)=="MO"]<-"MN"
 monthly_rf[,grep("X",names(monthly_rf))][monthly_rf[,grep("X",names(monthly_rf))]>500]<-NA #remove daily vals >700 mm
 str(monthly_rf)
+head(monthly_rf)
 
 #subset day
 rfcol<-format(as.Date(map_date),"X%Y.%m.%d")
@@ -172,15 +173,18 @@ e<-Sys.time()
 print("rf daily value screening...")
 print(e-s)
 
-#make qaqc removed station long df 
-rf_qaqc_fail_stations<-data.frame(SKN=daily_rf_qaqc_fail$SKN,
+#make qaqc removed station long df
+if(ncol(daily_rf_qaqc_fail)==0){
+  rf_qaqc_fail_stations<-data.frame()
+  }else{
+  rf_qaqc_fail_stations<-data.frame(SKN=daily_rf_qaqc_fail$SKN,
                               date=as.character(rep(as.Date(gsub("X","",rfcol),format="%Y.%m.%d"),ncol=daily_rf_qaqc_fail)),
                               rfmm=daily_rf_qaqc_fail[,rfcol],
                               statusPred=daily_rf_qaqc_fail$statusPred,
                               probBad=daily_rf_qaqc_fail$probBad)
 
-rf_qaqc_fail_stations<-merge(geog_meta,rf_qaqc_fail_stations,by="SKN")
-
+  rf_qaqc_fail_stations<-merge(geog_meta,rf_qaqc_fail_stations,by="SKN")
+}
 #save or append to monthly qaqc station removes stations file
 setwd(qaqc_fail_stations_wd)
 rf_fail_stations_month_filename<-paste0(file_date,"_qaqc_fail_daily_rf.csv") #dynamic file name that includes month year so when month is done new file is written
