@@ -8,6 +8,12 @@ print(paste("all data daily merge run:",Sys.time()))#for cron log
 mainDir <- "/home/hawaii_climate_products_container/preliminary"
 codeDir<-paste0(mainDir,"/rainfall/code/source")
 
+#define date
+source(paste0(codeDir,"/dataDateFunc.R"))
+dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
+map_date<-dataDate #dataDate as map_date
+file_date<-format(map_date,"%Y_%m")
+
 #input dirs
 hads_daily_wd <- paste0(mainDir,"/rainfall/working_data/hads") #hads daily agg data wd
 nws_daily_wd <- paste0(mainDir,"/rainfall/working_data/nws_rr5") #nws daily agg wd
@@ -18,7 +24,7 @@ madis_daily_wd <- paste0(mainDir,"/rainfall/working_data/madis") #madis daily ag
 
 #output dirs
 missing_sta_wd <- paste0(mainDir,"/rainfall/data_outputs/tables/rf_station_tracking/missing") #unknown stations
-count_log_wd <- paste0(mainDir,"/rainfall/data_outputs/tables/rf_station_tracking/count") #station counts per data stream per day
+count_log_wd <- paste0(mainDir,"/rainfall/data_outputs/tables/rf_station_tracking/count/daily") #station counts per data stream per day
 rf_day_source_wd <- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/source/statewide") #datastream source of data
 rf_day_data_wd <- paste0(mainDir,"/rainfall/data_outputs/tables/station_data/daily/raw/statewide") #final combine daily rainfall data
 
@@ -40,12 +46,6 @@ geog_meta_sub<-geog_meta[,c("SKN","NESDIS.id","SCAN.id","NWS.id","SMART_NODE_RF.
 geog_meta_sub$no_sourceID<-geog_meta_sub$SKN
 #head(geog_meta_sub)
 print("master meta added!")
-
-#define date
-source(paste0(codeDir,"/dataDateFunc.R"))
-dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
-map_date<-dataDate #dataDate as map_date
-file_date<-format(map_date,"%Y_%m")
 
 #add HADS data
 setwd(hads_daily_wd)#set data source wd

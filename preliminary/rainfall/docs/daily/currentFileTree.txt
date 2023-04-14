@@ -47,6 +47,8 @@
 │   │   │       └── statewide
 │   │   ├── rf_station_tracking
 │   │   │   ├── count
+│   │   │   │   ├── daily
+│   │   │   │   └── monthly
 │   │   │   ├── gapFilling
 │   │   │   ├── lastObs
 │   │   │   ├── missing
@@ -180,4 +182,4 @@
     ├── nws_rr5
     └── scan
 
-180 directories
+182 directories
