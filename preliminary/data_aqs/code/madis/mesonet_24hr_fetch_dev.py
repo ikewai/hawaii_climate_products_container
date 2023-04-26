@@ -24,7 +24,11 @@ MAX_LON = -154
 MIN_LAT = 18
 MAX_LAT = 22.5
 K_CONST = 273.15
-PARSED_DIR = r'/home/hawaii_climate_products_container/preliminary/data_aqs/data_outputs/madis/parse/'
+MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
+MESO_REF = MASTER_DIR + r'air_temp/daily/dependencies/HIMesonetIDTable.csv'
+MASTER_LINK = r'https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv'
+#PARSED_DIR = r'/home/hawaii_climate_products_container/preliminary/data_aqs/data_outputs/madis/parse/'
+PARSED_DIR = r'/home/kodamak8/nrt_testing/madis_testbed1/'
 #END CONSTANTS----------------------------------------------------------------
 
 #DEFINE FUNCTIONS-------------------------------------------------------------
@@ -98,6 +102,20 @@ def process_meso_data(ds,source):
     return df
 
 def update_csv(csvname,new_df):
+    #Before appending to parsed file, check if deprecated ids used
+    master_df = pd.read_csv(MASTER_LINK)
+    uni_stns = new_df['stationId'].unique()
+    unknown_stns = np.setdiff1d(uni_stns,master_df['NWS.id'].dropna().values)
+    meso_table = pd.read_csv(MESO_REF)
+    #Are some of the unknown stations in the mesonet lookup
+    unknown_match = np.intersect1d(unknown_stns,meso_table['NWS ID'])
+    if unknown_match.shape[0] > 0:
+        meso_matched = meso_table[meso_table['NWS ID'].isin(unknown_match)]
+        replace_dict = dict(zip(meso_matched['NWS ID'],meso_matched['HI Meso ID']))
+        #switch back to ids used by master df (deprecated version)
+        new_df.loc[:,'stationId'] = new_df['stationId'].replace(replace_dict)
+    #If master has been updated, mesonet stations will not pass through the unknowns
+    
     if exists(csvname):
         prev_df = pd.read_csv(csvname)
         upd_df = pd.concat([new_df,prev_df],axis=0,ignore_index=True)
