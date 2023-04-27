@@ -25,9 +25,10 @@ MIN_LAT = 18
 MAX_LAT = 22.5
 K_CONST = 273.15
 MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
-MESO_REF = MASTER_DIR + r'data_aqs/code/madis/HIMesonetIDTable.csv'
+#MESO_REF = MASTER_DIR + r'data_aqs/code/madis/HIMesonetIDTable.csv'
 MASTER_LINK = r'https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv'
 PARSED_DIR = r'/home/hawaii_climate_products_container/preliminary/data_aqs/data_outputs/madis/parse/'
+WGET_URL = r'https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/temperature/'
 #END CONSTANTS----------------------------------------------------------------
 
 #DEFINE FUNCTIONS-------------------------------------------------------------
@@ -101,18 +102,24 @@ def process_meso_data(ds,source):
     return df
 
 def update_csv(csvname,new_df):
+    #wget the HI Mesonet ID file
+    src_url = WGET_URL + 'HIMesonetIDTable.csv'
+    local_name = './HIMesonetIDTable.csv'
+    cmd = ["wget",src_url,"-O",local_name]
+    subprocess.call(cmd)
+
     #Before appending to parsed file, check if deprecated ids used
-    #master_df = pd.read_csv(MASTER_LINK)
-    #uni_stns = new_df['stationId'].unique()
-    #unknown_stns = np.setdiff1d(uni_stns,master_df['NWS.id'].dropna().values)
-    #meso_table = pd.read_csv(MESO_REF)
+    master_df = pd.read_csv(MASTER_LINK)
+    uni_stns = new_df['stationId'].unique()
+    unknown_stns = np.setdiff1d(uni_stns,master_df['NWS.id'].dropna().values)
+    meso_table = pd.read_csv(local_name)
     #Are some of the unknown stations in the mesonet lookup
-    #unknown_match = np.intersect1d(unknown_stns,meso_table['NWS ID'])
-    #if unknown_match.shape[0] > 0:
-    #    meso_matched = meso_table[meso_table['NWS ID'].isin(unknown_match)]
-    #    replace_dict = dict(zip(meso_matched['NWS ID'],meso_matched['HI Meso ID']))
-        #switch back to ids used by master df (deprecated version)
-    #    new_df.loc[:,'stationId'] = new_df['stationId'].replace(replace_dict)
+    unknown_match = np.intersect1d(unknown_stns,meso_table['NWS ID'])
+    if unknown_match.shape[0] > 0:
+        meso_matched = meso_table[meso_table['NWS ID'].isin(unknown_match)]
+        replace_dict = dict(zip(meso_matched['NWS ID'],meso_matched['HI Meso ID']))
+       #switch back to ids used by master df (deprecated version)
+        new_df.loc[:,'stationId'] = new_df['stationId'].replace(replace_dict)
     #If master has been updated, mesonet stations will not pass through the unknowns
     
     if exists(csvname):
