@@ -15,7 +15,7 @@ outdirCounty<-paste0(mainDir,"/rainfall/data_outputs/tables/station_data/monthly
 
 #define date
 source(paste0(codeDir,"/dataDateFunc.R"))
-dataDate<-dataDateMkr("2023-04-01") #function for importing/defining date as input or as yesterday
+dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
 fileDate<-format(dataDate,"%Y_%m")
 fileYear<-format(dataDate,"%Y")
 print(dataDate)
@@ -60,12 +60,20 @@ RFMonthCheck<-function(rf_month_df,dataDate){
     #co_rf_month_df<-co_rf_month_df[,dateCols]
     #co_rf_month_df <- co_rf_month_df[,colSums(is.na(co_rf_month_df))<nrow(co_rf_month_df)]    
     colDates<-as.Date(names(co_rf_month_df)[dateCols],format="X%Y.%m.%d")
-    coDataCheck<-data.frame(yearMonth=format(dataDate,"X%Y.%m"),County=c,CountRFstation=nrow(co_rf_month_df),MissingRFdays=sum(!allMonthDays%in%colDates))
+    coDataCheck<-data.frame(yearMonth=format(dataDate,"X%Y.%m"),County=c,
+                            CountRFstation=nrow(co_rf_month_df),
+                            TotalMissingRFdays=sum(!allMonthDays%in%colDates),    
+                            MissingRFdays=paste(allMonthDays[!allMonthDays%in%colDates],collapse = ","))
     allDataCheck<-rbind(allDataCheck,coDataCheck)
   }
   dateColsAll<-grep("X",names(rf_month_df)) #date col numbers
   colDatesAll<-as.Date(names(rf_month_df)[dateCols],format="X%Y.%m.%d")
-  allDataCheck<-rbind(allDataCheck,data.frame(yearMonth=format(dataDate,"X%Y.%m"),County="All",CountRFstation=sum(allDataCheck$CountRFstation),MissingRFdays=sum(!allMonthDays%in%colDatesAll)))
+  allDataCheck<-rbind(allDataCheck,
+                      data.frame(yearMonth=format(dataDate,"X%Y.%m"),County="All",
+                                 CountRFstation=sum(allDataCheck$CountRFstation),
+                                 TotalMissingRFdays=sum(!allMonthDays%in%colDatesAll),    
+                                 MissingRFdays=paste(allMonthDays[!allMonthDays%in%colDatesAll],collapse = ","))
+                      )
   return(allDataCheck)
 }
 appendMonthCol<-function(yearDF,monthDF,metafile){
@@ -86,12 +94,12 @@ appendMonthCol<-function(yearDF,monthDF,metafile){
     return(yearFinal)
     }
 }
-stateSubCounty<-function(statefile,stateName=NA,outdirCounty=NA,writeCo=F){
-  countList<-list(statefile$Island=="BI",statefile$Island=="MA"|statefile$Island=="KO"|statefile$Island=="MO"|statefile$Island=="LA",statefile$Island=="OA",statefile$Island=="KA")
+stateSubCounty<-function(stateFile,stateName=NA,outdirCounty=NA,writeCo=F){
+  countList<-list(stateFile$Island=="BI",stateFile$Island=="MA"|stateFile$Island=="KO"|stateFile$Island=="MO"|stateFile$Island=="LA",stateFile$Island=="OA",stateFile$Island=="KA")
   names(countList)<-c("BI","MN","OA","KA")
   stateCoList<-list()
   for(j in names(countList)){
-    monCounty<-statefile[countList[[j]],]
+    monCounty<-stateFile[countList[[j]],]
     stateCoList[[j]]<-monCounty
     if(writeCo){
       coDir<-paste(outdirCounty,j,sep="/")
