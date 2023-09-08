@@ -175,8 +175,16 @@ print(e-s)
 
 #make qaqc removed station long df
 if(ncol(daily_rf_qaqc_fail)==0){
-  rf_qaqc_fail_stations<-data.frame()
+  #blank dataframe to save
+  rf_qaqc_fail_stations<-data.frame(SKN=as.numeric(),
+                                    date=as.character(),
+                                    rfmm=as.numeric(),
+                                    statusPred=as.logical(),
+                                    probBad=as.numeric())
+  rf_qaqc_fail_stations<-merge(geog_meta,rf_qaqc_fail_stations,by="SKN")
+  
   }else{
+  #make dataframe of fail/flag stations
   rf_qaqc_fail_stations<-data.frame(SKN=daily_rf_qaqc_fail$SKN,
                               date=as.character(rep(as.Date(gsub("X","",rfcol),format="%Y.%m.%d"),ncol=daily_rf_qaqc_fail)),
                               rfmm=daily_rf_qaqc_fail[,rfcol],
