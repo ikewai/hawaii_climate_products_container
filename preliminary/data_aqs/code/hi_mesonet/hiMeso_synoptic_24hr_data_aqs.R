@@ -50,7 +50,8 @@ dtend<-format(dtend,"%Y%m%d%H%M")
 #get metadata
 meta_url <- "https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv"
 geog_meta<-read.csv(meta_url, colClasses=c("NESDIS.id"="character"))
-himesoIDs<-geog_meta[geog_meta$Observer=="HiMesonet" & !is.na(geog_meta$NWS.id),"NWS.id"]
+himesoIDs<-geog_meta[tolower(geog_meta$Observer)=="himesonet" & !is.na(geog_meta$NWS.id),"NWS.id"]
+
 
 #set up station loop
 daynames<-as.character()

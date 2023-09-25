@@ -3,6 +3,7 @@
 /home/hawaii_climate_products_container/preliminary/rainfall/./working_data/nws_rr5
 /home/hawaii_climate_products_container/preliminary/rainfall/./working_data/hads
 /home/hawaii_climate_products_container/preliminary/rainfall/./working_data/hi_mesonet
+/home/hawaii_climate_products_container/preliminary/rainfall/./working_data/hi_mesonet/synoptic
 /home/hawaii_climate_products_container/preliminary/rainfall/./working_data/scan
 /home/hawaii_climate_products_container/preliminary/rainfall/./working_data/madis
 /home/hawaii_climate_products_container/preliminary/rainfall/./docs

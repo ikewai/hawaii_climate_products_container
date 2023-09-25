@@ -1,5 +1,4 @@
-#this code grabs all raw HADS data for HI and calcs daily RF total from precip accumulations
-
+#this code grabs all raw madis data for HI from gateway
 rm(list = ls())#remove all objects in R
 
 #set options
@@ -16,48 +15,15 @@ source(paste0(codeDir,"/dataDateFunc.R"))
 dataDate<-dataDateMkr("2023-05-25") #function for importing/defining date as input or as yesterday
 currentDate<-dataDate #dataDate as currentDate (yesterday)
 
-#load packages
-#install.packages("xts")
-require(xts)
-
-#functions
-getmode <- function(v) { #get mode of values
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}#end getmode function
-apply.hourly <- function(x, FUN, roundtime = "round", na.rm = TRUE){
-  if(!is.xts(x)){
-    stop("x must be an xts object")
-  }
-  
-  if(roundtime != "NA"){
-    if(roundtime == "round"){
-      time(x) <- round.POSIXt(time(x), "hours")
-    } else if(roundtime == "trunc"){
-      time(x) <- trunc.POSIXt(time(x), "hours")
-    } else {
-      stop("roundtime must be either round or trunc")
-    }
-  }
-  
-  ap <- endpoints(x,'hours')
-  if(na.rm){
-    period.apply(x,ap,FUN, na.rm = TRUE)
-  } else {
-    period.apply(x,ap,FUN)
-  }
-}#end apply.hrly function
-
-#dirs
-parse_wd<-paste0(mainDir,"/data_aqs/data_outputs/madis/parse")
-agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/madis")
-
 #read MADIS parsed table from ikewai data portal
 ikeUrl<-"https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test" #url
 madis_filename<-paste0(format((currentDate),"%Y%m%d"),"_madis_parsed.csv") #dynamic file name that includes date
 all_madis<-read.csv(paste0(ikeUrl,"/data_aqs/data_outputs/madis/parse/",madis_filename))
-#head(all_madis)
+head(all_madis)
+tail(all_madis)
+unique(all_madis$varname)
 
-hiMesonet<-c('021HI','022HI','027HI','025HI','008HI','018HI','002HI','020HI','017HI','001HI','016HI','028HI','019HI','011HI','012HI','026HI','015HI','014HI','024HI')
-staQ<-all_madis[all_madis$stationId %in% hiMesonet,]
-unique(staQ$varname)
+hiMesonet<-c('017HI','016HI','001HI','019HI','002HI','013HI','003HI','020HI','023HI','022HI','021HI','018HI','029HI','025HI','027HI','005HI','006HI','007HI','008HI','009HI','010HI','011HI','012HI','014HI','015HI','024HI')
+#hiMesonet<-c('021HI','022HI','027HI','025HI','008HI','018HI','002HI','020HI','017HI','001HI','016HI','028HI','019HI','011HI','012HI','026HI','015HI','014HI','024HI')
+hiMeso<-all_madis[all_madis$stationId %in% hiMesonet,]
+unique(hiMeso$varname)

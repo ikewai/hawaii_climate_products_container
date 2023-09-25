@@ -14,6 +14,8 @@ require(xts)
 #set dirs
 mainDir <- "/home/hawaii_climate_products_container/preliminary"
 codeDir<-paste0(mainDir,"/rainfall/code/source")
+parse_wd<-paste0(mainDir,"/data_aqs/data_outputs/hads/parse")
+agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/hads")
 
 #define dates
 source(paste0(codeDir,"/dataDateFunc.R"))
@@ -47,10 +49,6 @@ apply.hourly <- function(x, FUN, roundtime = "round", na.rm = TRUE){
     period.apply(x,ap,FUN)
   }
 }#end apply.hrly function
-
-#dirs
-parse_wd<-paste0(mainDir,"/data_aqs/data_outputs/hads/parse")
-agg_daily_wd<-paste0(mainDir,"/rainfall/working_data/hads")
 
 # #read HADS parsed table from dev server OLD
 # setwd(parse_wd)#sever path for parsed hads files

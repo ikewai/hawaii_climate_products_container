@@ -178,8 +178,9 @@
 └── working_data
     ├── hads
     ├── hi_mesonet
+    │   └── synoptic
     ├── madis
     ├── nws_rr5
     └── scan
 
-182 directories
+183 directories

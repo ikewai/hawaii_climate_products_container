@@ -25,7 +25,7 @@ raw_page_wd<-paste0(mainDir,"/data_aqs/data_outputs/hads/raw")
 parse_wd<-paste0(mainDir,"/data_aqs/data_outputs/hads/parse")
 
 #get data from HADS url
-url<-"https://hads.ncep.noaa.gov/nexhads2/servlet/DecodedData?sinceday=2&hsa=nil&state=HI&nesdis_ids=nil&of=1" #this is the URL for all data in website in the last 2 (sinceday)s
+url<-"https://hads.ncep.noaa.gov/nexhads2/servlet/DecodedData?sinceday=5&hsa=nil&state=HI&nesdis_ids=nil&of=1" #this is the URL for all data in website in the last 5 (sinceday)s
 page<-readLines(url)
 
 #save raw data
