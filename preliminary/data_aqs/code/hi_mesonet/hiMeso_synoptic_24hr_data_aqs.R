@@ -53,42 +53,54 @@ geog_meta<-read.csv(meta_url, colClasses=c("NESDIS.id"="character"))
 himesoIDs<-geog_meta[tolower(geog_meta$Observer)=="himesonet" & !is.na(geog_meta$NWS.id),"NWS.id"]
 
 
-#set up station loop
+#get syno api token from bashrc
+bashrc<-system("cat .bashrc", intern = T)
+exportCall<-bashrc[length(bashrc)]
+synoToken<-substr(exportCall,which(strsplit(exportCall, "")[[1]]=="=")+1,nchar(exportCall))
+
+#set up station loop outputs
 daynames<-as.character()
 allMesoData<-data.frame()
 
-
-
 #loop through ID to get all data
 for(i in 1:length(himesoIDs)){
-  dataURL<-paste0("https://api.mesowest.net/v2/station/timeseries?&stid=",himesoIDs[i],"&start=",dtstart,"&end=",dtend,"&output=csv&token=b027f2fc5a5e4f43ae66476e4462f56e")
-  rawData<-readLines(dataURL)
-  
-  #write unparse day/station file
-  setwd(rawOutDir)
-  rawName<-paste0(himesoIDs[i],"_",dataDateName,".txt")
-  daynames<-c(daynames,rawName)
-  write(rawData,rawName)
-  
+  dataURL<-paste0("https://api.mesowest.net/v2/station/timeseries?&stid=",himesoIDs[i],"&start=",dtstart,"&end=",dtend,"&output=csv&token=",synoToken)
+ 
   #get parsed data
   stadf<-readSynUrl(url=dataURL)
   #head(stadf)
   
-  if(!is.na(stadf)){ #add station df if not NA (no api error)
+  if(is.data.frame(stadf)){ #add station df if not NA (no api error)
     #make data long
     stadfLong<-gather(stadf, "var", "value", -Station_ID,-Date_Time)
     allMesoData<-rbind(allMesoData,stadfLong)
-  }
+  
+    #get raw data
+    rawData<-readLines(dataURL)
+  
+    #write unparse day/station file
+    setwd(rawOutDir)
+    rawName<-paste0(himesoIDs[i],"_",dataDateName,".txt")
+    daynames<-c(daynames,rawName)
+    write(rawData,rawName)    
+  }else{
+    message(paste("non station data found",himesoIDs[i],dataDate))
+  }#end na sta return if else
 }#end station loop
 
 #zip all station day files and remove raw station data
-setwd(rawOutDir)
-zip(zipfile = paste0(dtstart,"_api_synoptic_raw"), files = daynames)
-unlink(daynames)#delete station day files
+if(length(daynames)>0){
+  setwd(rawOutDir)
+  zip(zipfile = paste0(dtstart,"_api_synoptic_raw"), files = daynames)
+  unlink(daynames)#delete station day files
+}
 
 #save all station/day files long
-setwd(parseOutDir)
-write.csv(allMesoData,paste0(dataDateName,"_himeso_synoptic.csv"),row.names = F)
+
+if(nrow(allMesoData)>0){
+  setwd(parseOutDir)
+  write.csv(allMesoData,paste0(dataDateName,"_himeso_synoptic.csv"),row.names = F)
+}#end parse row check/write
 
 e<-Sys.time()
 print(e-s)
