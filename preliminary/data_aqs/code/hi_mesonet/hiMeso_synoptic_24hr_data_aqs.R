@@ -36,12 +36,8 @@ readSynUrl <- function(url) {
 source(paste0(codeDir,"/dataDateFunc.R"))
 dataDate<-dataDateMkr() #function for importing/defining date as input or as yesterday
 dataDateName<-format(dataDate,"%Y%m%d")
-dtstart<-as.POSIXct(paste(dataDate,"00:00:00"), tz="HST") #make start date time HST
-dtend<-as.POSIXct(paste(dataDate+1,"00:00:00"), tz="HST") #make end date time HST
-
-#convert to UTCC for API
-attr(dtstart, "tzone") <- "UTC"
-attr(dtend, "tzone") <- "UTC"
+dtstart<-as.POSIXct(paste(dataDate,"10:00:00"), tz="UTC") #make start date time UTC
+dtend<-as.POSIXct(paste(dataDate+1,"10:00:00"), tz="UTC") #make end date time UTC
 
 #reformat for API
 dtstart<-format(dtstart,"%Y%m%d%H%M")
