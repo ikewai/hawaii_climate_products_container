@@ -1,4 +1,4 @@
-#this code grabs all raw mesonet synopic API data for HI and calcs daily RF total from 5 min precip
+#this code grabs all raw downloaded mesonet synopic API data for HI and calcs daily RF total from 5 min precip
 
 rm(list = ls())#remove all objects in R
 
@@ -77,7 +77,7 @@ tail(all_meso_rf)
 #blank DF to store daily data
 meso_daily_rf<-data.frame()
 
-#unique hads stations
+#unique meso stations
 stations<-unique(all_meso_rf$Station_ID)
 
 #start daily RF loop
@@ -105,18 +105,27 @@ for(j in stations){
 print("loop complete!")
 row.names(meso_daily_rf)<-NULL #rename rows
 
-head(meso_daily_rf)
-tail(meso_daily_rf)
+#head(meso_daily_rf)
+#tail(meso_daily_rf)
 
 #subsets: yesterday with 95% data
 meso_daily_rf_today<-meso_daily_rf[meso_daily_rf$date==(currentDate),]#subset yesterday
-row.names(meso_daily_rf_today)<-NULL #rename rows
+meso_daily_rf_today_final<-meso_daily_rf_today[meso_daily_rf_today$data_per>=0.95,]#subset days with at least 95% data
+row.names(meso_daily_rf_today_final)<-NULL #rename rows
 #head(meso_daily_rf_today)
 #tail(meso_daily_rf_today)
 
-meso_daily_rf_today_final<-meso_daily_rf_today[meso_daily_rf_today$data_per>=0.95,]#subset days with at least 95% data
-row.names(meso_daily_rf_today_final)<-NULL #rename rows
+#write or append daily rf data monthly file
+setwd(agg_daily_wd)#server path daily agg file
+rf_month_filename<-paste0(format((currentDate),"%Y_%m"),"_synoMeso_daily_rf.csv") #dynamic file name that includes month year so when month is done new file is written
 
+if(file.exists(rf_month_filename)){
+  write.table(meso_daily_rf_today_final,rf_month_filename, row.names=F,sep = ",", col.names = F, append = T)
+  print(paste(rf_month_filename,"appended"))
+}else{
+  write.csv(meso_daily_rf_today_final,rf_month_filename, row.names=F)
+  print(paste(rf_month_filename,"written"))
+}
 
-
+print("PAU!")
 
