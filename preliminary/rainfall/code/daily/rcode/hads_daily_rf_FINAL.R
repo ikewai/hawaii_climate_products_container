@@ -65,7 +65,7 @@ all_hads<-read.csv(paste0(ikeUrl,"/data_aqs/data_outputs/hads/parse/",hads_filen
 #subset precip var, convert inch to mm and convert UTC to HST
 all_hads_pc<-subset(all_hads,var=="PC")# subset precip only
 all_hads_pc$random<-trimws(as.character(all_hads_pc$random))
-all_hads_pc<-subset(all_hads_pc, random == "")[,-c(6)] #remove random samples and random col
+all_hads_pc<-subset(all_hads_pc, random == "" | is.na(random))[,-c(6)] #remove random samples and random col
 all_hads_pc$value<-all_hads_pc$value*25.4 #convert to MM
 all_hads_pc<-all_hads_pc[complete.cases(all_hads_pc),] #remove NA rows
 all_hads_pc$obs_time<-strptime(all_hads_pc$obs_time, format="%Y-%m-%d %H:%M", tz="UTC")
