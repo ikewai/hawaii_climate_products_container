@@ -1,3 +1,4 @@
+import os
 import sys
 import pandas as pd
 import numpy as np
@@ -62,21 +63,27 @@ def update_monthly_file(date_id,varname):
     new_meta = master_df.loc[mon_df.index]
     mon_df = new_meta.join(mon_df,how='left')
     if exists(filename):
-        old_df = pd.read_csv(filename)
-        old_df = old_df.set_index('SKN')
-        upd_inds = np.union1d(old_df.index.values,mon_df.index.values)
-        #Backfill old
-        upd_df = pd.DataFrame(index=upd_inds)
-        upd_df.index.name = 'SKN'
-        upd_df.loc[old_df.index,old_df.columns] = old_df.copy()
-        #Fill new
-        upd_df.loc[mon_df.index,mon_df.columns] = mon_df.copy()
-        #Order the dates
-        upd_df = sort_dates(upd_df,meta_cols)
-        #Write file
-        upd_df = upd_df.reset_index()
-        upd_df = upd_df.fillna('NA')
-        upd_df.to_csv(filename,index=False)
+        if os.stat(filename).st_size != 0:
+            old_df = pd.read_csv(filename)
+            old_df = old_df.set_index('SKN')
+            upd_inds = np.union1d(old_df.index.values,mon_df.index.values)
+            #Backfill old
+            upd_df = pd.DataFrame(index=upd_inds)
+            upd_df.index.name = 'SKN'
+            upd_df.loc[old_df.index,old_df.columns] = old_df.copy()
+            #Fill new
+            upd_df.loc[mon_df.index,mon_df.columns] = mon_df.copy()
+            #Order the dates
+            upd_df = sort_dates(upd_df,meta_cols)
+            #Write file
+            upd_df = upd_df.reset_index()
+            upd_df = upd_df.fillna('NA')
+            upd_df.to_csv(filename,index=False)
+        else:
+            #If empty, write new
+            mon_df = mon_df.reset_index()
+            mon_df = mon_df.fillna('NA')
+            mon_df.to_csv(filename,index=False)
     else:
         mon_df = mon_df.reset_index()
         mon_df = mon_df.fillna('NA')
