@@ -15,3 +15,5 @@ madis_fetch.out
 *.jpg
 *.xml
 *.pyc
+*.gz*
+*.gz

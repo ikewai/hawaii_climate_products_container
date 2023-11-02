@@ -1,6 +1,7 @@
 """
 Runs prior to mapping workflow
 """
+import os
 import sys
 import subprocess
 import pytz
@@ -51,6 +52,8 @@ if __name__=="__main__":
     subprocess.call(cmd)
     cmd = ["tar","-xvf","dependencies.tar.gz"]
     subprocess.call(cmd)
-    dpath =  LOCAL_DEPEND +"/dependencies"
-    cmd =["cp", "-r", "dependencies/*",dpath] 
+    dpath =  LOCAL_DEPEND
+    cmd =["cp", "-r", "./dependencies/",dpath] 
+    print(cmd)
+    print(os.getcwd())
     subprocess.call(cmd)
