@@ -1,5 +1,7 @@
-#Version 2.0
-
+#Version 2.1
+#2023-04-07
+#--Major patch: incorporated naive range-based quality control for input
+#----Prior to gap-filling and station processing, throw out obvious bad vals.
 #Version 1.1.3
 #--Updated from development version: 6/24/21
 #Description:
@@ -28,6 +30,7 @@
 
 #from attr import field
 #import pylab as py
+import pickle
 import pandas as pd
 import numpy as np
 import statsmodels.api as sm
@@ -60,9 +63,9 @@ PRED_STNS_MAX = {'39.0':['39.2','107.4','1069.0','855.3','311.2','48.0','95.6','
     '339.6':['39.2','107.4','267.8','499.13','129.0','75.1','266.0','147.2','752.6','1029.0'],
     '885.7':['869.0','828.0','499.12','909.0','742.4','752.6','858.0','541.2','911.1','842.7'],
     '1075.0':['499.6','3.9','266.0','43.3','63.0','499.8','1036.0','147.2','499.9','101.1']}
-TMIN_STN_EXCLUDE = [728.2] #[728.2] Put this back
-TMAX_STN_EXCLUDE = [728.2]
-
+TMIN_STN_EXCLUDE = [] #[728.2] Put this back
+TMAX_STN_EXCLUDE = []
+STD_FACTOR = 5
 #END MODULE CONSTANTS--------------------------------------------------------------
 
 def get_clim_file(varname):
@@ -112,19 +115,17 @@ def lr_temp_gapfill(isl_df,varname,stn_date):
     """
     Description: Helper function specific to linear gap-fill of temperature min/max
     Patch notes:
-        --[10/5/21] Function breaks for new input where nan-row stations are dropped from file
-        --          First checks index list to see if all gapfilled stations exist in index
-        --          If not present, they are gapfilled automatically
+        --[04/07/23] Range-control to auto-discard bad values
+        --Implemented climatology-deviation range-control
     Development notes:
-        --Iteratively checks all target stations (specified in module constants)
-        --If target missing data, chooses predictor model based on highest correlation (specified)
-        --If no predictor stations available, fill with climatological value at target station
+        --[04/07/23] [NEED RESEARCH] >> catching outliers in critical donor stations
+        for gap-filling
     """
     if varname == 'Tmin':
         predictor_stations = PRED_STNS_MIN
     elif varname == 'Tmax':
         predictor_stations = PRED_STNS_MAX
-    
+
     #Get list of all critical stations for gapfilling
     #Ensures an index exists for donor and target stations for gapfill check
     master_meta = pd.read_csv(META_MASTER_FILE)
@@ -170,6 +171,45 @@ def lr_temp_gapfill(isl_df,varname,stn_date):
                 mon = stn_date.month - 1
                 new_isl_df.at[float(target),varname] = clim_df.at[mon,target]
     return new_isl_df
+
+def climatological_qc(var_df,varname,date_str):
+    """
+    Input:
+    --var_df *should* be a skn-indexed, single day, statewide, all-metadata-inclusive dataframe
+    """
+    clim_file = CLIM_DATA_DIR + '_'.join((varname,'clim_monthly_1990-2021'))+'.csv'
+    std_file = CLIM_DATA_DIR + '_'.join((varname.lower(),'std_diff_1990-2021'))+'.csv'
+    #clim_mon = pd.to_datetime(date_str).strftime('%m')
+    clim_mon = str(pd.to_datetime(date_str).month)
+    clim_df = pd.read_csv(clim_file)
+    std_table = pd.read_csv(std_file)
+    clim_df = clim_df.set_index('SKN')
+    std_table = std_table.set_index('SKN')
+    #Sort between stations for which climo exists, scan normally
+    #If station is too new to have 1990-2021 climo, estimate island-based climo from linear model
+    #Climo exist case ---
+    exist_skns = np.intersect1d(clim_df.index.values,var_df.index.values)
+    exist_df = var_df.loc[exist_skns,varname]
+    exist_std = std_table.loc[exist_skns] #<< might not need this
+    valid_clim = clim_df.loc[exist_skns,clim_mon]
+    temp_anom = (exist_df - valid_clim).values
+    I = np.where(np.abs(temp_anom)>STD_FACTOR*np.squeeze(exist_std.values))
+    var_arr = exist_df.values
+    var_arr[I] = np.nan
+    var_df.loc[exist_skns,varname] = var_arr
+    #New station, climo estimation needed
+    new_skns = np.setdiff1d(var_df.index.values,clim_df.index.values)
+    avg_std_val = std_table.mean().values[0]
+    new_df = var_df.loc[new_skns,varname]
+    #valid_clim here requires estimation based on elevation
+    temp_anom = np.abs(np.squeeze((new_df - valid_clim).values))
+    II = np.where(temp_anom>STD_FACTOR*avg_std_val)
+    var_arr = new_df.values
+    var_arr[II] = np.nan
+    var_df.loc[new_skns,varname] = var_arr
+
+    return var_df
+
 # In[ ]:
 def removeOutlier(X,y,threshold=2.5):
     X = X.flatten()
@@ -201,6 +241,8 @@ def select_stations(vars,varname,iCode,stn_date,min_stn=10,mixHighAlt=None):
         --Fixed indexing bug for high elevation climatological gap-fill
     Update 2021-07-12:
         --Introduced linear regression gap-filling
+    Update 2024-02-21:
+        --Added climatologically based 
     Future patches:
         
     """
@@ -245,9 +287,12 @@ def select_stations(vars,varname,iCode,stn_date,min_stn=10,mixHighAlt=None):
 
     master_df = pd.read_csv(META_MASTER_FILE)
     master_df = master_df.set_index('SKN')
+    #Prior to any further action, preliminary qc pass
+
     #As long as inversion height is set by mixHighAlt parameter, automatically include all available
     #Automatically gapfill all pre-selected target stations
-    var_isl = lr_temp_gapfill(vars,varname,stn_date)
+    vars_filt = climatological_qc(vars,varname,stn_date)
+    var_isl = lr_temp_gapfill(vars_filt,varname,stn_date)
     
     if mixHighAlt is not None:
         var_isl = var_isl[(var_isl['Island'].isin(isl_list) | (var_isl[ELEV_IDX_NAME] > mixHighAlt))]

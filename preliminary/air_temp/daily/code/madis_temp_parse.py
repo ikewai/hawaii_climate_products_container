@@ -1,7 +1,9 @@
 """
 This builds a script to convert raw madis sourced csv into min and max temperature.
 
-Version 1.0
+Version 1.0.1
+[2023-04-24]1.0.1 Version notes: lookup table included to accommodate for latency between madis
+NWS.ids being updated and master meta df being updated to match.
 """
 
 import sys
@@ -21,9 +23,13 @@ MASTER_KEY = 'NWS.id'
 INT_EXCEPT = {'E3941':144.,'F4600':96.}
 MASTER_LINK = r'https://raw.githubusercontent.com/ikewai/hawaii_wx_station_mgmt_container/main/Hawaii_Master_Station_Meta.csv'
 MASTER_DIR = r'/home/hawaii_climate_products_container/preliminary/'
-SOURCE_DIR = MASTER_DIR + r'data_aqs/data_outputs/madis/parse/'
+#SOURCE_DIR = MASTER_DIR + r'data_aqs/data_outputs/madis/parse/'
+SOURCE_DIR = MASTER_DIR + r'air_temp/working_data/'
 PROC_OUTPUT_DIR = MASTER_DIR + r'air_temp/working_data/processed_data/' + SOURCE + r'/'
 TRACK_DIR = MASTER_DIR + r'air_temp/data_outputs/tables/air_temp_station_tracking/'
+MESO_REF = MASTER_DIR + r'air_temp/daily/dependencies/HIMesonetIDTable.csv'
+MESO_KEY = 'NWS ID'
+CONVERT_KEY = 'HI Meso ID'
 #END CONSTANTS-----------------------------------------------------------------
 
 #DEFINE FUNCTIONS--------------------------------------------------------------
@@ -79,23 +85,6 @@ def convert_dataframe(long_df,varname):
     wide_df = wide_df.reset_index()
     return wide_df
 
-""" def update_csv(csv_name,new_data_df):
-    master_df = pd.read_csv(MASTER_LINK)
-    merged_new_df = master_df.merge(new_data_df,on=MASTER_KEY,how='inner')
-    merged_new_df = merged_new_df.set_index('SKN')
-    meta_cols = list(master_df.columns)
-    if exists(csv_name):
-        old_df = pd.read_csv(csv_name)
-        old_df = old_df.set_index('SKN')
-        updated_df = old_df.merge(merged_new_df,on=meta_cols,how='outer')
-        updated_df = updated_df.fillna('NA')
-        updated_df = updated_df.reset_index()
-        updated_df.to_csv(csv_name,index=False)
-    else:
-        merged_new_df = merged_new_df.fillna('NA')
-        merged_new_df = merged_new_df.reset_index()
-        merged_new_df.to_csv(csv_name,index=False) """
-
 def update_csv(csv_name,new_data_df):
     master_df = pd.read_csv(MASTER_LINK)
     prev_ids = new_data_df[MASTER_KEY].values
@@ -103,6 +92,21 @@ def update_csv(csv_name,new_data_df):
     merged_new_df = merged_new_df.set_index('SKN')
     merged_ids = merged_new_df[MASTER_KEY].values
     unkn_ids = np.setdiff1d(prev_ids,merged_ids)
+    #Check if unkn_ids matches anything in lookup table
+    meso_table = pd.read_csv(MESO_REF)
+    unknown_match = np.intersect1d(unkn_ids,meso_table[MESO_KEY].values)
+    converted_ids = meso_table[meso_table[MESO_KEY].isin(unknown_match)][CONVERT_KEY]
+    matched_unkns = new_data_df[new_data_df[MASTER_KEY].isin(unknown_match)]
+    meta_match = master_df[master_df[MASTER_KEY].isin(converted_ids)]
+    #switch new and old ids.
+    #This should not double merge when the master_df gets updated
+    #as these values will no longer flag as unknown stations.
+    replace_dict = dict(zip(unknown_match,converted_ids.values))
+    matched_unkns.loc[:,MASTER_KEY] = matched_unkns[MASTER_KEY].replace(replace_dict)
+    #should now have a df where data has older version of id
+    merged_match = master_df.merge(matched_unkns,on=MASTER_KEY,how='inner')
+    merged_match = merged_match.set_index('SKN')
+    merged_new_df = pd.concat([merged_new_df,merged_match],axis=0).sort_index()
     master_df = master_df.set_index('SKN')
     meta_cols = list(master_df.columns)
     if exists(csv_name):

@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 PARENT_DIR = r'https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/workflow_data/preliminary_test/'
 REMOTE_BASEURL =r'https://ikeauth.its.hawaii.edu/files/v2/download/public/system/ikewai-annotated-data/HCDP/production/temperature/'
 LOCAL_PARENT = r'/home/hawaii_climate_products_container/preliminary/'
-LOCAL_DATA_AQS = LOCAL_PARENT + r'data_aqs/data_outputs/'
+LOCAL_DATA_AQS = LOCAL_PARENT + r'air_temp/working_data/'
 LOCAL_TEMP = LOCAL_PARENT + r'air_temp/data_outputs/tables/station_data/daily/raw/statewide/'
 SRC_LIST = ['hads','madis']
 
@@ -39,7 +39,8 @@ if __name__=='__main__':
     #Pull the daily data acquisitions
     for src in SRC_LIST:
         src_url = PARENT_DIR+r'data_aqs/data_outputs/'+src+r'/parse/'
-        dest_url = LOCAL_DATA_AQS + src + r'/parse/'
+        #dest_url = LOCAL_DATA_AQS + src + r'/parse/'
+        dest_url = LOCAL_DATA_AQS
         filename = src_url + r'_'.join((prev_day_day,src,'parsed')) + r'.csv'
         local_name = dest_url + r'_'.join((prev_day_day,src,'parsed')) + r'.csv'
         cmd = ["wget",filename,"-O",local_name]
